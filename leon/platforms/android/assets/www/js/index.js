@@ -17,6 +17,7 @@
  * under the License.
  */
 var idUsuario;
+var idUbicacion;
 
 var app = {
     // Application Constructor
@@ -98,4 +99,20 @@ var app = {
             }
          });
        
+    }
+    
+    // Función para escanear código.
+    function scan() {    
+        window.plugins.barcodeScanner.scan(scansuccess, scanerror);
+    }
+    
+    // Función error al escenar BARCODE
+    function scanerror(error) {
+        alert("Fallo al escanear: " + error);
+    }
+    
+    // Función éxito al escanear BARCODE
+    function scansuccess(result) {
+        idUbicacion = result.txt;
+        alert(idUbicacion);
     }
