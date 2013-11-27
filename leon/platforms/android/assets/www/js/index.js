@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var idUsuario;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -47,3 +49,53 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+    function recibirDatos() {
+    	$.ajax({
+            async:  true, 
+            data:   {
+            	idUsuario : 1,
+            	fechaActual :  "01/01/2014"
+            },
+            url:        "http://programandocotufas.xtrweb.com/proyectoleon/leonRecibirDatos.php",
+            type:       "post",
+            dataType:   "json",
+            success:
+                function(jsondata){
+	              	for(i = 0; i < jsondata.length - 1; i++) {
+	              		alert(jsondata[i].ide + " , " + jsondata[i].nombreEvento);
+	              	}
+                },
+            error: function() {
+                alert('Error. No se han podido');
+            }
+         });
+       
+    }
+    
+    function login() {
+    	$.ajax({
+            async:  true, 
+            data:   {
+            	usuario : $('#Login_in_usuario').val(),
+            	pass :  $('#Login_in_password').val()
+            },
+            url:        "http://programandocotufas.xtrweb.com/proyectoleon/login.php",
+            type:       "post",
+            dataType:   "json",
+            success:
+                function(jsondata){
+            		if (jsondata[0].id) {
+            			//alert($('#Login_in_usuario').val() + " se ha validado correctamente.");
+            			window.location.href = "Home.html";
+            			//idUsuario = parseInt(jsondata[0].id);
+            		} else {
+	              		alert("Usuario / contraseña incorrecto/s.");
+	              	}
+                },
+            error: function() {
+                alert('Error. No se ha podido');
+            }
+         });
+       
+    }
