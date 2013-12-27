@@ -3,7 +3,7 @@
     
     <head>
         <title>
-            Login
+            Eventos
         </title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="initial-scale=1" />
@@ -13,7 +13,11 @@
         <link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
         <link href="files/resources/lib/jquerymobile/1.3.2/jquery.mobile.structure-1.3.2.css"
         rel="stylesheet" />
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="files/resources/lib/store/json2.js">
+
         </script>
         <script type="text/javascript" src="files/resources/lib/jquery/jquery-1.8.2.js">
         </script>
@@ -32,7 +36,8 @@
                 }
             });
         </script>
-        <script src="js/jquery.mobile-1.3.2.min.js"></script>
+        <script type="text/javascript" src="files/resources/lib/jquerymobile/1.3.2/jquery.mobile-1.3.2.js">
+        </script>
         <script type="text/javascript" src="files/resources/js/mobilebase.js">
         </script>
         <script type="text/javascript" src="files/resources/lib/event/customEventHandler.js">
@@ -55,10 +60,9 @@
         </script>
         <script type="text/javascript" src="files/resources/lib/get_target_platform.js">
         </script>
-        <script type="text/javascript" src="files/resources/lib/cordova.js">
-        </script>
-        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-        <script src="js/index.js"></script>
+
+		<script src="js/open-layers/OpenLayers.mobile.js"></script>
+
         <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
         />
     </head>
@@ -73,65 +77,62 @@
             }).trigger('orientationchange');
         }
         </script>
-        <div data-role="page" style="min-height:480px;" dsid="Login" id="Login" class="type-interior"
-        data-theme="b" data-add-back-btn="true" data-back-btn-text="Back">
+        <div data-role="page" style="min-height:480px;" dsid="Home" id="Home" class="type-interior"
+        data-theme="e" data-add-back-btn="true" data-back-btn-text="Atras">
             <!-- mobileheader -->
             <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
-            id="Login_mobileheader" class=' Login_mobileheader '>
-                <h1 dsid="mobileheader">
-                    Login
-                </h1>
+            id="Home_mobileheader" class=' Home_mobileheader '>
             </div>
             <!-- mobilecontainer -->
-            <div data-role="content" id="Login_mobilecontainer" name="mobilecontainer" class=" Login_mobilecontainer"
-            dsid="mobilecontainer" data-theme="">
-                <link href="Login.css" rel="stylesheet" type="text/css" />
-                <script type="text/javascript" src="Login.js">
+            <div data-role="content" id="Home_mobilecontainer" name="mobilecontainer" class=" Home_mobilecontainer"
+            dsid="mobilecontainer" data-theme="b">
+                <link href="Home.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="Home.js">
                 </script>
-                <!-- user_image -->
-                <img class=" Login_user_image" src="files/views/assets/image/hombre-usuario-icono-de-clip-art_419253.jpg"
-                id="Login_user_image" dsid="user_image" name="user_image" />
-                
-                <form method="post" onsubmit="login()" class="ui-body ui-body-a ui-corner-all">
-                
-	                <!-- lb_usuario -->
-	                <div name="lb_usuario" id="Login_lb_usuario" dsid="lb_usuario" data-role="appery_label"
-	                class=' Login_lb_usuario '>
-	                    Usuario
-	                </div>
-	                <!-- in_usuario -->
-	                <div data-role="fieldcontain" class="Login_in_usuario ">
-	                    <input type="text" name="in_usuario" dsid="in_usuario" id="Login_in_usuario" value=""
-	                    tabindex="2" data-theme="b" data-mini="true" class=' Login_in_usuario ' />
-	                </div>
-	                <!-- lb_password -->
-	                <div name="lb_password" id="Login_lb_password" dsid="lb_password" data-role="appery_label"
-	                class=' Login_lb_password '>
-	                    Password
-	                </div>
-	                <!-- in_password -->
-	                <div data-role="fieldcontain" class="Login_in_password ">
-	                    <input type="password" name="in_password" dsid="in_password" id="Login_in_password"
-	                    value="" tabindex="3" data-theme="b" data-mini="true" class=' Login_in_password '
-	                    />
-	                </div>
-	                <!-- bt_entrar -->
-	                <button type="submit" name="bt_entrar" class='  Login_bt_entrar'
-	                id="Login_bt_entrar" data-corners="true" x-apple-data-detectors="false" data-mini="false"
-	                data-theme="a" tabindex="4">
-	                	Entrar
-	                </button>
-	                <!-- lb_recordarPass -->
-	                <div name="lb_recordarPass" id="Login_lb_recordarPass" dsid="lb_recordarPass" data-role="appery_label"
-	                class=' Login_lb_recordarPass '>
-	                    Recordar Contraseña
-	                </div>
-                
-                </form>
+            
+	            	<h1 dsid="mobileheader">
+	                    Eventos
+	                </h1>
+	                
+	                
+	                <ul id="lista_eventos" data-role="listview" data-inset="true" data-autodividers="false" data-filter="true" data-filter-placeholder="¿Qué evento buscas?">			
+						<script>
+	              			recibirDatos();
+	              		</script>
+					</ul>
+            
+            
             </div>
             <!-- mobilefooter -->
-            <div data-role="footer" data-position="fixed" class=" Login_mobilefooter" name="mobilefooter"
-            dsid="mobilefooter" id="Login_mobilefooter" data-theme="a">
+            <div data-role="footer" data-position="inline" class=" Home_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="Home_mobilefooter" data-theme="a">
+                <!-- mobilenavbar_25 -->
+                <div data-role="navbar" id="Home_mobilenavbar_25" name="mobilenavbar_25" dsid="mobilenavbar_25"
+                class=" Home_mobilenavbar_25" data-theme="a" style="position: relative;">
+                    <ul>
+                        <!-- mobilenavbaritem_26 -->
+                        <li>
+                            <a data-theme="a" data-icon="gear" id="Home_mobilenavbaritem_26" dsid="mobilenavbaritem_26"
+                            name="mobilenavbaritem_26">
+                            Configuración
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_27 -->
+                        <li>
+                            <a data-theme="a" data-icon="info" id="Home_mobilenavbaritem_27" dsid="mobilenavbaritem_27"
+                            name="mobilenavbaritem_27">
+                            Información
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_28 -->
+                        <li>
+                            <a data-theme="a" data-icon="back" id="Home_mobilenavbaritem_28" dsid="mobilenavbaritem_28"
+                            name="mobilenavbaritem_28">
+                            Salir
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>

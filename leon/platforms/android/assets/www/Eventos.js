@@ -40,7 +40,7 @@ Appery.AppPages = [{
     "location": "Login.html"
 }];
 
-Home_js = function(runBeforeShow) { /* Object & array with components "name-to-id" mapping */
+Eventos_js = function(runBeforeShow) { /* Object & array with components "name-to-id" mapping */
     var n2id_buf = {
         'mobilegrid_6': 'Home_mobilegrid_6',
         'mobilegridcell_7': 'Home_mobilegridcell_7',
@@ -88,7 +88,7 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
         });
     }
 
-    Appery.CurrentScreen = 'Home';
+    Appery.CurrentScreen = 'Eventos';
 
     /*
      * Nonvisual components
@@ -101,7 +101,7 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
 
     // Before Show
     Home_beforeshow = function() {
-        Appery.CurrentScreen = "Home";
+        Appery.CurrentScreen = "Eventos";
         for (var idx = 0; idx < datasources.length; idx++) {
             datasources[idx].__setupDisplay();
         }
@@ -120,7 +120,7 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
     // screen window events
     screen_14CB_windowEvents = Home_windowEvents = function() {
 
-        $('#Home').bind('pageshow orientationchange', function() {
+        $('#Eventos').bind('pageshow orientationchange', function() {
             adjustContentHeightWithPadding();
         });
 
@@ -148,32 +148,10 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
                 event.stopPropagation();
             }
         });
-
-        $('#Home_mobilecontainer [name="mobileimage_15"]').die().live({
-            click: function() {
-                if (!$(this).attr('disabled')) {
-                    Appery.navigateTo('Busqueda', {
-                        reverse: false
-                    });
-
-                }
-            },
-        });
-        
-        $('#Home_mobilecontainer [name="mobileimage_14"]').die().live({
-            click: function() {
-                if (!$(this).attr('disabled')) {
-                    Appery.navigateTo('Eventos', {
-                        reverse: false
-                    });
-
-                }
-            },
-        });
         
     }
 
-    $("#Home").die("pagebeforeshow").live("pagebeforeshow", function(event, ui) {
+    $("#Eventos").die("pagebeforeshow").live("pagebeforeshow", function(event, ui) {
         Home_beforeshow();
     });
 
@@ -185,7 +163,7 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
 
 }
 
-$("#Home").die("pageinit").live("pageinit", function(event, ui) {
+$("#Eventos").die("pageinit").live("pageinit", function(event, ui) {
     Appery.processSelectMenu($(this));
-    Home_js();
+    Eventos_js();
 });

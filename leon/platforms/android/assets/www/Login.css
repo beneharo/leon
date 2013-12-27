@@ -34,18 +34,18 @@
 .Login_in_password {
 	margin: 4px 0px 4px 0px;
 }
-/* lb_recordarPass */
-.Login_lb_recordarPass {
-	text-decoration: none; font-weight: normal; font-style: italic; color: #006691; text-align: left; font-family: Helvetica; font-size: 10px;
-	margin: 4px 0px 4px 0px;
-	word-wrap: break-word;
-}
 /* bt_entrar */
 #Login_bt_entrar {
 
 }
 .ui-btn.Login_bt_entrar {
 	margin: 4px 5px 4px 5px;
+}
+/* lb_recordarPass */
+.Login_lb_recordarPass {
+	text-decoration: none; font-weight: normal; font-style: italic; color: #006691; text-align: center; font-family: Helvetica; font-size: 10px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
 }
 /* mobilefooter */
 .Login_mobilefooter {

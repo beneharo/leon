@@ -30,12 +30,6 @@ Appery.AppPages = [{
     "name": "Splash",
     "location": "Splash.html"
 }, {
-    "name": "Busqueda",
-    "location": "Busqueda.html"
-}, {
-    "name": "Eventos",
-    "location": "Eventos.html"
-}, {
     "name": "Login",
     "location": "Login.html"
 }];
@@ -149,28 +143,6 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
             }
         });
 
-        $('#Home_mobilecontainer [name="mobileimage_15"]').die().live({
-            click: function() {
-                if (!$(this).attr('disabled')) {
-                    Appery.navigateTo('Busqueda', {
-                        reverse: false
-                    });
-
-                }
-            },
-        });
-        
-        $('#Home_mobilecontainer [name="mobileimage_14"]').die().live({
-            click: function() {
-                if (!$(this).attr('disabled')) {
-                    Appery.navigateTo('Eventos', {
-                        reverse: false
-                    });
-
-                }
-            },
-        });
-        
     }
 
     $("#Home").die("pagebeforeshow").live("pagebeforeshow", function(event, ui) {
