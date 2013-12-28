@@ -16,47 +16,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var idUsuario;
+var idUsuario = 2;
 var idUbicacion;
+var GPSlatitud;
+var GPSlongitud;
 
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+document.addEventListener("deviceready", onDeviceReady, false);
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
-    }
-};
-
+	// Cordova is ready      
+	function onDeviceReady() {
+	    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+	}
+	
+	// Convertir fecha a formato MySQL
+	function ISODateString(d) {
+		  function pad(n){return n<10 ? '0'+n : n}
+		  return d.getUTCFullYear()+'-'
+		      + pad(d.getUTCMonth()+1)+'-'
+		      + pad(d.getUTCDate()) +' '
+		      + pad(d.getUTCHours())+':'
+		      + pad(d.getUTCMinutes())+':'
+		      + pad(d.getUTCSeconds())
+	}
+	
     function recibirDatos() {
+    	var fecha = new Date();
     	$.ajax({
-            async:  true, 
+            async:  false, 
             data:   {
-            	idUsuario : 1,
-            	fechaActual :  "01/01/2014"
+            	idUsuario : 2,
+            	fechaActual :  ISODateString(fecha)
             },
             url:        "http://programandocotufas.xtrweb.com/proyectoleon/leonRecibirDatos.php",
             type:       "post",
@@ -64,11 +53,22 @@ var app = {
             success:
                 function(jsondata){
 	              	for(i = 0; i < jsondata.length - 1; i++) {
-	              		alert(jsondata[i].ide + " , " + jsondata[i].nombreEvento);
+	              		//$('#lista_eventos').append('<li><a href="#"><h3>' + jsondata[i].nombreEvento + '</h3></a></li>');
+						              		$('#lista_eventos')
+								.append(
+										'<div data-role="collapsible"><h3>'
+												+ jsondata[i].nombreEvento
+												+ '</h3><p>'
+												+ jsondata[i].descripcion
+												+ '</p><button id="'
+												+ jsondata[i].ide
+												+ '" data-mini="true" onclick="asistirEvento(this.id)">Asistir</button></div>');
+	              	
 	              	}
+	              	//$('#lista_eventos').listview('refresh');
                 },
             error: function() {
-                alert('Error. No se han podido');
+                alert('Error. No se ha podido acceder a la información.');
             }
          });
        
@@ -89,7 +89,8 @@ var app = {
             		if (jsondata[0].id) {
             			//alert($('#Login_in_usuario').val() + " se ha validado correctamente.");
             			window.location.href = "Home.html";
-            			//idUsuario = parseInt(jsondata[0].id);
+            			idUsuario = jsondata[0].id;
+            			alert(idUsuario);
             		} else {
 	              		alert("Usuario / contraseña incorrecto/s.");
 	              	}
@@ -101,18 +102,38 @@ var app = {
        
     }
     
-    // Función para escanear código.
-    function scan() {    
-        window.plugins.barcodeScanner.scan(scansuccess, scanerror);
-    }
     
-    // Función error al escenar BARCODE
-    function scanerror(error) {
-        alert("Fallo al escanear: " + error);
-    }
+    // Acierto en la lectura GPS.
+    var onSuccess = function(position) {
+    	GPSlatitud = position.coords.latitude;
+        GPSlongitud = position.coords.longitude;
+    };
+
+    // Fallo en la lectura GPS.
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    };
     
-    // Función éxito al escanear BARCODE
-    function scansuccess(result) {
-        idUbicacion = result.txt;
-        alert(idUbicacion);
+
+    function asistirEvento(ide) {
+    	$.ajax({
+            async:  true, 
+            data:   {
+            	idUsuario : idUsuario,
+            	ide : ide
+            },
+            url:        "http://programandocotufas.xtrweb.com/proyectoleon/asistirEvento.php",
+            type:       "post",
+            dataType:   "json",
+            success:
+                function(){
+            		$("#" + ide).parent().parent().parent().hide();
+            		alert('Se ha registrado su elección.');
+                },
+            error: function() {
+                alert('Error. No se ha podido realizar la acción.');
+            }
+         });
+       
     }

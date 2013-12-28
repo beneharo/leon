@@ -44,17 +44,17 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.wst.html.core.htmlsource.source" name="Login.html" partName="Login.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Login.html" title="Login.html" tooltip="Leon/assets/www/Login.html" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Login.html"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2560" selectionTopPixel="1224"/>
-</editor>
 <editor activePart="true" focus="true" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="index.js" partName="index.js" path="/home/beneharo/Projects/leon/platforms/android/assets/www/js/index.js" title="index.js" tooltip="Leon/assets/www/js/index.js" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/js/index.js"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3945" selectionTopPixel="2044"/>
+<editorState selectionHorizontalPixel="555" selectionLength="0" selectionOffset="1815" selectionTopPixel="404"/>
 </editor>
-<editor id="org.eclipse.wst.html.core.htmlsource.source" name="Home.html" partName="Home.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Home.html" title="Home.html" tooltip="Leon/assets/www/Home.html" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Home.html"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2636" selectionTopPixel="1268"/>
+<editor id="org.eclipse.wst.html.core.htmlsource.source" name="Login.html" partName="Login.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Login.html" title="Login.html" tooltip="Leon/assets/www/Login.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Login.html"/>
+<editorState selectionHorizontalPixel="0" selectionLength="269" selectionOffset="5989" selectionTopPixel="2780"/>
+</editor>
+<editor id="org.eclipse.wst.html.core.htmlsource.source" name="Busqueda.html" partName="Busqueda.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Busqueda.html" title="Busqueda.html" tooltip="Leon/assets/www/Busqueda.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Busqueda.html"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="93"/>
 </editor>
 </editors>
 <views>
@@ -293,7 +293,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.14610144" ratioLeft="193" ratioRight="1128" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.43728814" ratioLeft="258" ratioRight="332" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottom" ratio="0.60677963" ratioLeft="358" ratioRight="232" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -327,166 +327,127 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Login.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/temp.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/temp.html"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Home.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Login.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/index.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Home.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Eventos.html"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/js/index.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Login.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/temp.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Splash.html"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Home.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/Leon/assets/www/descriptor.txt"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Eventos.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Busqueda.html"/>
 </editors>
-<item historyLabel="temp.html" index="1">
-<position info="not_deleted" x="2066" y="9"/>
+<item historyLabel="Home.html" index="0">
+<position/>
 </item>
-<item historyLabel="Login.html" index="0">
-<position info="not_deleted" x="6008" y="0"/>
+<item historyLabel="Home.html" index="0">
+<position/>
 </item>
-<item historyLabel="temp.html" index="2">
-<position info="not_deleted" x="2066" y="9"/>
+<item historyLabel="Login.html" index="1">
+<position info="not_deleted" x="6258" y="0"/>
 </item>
-<item historyLabel="Login.html" index="0">
-<position info="not_deleted" x="6223" y="0"/>
-</item>
-<item historyLabel="Home.html" index="3">
+<item historyLabel="index.html" index="2">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Login.html" index="0">
-<position info="not_deleted" x="5632" y="0"/>
+<item historyLabel="Login.html" index="1">
+<position info="not_deleted" x="6258" y="0"/>
 </item>
-<item historyLabel="temp.html" index="2">
-<position info="not_deleted" x="2066" y="9"/>
+<item historyLabel="Home.html" index="0">
+<position/>
 </item>
-<item historyLabel="index.js" index="4">
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Eventos.html" index="4">
+<position/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position info="not_deleted" x="4937" y="0"/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position info="not_deleted" x="4937" y="0"/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Home.js" index="3">
+<position info="not_deleted" x="4824" y="0"/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position/>
+</item>
+<item historyLabel="Eventos.html" index="4">
+<position info="not_deleted" x="4780" y="0"/>
+</item>
+<item historyLabel="Home.html" index="0">
+<position info="not_deleted" x="12128" y="0"/>
+</item>
+<item historyLabel="index.js" index="5">
 <position info="not_deleted" x="3" y="0"/>
 </item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3233" y="0"/>
+<item historyLabel="index.js" index="5">
+<position info="not_deleted" x="2688" y="0"/>
 </item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3268" y="0"/>
+<item historyLabel="Login.html" index="6">
+<position info="not_deleted" x="5989" y="269"/>
 </item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3213" y="0"/>
+<item historyLabel="index.js" index="5">
+<position/>
 </item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="5591" y="0"/>
-</item>
-<item historyLabel="temp.html" index="6">
-<position info="not_deleted" x="1243" y="35"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="893" y="0"/>
-</item>
-<item historyLabel="Splash.html" index="7">
+<item historyLabel="Home.html" index="7">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="893" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="2636" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="687" y="0"/>
-</item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="739" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3328" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="2463" y="0"/>
-</item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="739" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="686" y="0"/>
-</item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="739" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3328" y="0"/>
-</item>
-<item historyLabel="temp.html" index="6">
-<position info="not_deleted" x="1243" y="35"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3328" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="1666" y="0"/>
-</item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="1806" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="1729" y="0"/>
-</item>
-<item historyLabel="descriptor.txt" index="9">
+<item historyLabel="Eventos.html" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="1729" y="0"/>
+<item historyLabel="Busqueda.html" index="9">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="1806" y="0"/>
+<item historyLabel="Eventos.html" index="8">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3328" y="0"/>
+<item historyLabel="Busqueda.html" index="9">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Splash.html" index="7">
-<position info="not_deleted" x="632" y="23"/>
+<item historyLabel="index.js" index="5">
+<position info="not_deleted" x="1791" y="0"/>
 </item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3328" y="0"/>
+<item historyLabel="Busqueda.html" index="9">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="11060" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3541" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="11060" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3541" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="1666" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="837" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="1666" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="686" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="687" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3678" y="0"/>
-</item>
-<item historyLabel="Home.html" index="8">
-<position info="not_deleted" x="2636" y="0"/>
-</item>
-<item historyLabel="Login.html" index="5">
-<position info="not_deleted" x="2560" y="0"/>
-</item>
-<item historyLabel="index.js" index="4">
-<position info="not_deleted" x="3678" y="0"/>
-</item>
-<item active="true" historyLabel="index.js" index="4">
-<position info="not_deleted" x="3943" y="0"/>
+<item active="true" historyLabel="index.js" index="5">
+<position info="not_deleted" x="1848" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -508,35 +469,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="descriptor.txt" tooltip="Leon/assets/www/descriptor.txt">
-<persistable path="/Leon/assets/www/descriptor.txt"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Busqueda.html" tooltip="Leon/assets/www/Busqueda.html">
+<persistable path="/Leon/assets/www/Busqueda.html"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Eventos.html" tooltip="Leon/assets/www/Eventos.html">
+<persistable path="/Leon/assets/www/Eventos.html"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Home.html" tooltip="Leon/assets/www/Home.html">
 <persistable path="/Leon/assets/www/Home.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Splash.html" tooltip="Leon/assets/www/Splash.html">
-<persistable path="/Leon/assets/www/Splash.html"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Login.html" tooltip="Leon/assets/www/Login.html">
+<persistable path="/Leon/assets/www/Login.html"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="index.js" tooltip="Leon/assets/www/js/index.js">
 <persistable path="/Leon/assets/www/js/index.js"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Home.js" tooltip="Leon/assets/www/Home.js">
+<persistable path="/Leon/assets/www/Home.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="index.html" tooltip="Leon/assets/www/index.html">
+<persistable path="/Leon/assets/www/index.html"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="AndroidManifest.xml" tooltip="Leon/AndroidManifest.xml">
+<persistable path="/Leon/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Home-map.html" tooltip="Leon/assets/www/Home-map.html">
+<persistable path="/Leon/assets/www/Home-map.html"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Splash.html" tooltip="Leon/assets/www/Splash.html">
+<persistable path="/Leon/assets/www/Splash.html"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BarcodeScanner.java" tooltip="Leon/src/com/phonegap/plugins/barcodescanner/BarcodeScanner.java">
+<persistable path="/Leon/src/com/phonegap/plugins/barcodescanner/BarcodeScanner.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BarcodeScanner.java" tooltip="Leon/src/phonegap/plugins/barcodescanner/BarcodeScanner.java">
+<persistable path="/Leon/src/phonegap/plugins/barcodescanner/BarcodeScanner.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="descriptor.txt" tooltip="Leon/assets/www/descriptor.txt">
+<persistable path="/Leon/assets/www/descriptor.txt"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="temp.html" tooltip="Leon/assets/www/temp.html">
 <persistable path="/Leon/assets/www/temp.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Login.html" tooltip="Leon/assets/www/Login.html">
-<persistable path="/Leon/assets/www/Login.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="index.html" tooltip="Leon/assets/www/index.html">
-<persistable path="/Leon/assets/www/index.html"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Leon.java" tooltip="Leon/src/es/ull/etsii/leon/Leon.java">
 <persistable path="/Leon/src/es/ull/etsii/leon/Leon.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" name="config.xml" tooltip="Leon/assets/www/config.xml">
-<persistable path="/Leon/assets/www/config.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="PhotoVysion/src/Versión1/Main.java">
-<persistable path="/PhotoVysion/src/Versión1/Main.java"/>
 </file>
 </mruList>
 </workbench>

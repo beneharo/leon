@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="316" key="DIALOG_WIDTH"/>
+		<item value="318" key="DIALOG_WIDTH"/>
 		<item value="229" key="DIALOG_Y_ORIGIN"/>
 		<item value="437" key="DIALOG_HEIGHT"/>
 		<item value="81" key="DIALOG_X_ORIGIN"/>
@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="Eventos" key="selection"/>
 		<list key="findhistory">
-			<item value="Home"/>
-			<item value="form"/>
-			<item value=".png"/>
-			<item value="/Iconos/"/>
-			<item value="/Iconos/Basic_set_Win/"/>
-			<item value="C:\\Users\\Yeruki\\Desktop\\Iconos\\Basic_set_Png\\Basic_set_Png\\"/>
-			<item value="C:\\Users\\Yeruki\\Desktop\\Iconos\\"/>
-			<item value="Iconos"/>
+			<item value="eventos"/>
+			<item value="gridcell_9"/>
+			<item value="gridcell"/>
+			<item value="gridcell9"/>
+			<item value="Busqueda"/>
+			<item value="Busqueda.html"/>
+			<item value="Home.js"/>
+			<item value="open"/>
 		</list>
 		<list key="replacehistory">
 			<item value=".ico"/>
