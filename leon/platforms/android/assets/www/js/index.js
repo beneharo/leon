@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var SERVIDOR = "http://programandocotufas.xtrweb.com/proyectoleon/";
 var idUsuario = 2;
 var idUbicacion;
 var GPSlatitud;
@@ -56,13 +57,30 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	              		//$('#lista_eventos').append('<li><a href="#"><h3>' + jsondata[i].nombreEvento + '</h3></a></li>');
 						              		$('#lista_eventos')
 								.append(
-										'<div data-role="collapsible"><h3>'
-												+ jsondata[i].nombreEvento
-												+ '</h3><p style="white-space: normal">'
-												+ jsondata[i].descripcion
-												+ '</p><button id="'
-												+ jsondata[i].ide
-												+ '" data-mini="true" onclick="asistirEvento(this.id)">Asistir</button></div>');
+										'<li><img src="'
+										+ SERVIDOR
+										+ 'images/default.jpg" width="100" height="100"/><h3>'
+										+ jsondata[i].nombreEvento
+										+ '</h3><a href="#"></a><a href="#info_'
+										+ jsondata[i].ide
+										+ '" data-rel="popup" data-position-to="window" data-transition="pop">Asistir</a>'
+										+ '</li>'
+										
+										+ '<div data-role="popup" id="info_'
+										+ jsondata[i].ide
+										+ '" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">'
+					                    
+										+ '<h3>Información Detallada</h3>'
+										+ '<p style="white-space: normal">'
+										+ jsondata[i].descripcion
+										+ '</p>'
+										+ '<button id="'
+                                        + jsondata[i].ide
+                                        + '" data-mini="true" onclick="asistirEvento(this.id)">Asistir</button>'
+										
+										+ '</div>'
+								
+								);
 	              	
 	              	}
 	              	//$('#lista_eventos').listview('refresh');

@@ -3534,3 +3534,6 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY org.eclipse.core.resources 2 10035 2014-01-02 10:09:38.644
 !MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui 4 4 2014-01-02 11:42:29.879
+!MESSAGE Invalid preference page path: Web Page Editor
