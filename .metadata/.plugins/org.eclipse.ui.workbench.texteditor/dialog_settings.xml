@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="322" key="DIALOG_WIDTH"/>
-		<item value="219" key="DIALOG_Y_ORIGIN"/>
+		<item value="255" key="DIALOG_Y_ORIGIN"/>
+		<item value="728" key="DIALOG_X_ORIGIN"/>
 		<item value="437" key="DIALOG_HEIGHT"/>
-		<item value="718" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="form" key="selection"/>
+		<item value="jquery" key="selection"/>
 		<list key="findhistory">
+			<item value="jquery"/>
+			<item value="juery"/>
+			<item value="die"/>
+			<item value="charset=utf-8"/>
+			<item value="&#x09;"/>
 			<item value="submit"/>
 			<item value="form"/>
 			<item value="layer"/>
-			<item value="selectCon"/>
-			<item value="onSelectFeatureFunction"/>
-			<item value="getF"/>
-			<item value="api"/>
-			<item value="on"/>
 		</list>
 		<list key="replacehistory">
+			<item value="    "/>
 			<item value=".ico"/>
 			<item value="./Iconos/"/>
 			<item value="/Iconos/"/>
