@@ -58,7 +58,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 								.append(
 										'<div data-role="collapsible"><h3>'
 												+ jsondata[i].nombreEvento
-												+ '</h3><p>'
+												+ '</h3><p style="white-space: normal">'
 												+ jsondata[i].descripcion
 												+ '</p><button id="'
 												+ jsondata[i].ide
