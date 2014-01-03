@@ -67,6 +67,8 @@ function login() {
 var onSuccess = function(position) {
     GPSlatitud = position.coords.latitude;
     GPSlongitud = position.coords.longitude;
+    localStorage.setItem('GPSlatitud', GPSlatitud);
+    localStorage.setItem('GPSlongitud', GPSlongitud);
 };
 
 // Fallo en la lectura GPS.
@@ -96,7 +98,8 @@ function asistirEvento(ide) {
 
 }
 
-function info(ide, descripcion) {
+function info(ide, descripcion, ubicacion) {
+	$('#txt_idu').html(ubicacion);
 	$('#txt_descripcion').html(decodeURI(descripcion));
     $('#bt_asistir').val(ide);
     $('#info').popup("open");
@@ -124,12 +127,20 @@ function recibirDatos() {
                     + jsondata[i].ide
                     + '\', \''
                     + descripcion
+                    + '\', \''
+                    + recibirUbicacion(jsondata[i].idu)
                     + '\');return false;"';
         		code = '<li id="li_'
         			+ jsondata[i].ide
         			+ '"><a href="#"><img src="'
                     + SERVIDOR
                     + 'images/default.jpg" width="100" height="100"/><h1>'
+                    + '<img src="'
+                    + SERVIDOR
+                    + 'images/tipos/tipo('
+                    + jsondata[i].idt
+                    + ').png'
+                    + '"/> '
                     + jsondata[i].nombreEvento
                     + '</h1></a><a href="#" '
                     + event
@@ -142,4 +153,24 @@ function recibirDatos() {
             alert('Error. No se ha podido acceder a la información.');
         }
     });
+}
+
+function recibirUbicacion(idu) {
+	var ubicacion;
+	$.ajax({
+        async : false,
+        data : {
+            idu : idu
+        },
+        url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recibirUbicacion.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	ubicacion = jsondata[0].poblacion + ' - ' + jsondata[0].provincia;
+        },
+        error : function() {
+            alert('Error. No se ha podido acceder a la información.');
+        }
+    });
+	return ubicacion;
 }
