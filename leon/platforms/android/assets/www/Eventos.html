@@ -82,32 +82,30 @@
             <!-- mobileheader -->
             <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
             id="Home_mobileheader" class=' Home_mobileheader '>
+                <h1 dsid="mobileheader">
+                    Eventos
+                </h1>
             </div>
             <!-- mobilecontainer -->
             <div data-role="content" id="Home_mobilecontainer" name="mobilecontainer" class=" Home_mobilecontainer"
             dsid="mobilecontainer" data-theme="b">
                 <link href="Home.css" rel="stylesheet" type="text/css" />
                 <script type="text/javascript" src="Home.js">
-                </script>
-            
-                    <h1 dsid="mobileheader">
-                        Eventos
-                    </h1>
-                    
-                    <ul id="lista_eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false" data-filter="true" data-filter-placeholder="¿Qué evento buscas?">            
-                        <script>
-                              recibirDatos();
-                          </script>
-                    </ul>
-                    
-                    <div data-role="popup" data-position-to="window" id="info" data-transition="pop" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:300">
-                        <a href="#" data-rel="back" data-role="button" data-theme="d" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Cerrar</a>
-                        <p id="txt_fecha" class="ui-li-aside"><strong ></strong></p>
-                        <h3>Información Detallada</h3>
-                        <p id="txt_descripcion" style="white-space:normal">
-                        </p>
-                        <button id="bt_asistir" value="0" data-mini="true" onclick="asistirEvento(this.value)">Asistir</button>
-                    </div>
+                </script> 
+                <ul id="lista_eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false" data-filter="true" data-filter-placeholder="¿Qué evento buscas?">            
+                    <script>
+                          recibirDatos();
+                      </script>
+                </ul>
+                
+                <div data-role="popup" data-position-to="window" id="info" data-transition="pop" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:300">
+                    <a href="Eventos.html" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Cerrar</a>
+                    <p id="txt_fecha" class="ui-li-aside"><strong ></strong></p>
+                    <h3>Información Detallada</h3>
+                    <p id="txt_descripcion" style="white-space:normal">
+                    </p>
+                    <button id="bt_asistir" value="0" data-theme="a" data-mini="true" onclick="asistirEvento(this.value)">Asistir</button>
+                </div>
             </div>
             <!-- mobilefooter -->
             <div data-role="footer" data-position="inline" class=" Home_mobilefooter" name="mobilefooter"

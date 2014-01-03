@@ -17,7 +17,6 @@
  * under the License.
  */
 var SERVIDOR = "http://programandocotufas.xtrweb.com/proyectoleon/";
-var idUsuario = 2;
 var idUbicacion;
 var GPSlatitud;
 var GPSlongitud;
@@ -51,11 +50,8 @@ function login() {
         dataType : "json",
         success : function(jsondata) {
             if (jsondata[0].id) {
-                // alert($('#Login_in_usuario').val() + " se ha validado
-                // correctamente.");
                 window.location.href = "Home.html";
-                idUsuario = jsondata[0].id;
-                alert(idUsuario);
+                localStorage.setItem('idUsuario', parseInt(jsondata[0].id));
             } else {
                 alert("Usuario / contraseña incorrecto/s.");
             }
@@ -79,10 +75,10 @@ function onError(error) {
 }
 
 function asistirEvento(ide) {
-    $.ajax({
+	$.ajax({
                 async : true,
                 data : {
-                    idUsuario : idUsuario,
+                    idUsuario : localStorage.getItem('idUsuario'),
                     ide : ide
                 },
                 url : "http://programandocotufas.xtrweb.com/proyectoleon/asistirEvento.php",
@@ -107,11 +103,11 @@ function info(ide, descripcion) {
 }
 
 function recibirDatos() {
-    var fecha = new Date();
+	var fecha = new Date();
     $.ajax({
         async : false,
         data : {
-            idUsuario : 2,
+            idUsuario : localStorage.getItem('idUsuario'),
             fechaActual : ISODateString(fecha)
         },
         url : "http://programandocotufas.xtrweb.com/proyectoleon/php/leonRecibirDatos.php",
