@@ -113,6 +113,8 @@ function recibirDatos() {
             idUsuario : localStorage.getItem('idUsuario'),
             fechaActual : ISODateString(fecha)
         },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
         url : "http://programandocotufas.xtrweb.com/proyectoleon/php/leonRecibirDatos.php",
         type : "post",
         dataType : "json",
@@ -155,6 +157,57 @@ function recibirDatos() {
     });
 }
 
+function recibirDatosAmigos() {
+	var fecha = new Date();
+    $.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario'),
+            fechaActual : ISODateString(fecha)
+        },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
+        url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recomendacionPorAmigos.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	var code;
+            var event;
+            var descripcion;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		descripcion = encodeURI(jsondata[i].descripcion);
+        		event = 'onclick="info(\''
+                    + jsondata[i].ide
+                    + '\', \''
+                    + descripcion
+                    + '\', \''
+                    + recibirUbicacion(jsondata[i].idu)
+                    + '\');return false;"';
+        		code = '<li id="li_'
+        			+ jsondata[i].ide
+        			+ '"><a href="#"><img src="'
+                    + SERVIDOR
+                    + 'images/default.jpg" width="100" height="100"/><h1>'
+                    + '<img src="'
+                    + SERVIDOR
+                    + 'images/tipos/tipo('
+                    + jsondata[i].idt
+                    + ').png'
+                    + '"/> '
+                    + jsondata[i].nombreEvento
+                    + '</h1></a><a href="#" '
+                    + event
+                    + '></a>' + '</li>';
+        		$('#lista_eventos_amigos').append(code);
+            }
+        	$("#recomendacion_amigos").show();
+        },
+        error : function() {
+        	$("#recomendacion_amigos").hide(); 
+        }
+    });
+}
+
 function recibirUbicacion(idu) {
 	var ubicacion;
 	$.ajax({
@@ -173,4 +226,33 @@ function recibirUbicacion(idu) {
         }
     });
 	return ubicacion;
+}
+
+function listarAmigos() {
+	$.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario')
+        },
+        url : SERVIDOR + "php/listarAmigos.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	var code;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		code = '<li id="li_'
+        			+ jsondata[i].id
+        			+ '"><a href="#"><img src="'
+                    + SERVIDOR
+                    + 'images/amigos/default.png" width="100" height="100"/><h1>'
+                    + jsondata[i].nombre
+                    + '</h1></a>'
+                    + '</li>';
+        		$('#lista_amigos').append(code);
+            }
+        },
+        error : function() {
+            alert('Error. No se ha podido acceder a la información.');
+        }
+    });
 }

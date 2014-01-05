@@ -36,6 +36,12 @@ Appery.AppPages = [{
     "name": "Eventos",
     "location": "Eventos.html"
 }, {
+    "name": "Calendario",
+    "location": "Calendario.html"
+}, {
+    "name": "Amigos",
+    "location": "Amigos.html"
+}, {
     "name": "Login",
     "location": "Login.html"
 }];
@@ -163,7 +169,19 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
         $('#Home_mobilecontainer [name="mobileimage_14"]').die().live({
             click: function() {
                 if (!$(this).attr('disabled')) {
-                    Appery.navigateTo('Eventos', {
+                	$.mobile.loading('show');
+                	Appery.navigateTo('Eventos', {
+                        reverse: false
+                    });
+                	//$.mobile.loading('hide');
+                }
+            },
+        });
+        
+        $('#Home_mobilecontainer [name="mobileimage_16"]').die().live({
+            click: function() {
+                if (!$(this).attr('disabled')) {
+                    Appery.navigateTo('Calendario', {
                         reverse: false
                     });
 
@@ -171,6 +189,16 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
             },
         });
         
+        $('#Home_mobilecontainer [name="mobileimage_18"]').die().live({
+            click: function() {
+                if (!$(this).attr('disabled')) {
+                    Appery.navigateTo('Amigos', {
+                        reverse: false
+                    });
+
+                }
+            },
+        });
     }
 
     $("#Home").die("pagebeforeshow").live("pagebeforeshow", function(event, ui) {

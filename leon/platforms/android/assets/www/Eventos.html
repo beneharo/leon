@@ -77,26 +77,36 @@
             }).trigger('orientationchange');
         }
         </script>
-        <div data-role="page" style="min-height:480px;" dsid="Home" id="Home" class="type-interior"
+        <div data-role="page" style="min-height:480px;" dsid="Eventos" id="Eventos" class="type-interior"
         data-theme="e" data-add-back-btn="true" data-back-btn-text="Atras">
             <!-- mobileheader -->
             <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
-            id="Home_mobileheader" class=' Home_mobileheader '>
+            id="Eventos_mobileheader" class=' Eventos_mobileheader '>
                 <h1 dsid="mobileheader">
                     Eventos
                 </h1>
             </div>
             <!-- mobilecontainer -->
-            <div data-role="content" id="Home_mobilecontainer" name="mobilecontainer" class=" Home_mobilecontainer"
+            <div data-role="content" id="Eventos_mobilecontainer" name="mobilecontainer" class=" Eventos_mobilecontainer"
             dsid="mobilecontainer" data-theme="b">
-                <link href="Home.css" rel="stylesheet" type="text/css" />
-                <script type="text/javascript" src="Home.js">
+                <link href="Eventos.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="Eventos.js">
                 </script> 
                 <ul id="lista_eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false" data-filter="true" data-filter-placeholder="¿Qué evento buscas?">            
                     <script>
                           recibirDatos();
-                      </script>
+                    </script>
                 </ul>
+                <div id="recomendacion_amigos" style="display:none;">
+	                <div id="ui-body-test" class="ui-body ui-body-a ui-corner-all" style="margin-bottom:1em;">
+	                   <h3>Algunos de tus amigos han mostrado interés por...</h3>
+	                </div>
+	                <ul id="lista_eventos_amigos" data-role="listview" data-inset="true" data-theme="d" data-dividertheme="a" data-autodividers="false" data-filter="false">            
+	                    <script>
+	                          recibirDatosAmigos();
+	                    </script>
+	                </ul>
+                </div>
                 
                 <div data-role="popup" data-position-to="window" id="info" data-transition="pop" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:300">
                     <a href="Eventos.html" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Cerrar</a>
@@ -111,29 +121,29 @@
                 </div>
             </div>
             <!-- mobilefooter -->
-            <div data-role="footer" data-position="inline" class=" Home_mobilefooter" name="mobilefooter"
-            dsid="mobilefooter" id="Home_mobilefooter" data-theme="a">
+            <div data-role="footer" data-position="inline" class=" Eventos_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="Eventos_mobilefooter" data-theme="a">
                 <!-- mobilenavbar_25 -->
-                <div data-role="navbar" id="Home_mobilenavbar_25" name="mobilenavbar_25" dsid="mobilenavbar_25"
-                class=" Home_mobilenavbar_25" data-theme="a" style="position: relative;">
+                <div data-role="navbar" id="Eventos_mobilenavbar_25" name="mobilenavbar_25" dsid="mobilenavbar_25"
+                class=" Eventos_mobilenavbar_25" data-theme="a" style="position: relative;">
                     <ul>
                         <!-- mobilenavbaritem_26 -->
                         <li>
-                            <a data-theme="a" data-icon="gear" id="Home_mobilenavbaritem_26" dsid="mobilenavbaritem_26"
+                            <a data-theme="a" data-icon="gear" id="Eventos_mobilenavbaritem_26" dsid="mobilenavbaritem_26"
                             name="mobilenavbaritem_26">
                             Configuración
                             </a>
                         </li>
                         <!-- mobilenavbaritem_27 -->
                         <li>
-                            <a data-theme="a" data-icon="info" id="Home_mobilenavbaritem_27" dsid="mobilenavbaritem_27"
+                            <a data-theme="a" data-icon="info" id="Eventos_mobilenavbaritem_27" dsid="mobilenavbaritem_27"
                             name="mobilenavbaritem_27">
                             Información
                             </a>
                         </li>
                         <!-- mobilenavbaritem_28 -->
                         <li>
-                            <a data-theme="a" data-icon="back" id="Home_mobilenavbaritem_28" dsid="mobilenavbaritem_28"
+                            <a data-theme="a" data-icon="back" id="Eventos_mobilenavbaritem_28" dsid="mobilenavbaritem_28"
                             name="mobilenavbaritem_28">
                             Salir
                             </a>
