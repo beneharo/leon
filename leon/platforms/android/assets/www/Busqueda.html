@@ -58,8 +58,10 @@
         </script>
         <script type="text/javascript" src="files/resources/lib/cordova.js">
         </script>
+        <script type="text/javascript" src="js/index.js"></script>
         <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
         />
+        
     </head>
     
     <body>
@@ -95,13 +97,9 @@
                 </div>
                 <ul data-role="listview" id="Busqueda_googlemap_1_markers" name="googlemap_1_markers"
                 dsid="googlemap_1_markers" style="display:none">
-                    <!-- marker_2 -->
-                    <li id="Busqueda_marker_2" name="marker_2" dsid="marker_2" tiggzitype="marker" apperytype="marker"
-                    rendered="true" latitude="" longitude="" text="Add Components Here" address="San Francisco, CA"
-                    show_info="true" style="display:none">
-                        <div id="Busqueda_marker_2_infoWindow" name="marker_2_infoWindowContent" class='Busqueda_marker_2'>
-                        </div>
-                    </li>
+                    <script type="text/javascript">
+                        actualizarMapa();
+                    </script>
                 </ul>
                 <!-- mobilelist_38 -->
                 <ul data-role="listview" id="Busqueda_mobilelist_38" class=' Busqueda_mobilelist_38 '

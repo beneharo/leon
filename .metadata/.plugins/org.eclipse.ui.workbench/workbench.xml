@@ -22,9 +22,10 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="184" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.css.core.csssource.source" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.html.core.htmlsource.source" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.android.ide.eclipse.editors.CommonXmlEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -39,13 +40,18 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.wst.html.core.htmlsource.source" name="Eventos.html" partName="Eventos.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Eventos.html" title="Eventos.html" tooltip="Leon/assets/www/Eventos.html" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Eventos.html"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5372" selectionTopPixel="2400"/>
+<editor id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="index.js" partName="index.js" path="/home/beneharo/Projects/leon/platforms/android/assets/www/js/index.js" title="index.js" tooltip="Leon/assets/www/js/index.js" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/js/index.js"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7913" selectionTopPixel="2096"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.wst.html.core.htmlsource.source" name="Home.html" partName="Home.html" path="/home/beneharo/Projects/leon/platforms/android/assets/www/Home.html" title="Home.html" tooltip="Leon/assets/www/Home.html" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Leon/assets/www/Home.html"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="12116" selectionTopPixel="4896"/>
 </editor>
 </editors>
 <views>
@@ -60,6 +66,10 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Warnings (10 items)"/>
+<category IMemento.internal.id="Errors"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="392" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.resourceField="105" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -67,6 +77,9 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
@@ -97,9 +110,6 @@
 </customFilters>
 </viewState>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Tasks">
 <columnWidths org.eclipse.ui.ide.completionField="40" org.eclipse.ui.ide.descriptionField="350" org.eclipse.ui.ide.locationField="105" org.eclipse.ui.ide.markerType="278" org.eclipse.ui.ide.pathField="140" org.eclipse.ui.ide.priorityField="35" org.eclipse.ui.ide.resourceField="105"/>
@@ -120,7 +130,7 @@
 </view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="com.android.ide.eclipse.ddms.views.LogCatView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
 <alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
@@ -249,17 +259,17 @@
 <perspective_action id="org.eclipse.wst.jsdt.ui.JavaPerspective"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.jdt.ui.TypeHierarchy"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="com.android.ide.eclipse.ddms.views.LogCatView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.jdt.ui.PackageExplorer"/>
-<view id="org.eclipse.jdt.ui.TypeHierarchy"/>
 <fastViewBars>
 <fastViewBar fastViewLocation="131072" id="right" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
 <fastViews>
-<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
+<view id="org.eclipse.ui.views.ContentOutline" ratio="0.29984894"/>
 </fastViews>
 </fastViewBar>
 </fastViewBars>
@@ -285,24 +295,13 @@
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.11203633" ratioLeft="148" ratioRight="1173" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.53050846" ratioLeft="313" ratioRight="277" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
-<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
-<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
-<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
-<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<info part="org.eclipse.ui.editorss" ratio="0.14988644" ratioLeft="198" ratioRight="1123" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.7271187" ratioLeft="429" ratioRight="161" relationship="4" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
 <page content="org.eclipse.search.ui.views.SearchView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProgressView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-<part id="3"/>
-<part id="4"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 <info folder="true" part="right" ratio="0.7492447" ratioLeft="744" ratioRight="249" relationship="2" relative="org.eclipse.ui.editorss">
@@ -313,6 +312,22 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@58b45ae7" ratio="0.59152544" ratioLeft="349" ratioRight="241" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
+<page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
+<page content="com.android.ide.eclipse.ddms.views.LogCatView" label="LogCat"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
 </mainWindow>
 </layout>
 </perspective>
@@ -320,163 +335,167 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Busqueda.html"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/js/index.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Amigos.html"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Amigos.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Busqueda.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Calendario.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Eventos.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Home.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Login.js"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Splash.js"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Home.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Eventos.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/index.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Eventos.html"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" path="/Leon/assets/www/Home-map.js"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" path="/Leon/assets/www/Home-map.html"/>
 </editors>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="3963" y="71"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="3777" y="0"/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="3963" y="71"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="3777" y="288"/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="3963" y="71"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="3777" y="288"/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="4051" y="1000"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="4046" y="0"/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="5491" y="39"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="5491" y="39"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="4448" y="1053"/>
-</item>
-<item historyLabel="Home.html" index="1">
-<position info="not_deleted" x="5491" y="39"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="4448" y="1063"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4145" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="5419" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="3404" y="4"/>
-</item>
-<item historyLabel="Eventos.html" index="2">
-<position info="not_deleted" x="4990" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position/>
-</item>
-<item historyLabel="index.html" index="3">
-<position info="not_deleted" x="59" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="3373" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="2720" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4590" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4732" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4584" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5429" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4584" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4584" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="3363" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="3363" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="3363" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="5662" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="5662" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="5470" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="5488" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="5502" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4300" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="4306" y="0"/>
-</item>
-<item historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
-</item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="896" y="3"/>
-</item>
-<item historyLabel="Home-map.js" index="5">
+<item historyLabel="index.js" index="1">
 <position info="not_deleted" x="3" y="0"/>
 </item>
-<item historyLabel="Home-map.html" index="6">
-<position info="not_deleted" x="530" y="0"/>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="4845" y="28"/>
 </item>
-<item historyLabel="Home-map.js" index="5">
+<item historyLabel="index.js" index="1">
 <position info="not_deleted" x="3" y="0"/>
 </item>
-<item historyLabel="index.js" index="0">
-<position info="not_deleted" x="896" y="3"/>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="4845" y="28"/>
 </item>
-<item active="true" historyLabel="Eventos.html" index="4">
-<position info="not_deleted" x="5372" y="0"/>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="4845" y="28"/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="7913" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="7397" y="0"/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="7913" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="7397" y="0"/>
+</item>
+<item historyLabel="Amigos.html" index="2">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Busqueda.html" index="0">
+<position info="not_deleted" x="7397" y="0"/>
+</item>
+<item historyLabel="Amigos.js" index="3">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.js" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Calendario.js" index="5">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Eventos.js" index="6">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Home.js" index="7">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Login.js" index="8">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Splash.js" index="9">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Amigos.js" index="3">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.js" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Calendario.js" index="5">
+<position info="not_deleted" x="181" y="0"/>
+</item>
+<item historyLabel="Eventos.js" index="6">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Home.js" index="7">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Login.js" index="8">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Splash.js" index="9">
+<position info="not_deleted" x="225" y="0"/>
+</item>
+<item historyLabel="Login.js" index="8">
+<position info="not_deleted" x="140" y="0"/>
+</item>
+<item historyLabel="Home.js" index="7">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Eventos.js" index="6">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Calendario.js" index="5">
+<position info="not_deleted" x="181" y="0"/>
+</item>
+<item historyLabel="Busqueda.js" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Amigos.js" index="3">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Busqueda.js" index="4">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Calendario.js" index="5">
+<position info="not_deleted" x="181" y="0"/>
+</item>
+<item historyLabel="Eventos.js" index="6">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Home.js" index="7">
+<position info="not_deleted" x="3" y="0"/>
+</item>
+<item historyLabel="Login.js" index="8">
+<position info="not_deleted" x="140" y="0"/>
+</item>
+<item historyLabel="Splash.js" index="9">
+<position info="not_deleted" x="225" y="0"/>
+</item>
+<item historyLabel="index.js" index="1">
+<position info="not_deleted" x="7913" y="0"/>
+</item>
+<item active="true" historyLabel="Home.html" index="10">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -484,6 +503,9 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
 <trimArea IMemento.internal.id="131072">
 <trimItem IMemento.internal.id="right"/>
 </trimArea>
@@ -494,39 +516,37 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@58b45ae7"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Home-map.html" tooltip="Leon/assets/www/Home-map.html">
-<persistable path="/Leon/assets/www/Home-map.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Home-map.js" tooltip="Leon/assets/www/Home-map.js">
-<persistable path="/Leon/assets/www/Home-map.js"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Eventos.html" tooltip="Leon/assets/www/Eventos.html">
-<persistable path="/Leon/assets/www/Eventos.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="index.html" tooltip="Leon/assets/www/index.html">
-<persistable path="/Leon/assets/www/index.html"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.css.core.csssource.source" name="Home-map.css" tooltip="Leon/assets/www/Home-map.css">
-<persistable path="/Leon/assets/www/Home-map.css"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Home.html" tooltip="Leon/assets/www/Home.html">
 <persistable path="/Leon/assets/www/Home.html"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Splash.js" tooltip="Leon/assets/www/Splash.js">
+<persistable path="/Leon/assets/www/Splash.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Login.js" tooltip="Leon/assets/www/Login.js">
+<persistable path="/Leon/assets/www/Login.js"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Home.js" tooltip="Leon/assets/www/Home.js">
 <persistable path="/Leon/assets/www/Home.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Login.html" tooltip="Leon/assets/www/Login.html">
-<persistable path="/Leon/assets/www/Login.html"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Eventos.js" tooltip="Leon/assets/www/Eventos.js">
+<persistable path="/Leon/assets/www/Eventos.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.css.core.csssource.source" name="Eventos.css" tooltip="Leon/assets/www/Eventos.css">
-<persistable path="/Leon/assets/www/Eventos.css"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Calendario.js" tooltip="Leon/assets/www/Calendario.js">
+<persistable path="/Leon/assets/www/Calendario.js"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.css.core.csssource.source" name="Home.css" tooltip="Leon/assets/www/Home.css">
-<persistable path="/Leon/assets/www/Home.css"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Busqueda.js" tooltip="Leon/assets/www/Busqueda.js">
+<persistable path="/Leon/assets/www/Busqueda.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="Amigos.js" tooltip="Leon/assets/www/Amigos.js">
+<persistable path="/Leon/assets/www/Amigos.js"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Amigos.html" tooltip="Leon/assets/www/Amigos.html">
+<persistable path="/Leon/assets/www/Amigos.html"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.jsdt.ui.CompilationUnitEditor" name="index.js" tooltip="Leon/assets/www/js/index.js">
 <persistable path="/Leon/assets/www/js/index.js"/>
@@ -534,14 +554,17 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Busqueda.html" tooltip="Leon/assets/www/Busqueda.html">
 <persistable path="/Leon/assets/www/Busqueda.html"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="AndroidManifest.xml" tooltip="Leon/AndroidManifest.xml">
-<persistable path="/Leon/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ArrayList.class" tooltip="java.util.ArrayList">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=PlaningTenerifeRout/\/usr\/lib\/jvm\/java-7-oracle\/jre\/lib\/rt.jar&lt;java.util(ArrayList.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wst.html.core.htmlsource.source" name="Splash.html" tooltip="Leon/assets/www/Splash.html">
-<persistable path="/Leon/assets/www/Splash.html"/>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="ImageIcon.class" tooltip="javax.swing.ImageIcon">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=PlaningTenerifeRout/\/usr\/lib\/jvm\/java-7-oracle\/jre\/lib\/rt.jar&lt;javax.swing(ImageIcon.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BarcodeScanner.java" tooltip="Leon/src/com/phonegap/plugins/barcodescanner/BarcodeScanner.java">
-<persistable path="/Leon/src/com/phonegap/plugins/barcodescanner/BarcodeScanner.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MenuPrincipal.java" tooltip="PlaningTenerifeRout/src/MenuPrincipal.java">
+<persistable path="/PlaningTenerifeRout/src/MenuPrincipal.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Pantallas.java" tooltip="PlaningTenerifeRout/src/Pantallas.java">
+<persistable path="/PlaningTenerifeRout/src/Pantallas.java"/>
 </file>
 </mruList>
 </workbench>

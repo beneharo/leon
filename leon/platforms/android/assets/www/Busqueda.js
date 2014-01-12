@@ -153,11 +153,10 @@ Busqueda_js = function(runBeforeShow) { /* Object & array with components "name-
 
         var googlemap_1_options = {
             markerSourceName: "googlemap_1_markers",
-            latitude: "",
-            longitude: "",
-            address: "San Francisco, CA",
+            latitude: localStorage.getItem('GPSlatitud'),
+            longitude: localStorage.getItem('GPSlongitud'),
             zoom: 10,
-            showLocationMarker: false
+            showLocationMarker: true
         }
 
         Appery.__registerComponent('googlemap_1', new Appery.ApperyMapComponent("googlemap_1", googlemap_1_options));

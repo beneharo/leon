@@ -134,9 +134,7 @@ function recibirDatos() {
                     + '\');return false;"';
         		code = '<li id="li_'
         			+ jsondata[i].ide
-        			+ '"><a href="#"><img src="'
-                    + SERVIDOR
-                    + 'images/default.jpg" width="100" height="100"/><h1>'
+        			+ '"><a href="#"><img src="img/eventos/default.jpg" width="100" height="100"/><h1>'
                     + '<img src="'
                     + SERVIDOR
                     + 'images/tipos/tipo('
@@ -255,4 +253,42 @@ function listarAmigos() {
             alert('Error. No se ha podido acceder a la información.');
         }
     });
+}
+
+function actualizarMapa() {
+    var fecha = new Date();
+      $.ajax({
+          async : false,
+          data : {
+              idUsuario : localStorage.getItem('idUsuario'),
+              fechaActual : ISODateString(fecha)
+          },
+          beforeSend: function() { $.mobile.loading('show'); },
+          complete: function() { $.mobile.loading('hide'); },
+          url : "http://programandocotufas.xtrweb.com/proyectoleon/php/leonRecibirDatos.php",
+          type : "post",
+          dataType : "json",
+          success : function(jsondata) {
+              var descripcion;
+              for (i = 0; i < jsondata.length - 1; i++) {
+                  code = '<li id="Busqueda_marker_'
+                      + i 
+                      + '" '
+                      + 'name="marker_' + i + '" '
+                      + 'dsid="marker_' + i + '" '
+                      + 'tiggzitype="marker" apperytype="marker" rendered="true" '
+                      + 'latitude="' + jsondata[i].latitud + '" '
+                      + 'longitude="' + jsondata[i].longitud + '" '
+                      + 'text="" address="" show_info="false" style="display:none;">'
+                      + '<div id="Busqueda_marker_' + i + '_infoWindow" name="marker_' + i + '_infoWindowContent" class="Busqueda_marker_' + i + '">'
+                      + '</div>'
+                      + '</li>';
+                  
+                  $('#Busqueda_googlemap_1_markers').append(code);
+              }
+          },
+          error : function() {
+              alert('Error. No se ha podido acceder a la información.');
+          }
+      });
 }
