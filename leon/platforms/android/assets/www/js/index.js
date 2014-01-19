@@ -123,8 +123,15 @@ function recibirDatos() {
         	var code;
             var event;
             var descripcion;
+            var image;
         	for (i = 0; i < jsondata.length - 1; i++) {
         		descripcion = encodeURI(jsondata[i].descripcion);
+        		
+        		if (jsondata[i].imagen == null || typeof jsondata[i].imagen == "undefined") {
+        			image = SERVIDOR + "images/eventos/default.jpg";
+        		} else {
+        			image = SERVIDOR + jsondata[i].imagen;
+        		}
         		event = 'onclick="info(\''
                     + jsondata[i].ide
                     + '\', \''
@@ -136,7 +143,9 @@ function recibirDatos() {
                     + '\');return false;"';
         		code = '<li id="li_'
         			+ jsondata[i].ide
-        			+ '"><a href="#"><img src="img/eventos/default.jpg" width="100" height="100"/><h1>'
+        			+ '"><a href="#"><img src="'
+        			+ image
+        			+ '" width="100" height="100"/><h1>'
                     + '<img src="'
                     + SERVIDOR
                     + 'images/tipos/tipo('
@@ -174,8 +183,14 @@ function recibirDatosAmigos() {
         	var code;
             var event;
             var descripcion;
+            var image;
         	for (i = 0; i < jsondata.length - 1; i++) {
         		descripcion = encodeURI(jsondata[i].descripcion);
+        		if (jsondata[i].imagen == null || typeof jsondata[i].imagen == "undefined") {
+        			image = SERVIDOR + "images/eventos/default.jpg";
+        		} else {
+        			image = SERVIDOR + jsondata[i].imagen;
+        		}
         		event = 'onclick="info(\''
                     + jsondata[i].ide
                     + '\', \''
@@ -186,8 +201,8 @@ function recibirDatosAmigos() {
         		code = '<li id="li_'
         			+ jsondata[i].ide
         			+ '"><a href="#"><img src="'
-                    + SERVIDOR
-                    + 'images/default.jpg" width="100" height="100"/><h1>'
+        			+ image
+        			+ '" width="100" height="100"/><h1>'
                     + '<img src="'
                     + SERVIDOR
                     + 'images/tipos/tipo('
@@ -513,8 +528,14 @@ function recibirDatosOrganizadores() {
         	var code;
             var event;
             var descripcion;
+            var image;
         	for (i = 0; i < jsondata.length - 1; i++) {
         		descripcion = encodeURI(jsondata[i].descripcion);
+        		if (jsondata[i].imagen == null || typeof jsondata[i].imagen == "undefined") {
+        			image = SERVIDOR + "images/eventos/default.jpg";
+        		} else {
+        			image = SERVIDOR + jsondata[i].imagen;
+        		}
         		event = 'onclick="info(\''
                     + jsondata[i].ide
                     + '\', \''
@@ -525,8 +546,8 @@ function recibirDatosOrganizadores() {
         		code = '<li id="li_'
         			+ jsondata[i].ide
         			+ '"><a href="#"><img src="'
-                    + SERVIDOR
-                    + 'images/default.jpg" width="100" height="100"/><h1>'
+        			+ image
+        			+ '" width="100" height="100"/><h1>'
                     + '<img src="'
                     + SERVIDOR
                     + 'images/tipos/tipo('
