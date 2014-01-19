@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="332" key="DIALOG_WIDTH"/>
-		<item value="210" key="DIALOG_Y_ORIGIN"/>
-		<item value="720" key="DIALOG_X_ORIGIN"/>
+		<item value="340" key="DIALOG_WIDTH"/>
+		<item value="235" key="DIALOG_Y_ORIGIN"/>
+		<item value="896" key="DIALOG_X_ORIGIN"/>
 		<item value="437" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -13,26 +13,26 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Mapa" key="selection"/>
+		<item value="appl" key="selection"/>
 		<list key="findhistory">
-			<item value="Mapa"/>
-			<item value="Home-map"/>
-			<item value="/"/>
-			<item value="�"/>
-			<item value="index.js"/>
-			<item value="n2id_buf"/>
-			<item value="marker_2"/>
-			<item value="Busqueda_marker_2"/>
+			<item value="appl"/>
+			<item value="label"/>
+			<item value="lng"/>
+			<item value="alert"/>
+			<item value="slider"/>
+			<item value="DISTANCIA_MAXIMA"/>
+			<item value="localStorage.s"/>
+			<item value="localStore.s"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Perfil"/>
+			<item value="Configuracion"/>
 			<item value="\\"/>
 			<item value="nn"/>
 			<item value="n"/>
 			<item value="Home-map"/>
 			<item value="    "/>
 			<item value=".ico"/>
-			<item value="./Iconos/"/>
-			<item value="/Iconos/"/>
 		</list>
 	</section>
 </section>

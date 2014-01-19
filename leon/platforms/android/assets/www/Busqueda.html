@@ -61,7 +61,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
         />
-        
+   
     </head>
     
     <body>
@@ -82,6 +82,12 @@
                 <h1 dsid="mobileheader">
                     Búsqueda
                 </h1>
+                <!-- googlemap_1 -->
+                <div id="Busqueda_googlemap_1" dsid="googlemap_1" name="googlemap_1" tiggzitype="object"
+                apperytype="object" class=' Busqueda_googlemap_1' style='width:100%;'>
+                    <img class=' Busqueda_googlemap_1' src="http://assets1.geocommons.com/d51ab1366bec6a2c4954db979e5921bd4cc140db/images/no_preview_map.png?1311276822"
+                    />
+                </div>
             </div>
             <!-- mobilecontainer -->
             <div data-role="content" id="Busqueda_mobilecontainer" name="mobilecontainer" class=" Busqueda_mobilecontainer"
@@ -89,108 +95,21 @@
                 <link href="Busqueda.css" rel="stylesheet" type="text/css" />
                 <script type="text/javascript" src="Busqueda.js">
                 </script>
-                <!-- googlemap_1 -->
-                <div id="Busqueda_googlemap_1" dsid="googlemap_1" name="googlemap_1" tiggzitype="object"
-                apperytype="object" class=' Busqueda_googlemap_1' style='width:100%;'>
-                    <img class=' Busqueda_googlemap_1' src="http://assets1.geocommons.com/d51ab1366bec6a2c4954db979e5921bd4cc140db/images/no_preview_map.png?1311276822"
-                    />
-                </div>
+
+                <ul id="busqueda-lista-eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false">            
+                </ul>
+
                 <ul data-role="listview" id="Busqueda_googlemap_1_markers" name="googlemap_1_markers"
-                dsid="googlemap_1_markers" style="display:none">
-                    <script type="text/javascript">
-                        actualizarMapa();
-                    </script>
+                dsid="googlemap_1_markers" style="display:none">                    
                 </ul>
-                <!-- mobilelist_38 -->
-                <ul data-role="listview" id="Busqueda_mobilelist_38" class=' Busqueda_mobilelist_38 '
-                name="mobilelist_38" dsid="mobilelist_38" data-inset="true" data-theme="a" data-divider-theme="b"
-                data-count-theme="b" style="">
-                    <!-- mobilelistitem_39 -->
-                    <li id="Busqueda_mobilelistitem_39" name="mobilelistitem_39" dsid="mobilelistitem_39"
-                    class=' Busqueda_mobilelistitem_39 '>
-                        <div class="ui-li-static-container">
-                            <!-- mobilegrid_45 -->
-                            <div class="Busqueda_mobilegrid_45_wrapper">
-                                <table id="Busqueda_mobilegrid_45" class=" Busqueda_mobilegrid_45" dsid="mobilegrid_45"
-                                name="mobilegrid_45" cellpadding=0 cellspacing=0>
-                                    <col style="width:100px;" />
-                                    <col style="width:auto;" />
-                                    <tr class="Busqueda_mobilegrid_45_row_0">
-                                        <!-- mobilegridcell_46 -->
-                                        <td id="Busqueda_mobilegridcell_46" name="mobilegridcell_46" class="Busqueda_mobilegridcell_46"
-                                        colspan=1 rowspan=1>
-                                            <div class="cell-wrapper">
-                                                <!-- mobileimage_50 -->
-                                                <img class=" Busqueda_mobileimage_50" src="files/views/assets/image/TIERRA1.gif"
-                                                id="Busqueda_mobileimage_50" dsid="mobileimage_50" name="mobileimage_50" />
-                                            </div>
-                                        </td>
-                                        <!-- mobilegridcell_47 -->
-                                        <td id="Busqueda_mobilegridcell_47" name="mobilegridcell_47" class="Busqueda_mobilegridcell_47"
-                                        colspan=1 rowspan=1>
-                                            <div class="cell-wrapper">
-                                                <!-- mobilegrid_51 -->
-                                                <div class="Busqueda_mobilegrid_51_wrapper">
-                                                    <table id="Busqueda_mobilegrid_51" class=" Busqueda_mobilegrid_51" dsid="mobilegrid_51"
-                                                    name="mobilegrid_51" cellpadding=0 cellspacing=0>
-                                                        <col style="width:auto;" />
-                                                        <tr class="Busqueda_mobilegrid_51_row_0">
-                                                            <!-- mobilegridcell_52 -->
-                                                            <td id="Busqueda_mobilegridcell_52" name="mobilegridcell_52" class="Busqueda_mobilegridcell_52"
-                                                            colspan=1 rowspan=1>
-                                                                <div class="cell-wrapper">
-                                                                    <!-- mobilelabel_59 -->
-                                                                    <div name="mobilelabel_59" id="Busqueda_mobilelabel_59" dsid="mobilelabel_59" data-role="appery_label"
-                                                                    class=' Busqueda_mobilelabel_59 '>
-                                                                        Label
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="Busqueda_mobilegrid_51_row_1">
-                                                            <!-- mobilegridcell_54 -->
-                                                            <td id="Busqueda_mobilegridcell_54" name="mobilegridcell_54" class="Busqueda_mobilegridcell_54"
-                                                            colspan=1 rowspan=1>
-                                                                <div class="cell-wrapper">
-                                                                    <!-- mobiletextarea_58 -->
-                                                                    <div data-role="fieldcontain" class="Busqueda_mobiletextarea_58 ">
-                                                                        <textarea name="mobiletextarea_58" id="Busqueda_mobiletextarea_58" tabindex="5"
-                                                                        dsid="mobiletextarea_58" data-theme="a" class=' Busqueda_mobiletextarea_58 '>Text area
-</textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow extra">
-                            </span>
-                        </div>
-                    </li>
-                    <!-- mobilelistitem_41 -->
-                    <li class=' Busqueda_mobilelistitem_41 '>
-                        <a id="Busqueda_mobilelistitem_41" name="mobilelistitem_41" dsid="mobilelistitem_41"
-                        tabindex="4" class=' Busqueda_mobilelistitem_41 '>
-                        <h3>Item 2</h3>
-                        </a>
-                    </li>
-                    <!-- mobilelistitem_43 -->
-                    <li class=' Busqueda_mobilelistitem_43 '>
-                        <a id="Busqueda_mobilelistitem_43" name="mobilelistitem_43" dsid="mobilelistitem_43"
-                        tabindex="4" class=' Busqueda_mobilelistitem_43 '>
-                        <h3>Item 3</h3>
-                        </a>
-                    </li>
-                </ul>
+
+                
             </div>
             <!-- mobilefooter -->
             <div data-role="footer" data-position="fixed" class=" Busqueda_mobilefooter" name="mobilefooter"
             dsid="mobilefooter" id="Busqueda_mobilefooter" data-theme="a">
+                <label for="slider-busqueda">Radio Búsqueda (km)</label>
+                <input type="range" name="slider-busqueda" id="slider-busqueda" value="10" min="0" max="200" data-theme="b"/>
                 <!-- mobilenavbar_13 -->
                 <div data-role="navbar" id="Busqueda_mobilenavbar_13" name="mobilenavbar_13" dsid="mobilenavbar_13"
                 class=" Busqueda_mobilenavbar_13" data-theme="a" style="position: relative;">
@@ -198,22 +117,8 @@
                         <!-- mobilenavbaritem_14 -->
                         <li>
                             <a data-theme="a" data-icon="star" id="Busqueda_mobilenavbaritem_14" dsid="mobilenavbaritem_14"
-                            name="mobilenavbaritem_14">
-                            item
-                            </a>
-                        </li>
-                        <!-- mobilenavbaritem_15 -->
-                        <li>
-                            <a data-theme="a" data-icon="star" id="Busqueda_mobilenavbaritem_15" dsid="mobilenavbaritem_15"
-                            name="mobilenavbaritem_15">
-                            item
-                            </a>
-                        </li>
-                        <!-- mobilenavbaritem_16 -->
-                        <li>
-                            <a data-theme="a" data-icon="star" id="Busqueda_mobilenavbaritem_16" dsid="mobilenavbaritem_16"
-                            name="mobilenavbaritem_16">
-                            item
+                            name="mobilenavbaritem_14" onclick="actualizarMapa();">
+                            Aplicar Filtro
                             </a>
                         </li>
                     </ul>

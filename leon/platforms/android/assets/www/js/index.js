@@ -20,6 +20,7 @@ var SERVIDOR = "http://programandocotufas.xtrweb.com/proyectoleon/";
 var idUbicacion;
 var GPSlatitud;
 var GPSlongitud;
+localStorage.setItem('idUsuario', 1);
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -130,7 +131,9 @@ function recibirDatos() {
                     + '\', \''
                     + descripcion
                     + '\', \''
-                    + recibirUbicacion(jsondata[i].idu)
+                    + jsondata[i].poblacion
+                    + ' - '
+                    + jsondata[i].provincia
                     + '\');return false;"';
         		code = '<li id="li_'
         			+ jsondata[i].ide
@@ -207,23 +210,23 @@ function recibirDatosAmigos() {
 }
 
 function recibirUbicacion(idu) {
-	var ubicacion;
-	$.ajax({
-        async : false,
-        data : {
-            idu : idu
-        },
-        url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recibirUbicacion.php",
-        type : "post",
-        dataType : "json",
-        success : function(jsondata) {
-        	ubicacion = jsondata[0].poblacion + ' - ' + jsondata[0].provincia;
-        },
-        error : function() {
-            alert('Error. No se ha podido acceder a la información.');
-        }
-    });
-	return ubicacion;
+    var ubicacion;
+    $.ajax({
+	    async : false,
+	    data : {
+	        idu : idu
+	    },
+	    url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recibirUbicacion.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	            ubicacion = jsondata[0].poblacion + ' - ' + jsondata[0].provincia;
+	    },
+	    error : function() {
+	        alert('Error. No se ha podido acceder a la información.');
+	    }
+	});
+    return ubicacion;
 }
 
 function listarAmigos() {
@@ -242,53 +245,305 @@ function listarAmigos() {
         			+ jsondata[i].id
         			+ '"><a href="#"><img src="'
                     + SERVIDOR
-                    + 'images/amigos/default.png" width="100" height="100"/><h1>'
+                    + jsondata[i].imagen
+                    + '" width="100" height="100"/><h1>'
                     + jsondata[i].nombre
-                    + '</h1></a>'
+                    + ' '
+                    + jsondata[i].apellidos
+                    + '</h1><br><h3>'
+                    + jsondata[i].poblacion
+                    + '</h3></a>'
                     + '</li>';
         		$('#lista_amigos').append(code);
             }
         },
-        error : function() {
+        error: function(xhr, textStatus, error){
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
             alert('Error. No se ha podido acceder a la información.');
         }
     });
 }
 
+function eventoMapa(idu) {
+	return function () {
+		  $.ajax({
+		        async : false,
+		        data : {
+		            idu : idu
+		        },
+		        url : SERVIDOR + "php/eventosPorUbicacion.php",
+		        type : "post",
+		        dataType : "json",
+		        success : function(jsondata) {
+		        	var code;
+		        	var descripcion;
+		        	$('#busqueda-lista-eventos').empty();
+		        	for (i = 0; i < jsondata.length - 1; i++) {
+		        		descripcion = encodeURI(jsondata[i].descripcion);
+		        		code = '<li id="li_'
+		        			+ jsondata[i].ide
+		        			+ '"><a href="#"><img src="img/eventos/default.jpg" width="100" height="100"/><h1>'
+		                    + '<img src="'
+		                    + SERVIDOR
+		                    + 'images/tipos/tipo('
+		                    + jsondata[i].idt
+		                    + ').png'
+		                    + '"/> '
+		                    + jsondata[i].nombreEvento
+		                    + '</h1><br>'
+		                    + '<p>'
+		                    + decodeURI(descripcion)
+		                    +'</p>'
+		                    + '</a></li>';
+		        		$('#busqueda-lista-eventos').append(code);
+		        		$('#busqueda-lista-eventos').refresh();
+		            }
+		        },
+		        complete: function() {
+		            $('#busqueda-lista-eventos').listview('refresh');
+		        },
+		        error: function(error){
+		            console.log(error);
+		            alert('Error. No se ha podido acceder a la información.');
+		        }
+		    });
+	  };
+}
+
 function actualizarMapa() {
-    var fecha = new Date();
+	var fecha = new Date();
       $.ajax({
           async : false,
           data : {
-              idUsuario : localStorage.getItem('idUsuario'),
               fechaActual : ISODateString(fecha)
           },
           beforeSend: function() { $.mobile.loading('show'); },
           complete: function() { $.mobile.loading('hide'); },
-          url : "http://programandocotufas.xtrweb.com/proyectoleon/php/leonRecibirDatos.php",
+          url : SERVIDOR + "php/recibirUbicaciones.php",
           type : "post",
           dataType : "json",
           success : function(jsondata) {
-              var descripcion;
-              for (i = 0; i < jsondata.length - 1; i++) {
-                  code = '<li id="Busqueda_marker_'
-                      + i 
-                      + '" '
-                      + 'name="marker_' + i + '" '
-                      + 'dsid="marker_' + i + '" '
-                      + 'tiggzitype="marker" apperytype="marker" rendered="true" '
-                      + 'latitude="' + jsondata[i].latitud + '" '
-                      + 'longitude="' + jsondata[i].longitud + '" '
-                      + 'text="" address="" show_info="false" style="display:none;">'
-                      + '<div id="Busqueda_marker_' + i + '_infoWindow" name="marker_' + i + '_infoWindowContent" class="Busqueda_marker_' + i + '">'
-                      + '</div>'
-                      + '</li>';
-                  
-                  $('#Busqueda_googlemap_1_markers').append(code);
-              }
+        	  var newLat = localStorage.getItem("GPSlatitud");
+        	  var newLng = localStorage.getItem("GPSlongitud");
+        	  var myOptions = {
+        			  zoom : 10,
+        			  center: new google.maps.LatLng(newLat, newLng),
+        			  latitude: newLat,
+        	          longitude: newLng
+			  };
+			  var map = new google.maps.Map($('div[dsid="googlemap_1"]').get(0), myOptions);
+			  var snLatlng;
+        	  var marker;
+			  for (i = 0; i < jsondata.length - 1; i++) {
+				  newLat = jsondata[i].latitud;
+	        	  newLng = jsondata[i].longitud;
+	        	  if (distanciaValida(newLat, newLng)) {
+	        		  snLatlng = new google.maps.LatLng(newLat, newLng);
+		        	  marker = new google.maps.Marker({
+			        	  position: snLatlng,
+			        	  map: map
+		        	  });
+		        	  google.maps.event.addListener(marker, 'click', eventoMapa(jsondata[i].idu));
+	        	  }
+			  }
+			  // Posición Actual
+			  newLat = localStorage.getItem("GPSlatitud");
+        	  newLng = localStorage.getItem("GPSlongitud");
+        	  snLatlng = new google.maps.LatLng(newLat, newLng);
+        	  marker = new google.maps.Marker({
+	        	  position: snLatlng,
+	        	  map: map,
+	        	  icon: SERVIDOR + "images/markers/home.png"
+        	  });
+              Appery('googlemap_1').refresh();
           },
-          error : function() {
+          error: function(xhr, textStatus, error){
+              console.log(xhr.statusText);
+              console.log(textStatus);
+              console.log(error);
               alert('Error. No se ha podido acceder a la información.');
           }
       });
+}
+
+//Convertir grados en radianes.
+function toRad(value) {
+	return parseFloat(value * Math.PI / 180);
+}
+
+//Calcular distancia haversine entre dos puntos GPS.
+function distanciaValida(lat1, lon1) {
+	var lat2 = localStorage.getItem('GPSlatitud');
+    var lon2 = localStorage.getItem('GPSlongitud');
+    var DISTANCIA_MAXIMA = $("#slider-busqueda").val();
+	var R = 6371; // Radio Tierra km
+	var dLat = toRad(lat2 - lat1);
+	var dLon = toRad(lon2 - lon1);
+	var lat1 = toRad(lat1);
+	var lat2 = toRad(lat2);
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c;
+	var result = (d < DISTANCIA_MAXIMA) ? true : false;	
+    return result;
+}
+
+function recibirPerfil() {
+	$.ajax({
+	    async : false,
+	    data : {
+	    	idUsuario : localStorage.getItem('idUsuario')
+	    },
+	    url : SERVIDOR + "php/recibirPerfil.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	            $("#perfil_imagen").attr("src", SERVIDOR + jsondata[0].imagen);
+	            $('#txt_nombre').append(jsondata[0].nombre);
+	            $('#txt_apellidos').append(jsondata[0].apellidos);
+	            $('#txt_edad').append(jsondata[0].edad);
+	            $('#txt_poblacion').append(jsondata[0].poblacion);
+	    },
+	    error: function(e){
+            console.log(JSON.stringify(e, null, 2));
+            alert('Error. No se ha podido acceder a la información del perfil.');
+        }
+	});
+    
+    $.ajax({
+	    async : false,
+	    data : {
+	    	idUsuario : localStorage.getItem('idUsuario')
+	    },
+	    url : SERVIDOR + "php/recibirIntereses.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	    	$('#intereses').highcharts({
+	    		chart: {
+	                plotBackgroundColor: null,
+	                plotBorderWidth: null,
+	                plotShadow: false
+	            },
+	            title:{
+	                text:''
+	            },
+	            credits: {
+	            	enabled: false
+	            },
+	            exporting : {
+	            	enabled: false
+	            },
+	            plotOptions: {
+	                pie: {
+	                    allowPointSelect: true,
+	                    cursor: 'pointer',
+	                    dataLabels: {
+	                        enabled: true,
+	                        color: '#000000',
+	                        connectorColor: '#000000',
+	                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	                    }
+	                }
+	            },
+	            series: [{
+	                type: 'pie',
+	                data: [
+	                    [jsondata[0].nombre, parseFloat(jsondata[0].peso)],
+	                    [jsondata[1].nombre, parseFloat(jsondata[1].peso)],
+	                    [jsondata[2].nombre, parseFloat(jsondata[2].peso)],
+	                    [jsondata[3].nombre, parseFloat(jsondata[3].peso)],
+	                    [jsondata[4].nombre, parseFloat(jsondata[4].peso)],
+	                    [jsondata[5].nombre, parseFloat(jsondata[5].peso)],
+	                    [jsondata[6].nombre, parseFloat(jsondata[6].peso)],
+	                    [jsondata[7].nombre, parseFloat(jsondata[7].peso)],
+	                    [jsondata[8].nombre, parseFloat(jsondata[8].peso)],
+	                    [jsondata[9].nombre, parseFloat(jsondata[9].peso)]
+	                ]
+	            }]
+	        });   
+	    },
+	    error: function(e){
+            console.log(JSON.stringify(e, null, 2));
+            alert('Error. No se ha podido acceder a la información del perfil.');
+        }
+	});
+
+}
+
+function recibirDatosOrganizadores() {
+	var fecha = new Date();
+    var idO;
+    
+    $.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario'),
+            fechaActual : ISODateString(fecha)
+        },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
+        url : SERVIDOR + "php/organizadoresFrecuentados.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	idO = jsondata[0].idOrganizador;
+        },
+        error: function(error) {
+        	alert(error);
+        	console.log(error);
+        }
+    });
+
+	$.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario'),
+            fechaActual : ISODateString(fecha),
+            idOrganizador : idO
+        },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
+        url : SERVIDOR + "php/eventosPorOrganizador.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	var code;
+            var event;
+            var descripcion;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		descripcion = encodeURI(jsondata[i].descripcion);
+        		event = 'onclick="info(\''
+                    + jsondata[i].ide
+                    + '\', \''
+                    + descripcion
+                    + '\', \''
+                    + recibirUbicacion(jsondata[i].idu)
+                    + '\');return false;"';
+        		code = '<li id="li_'
+        			+ jsondata[i].ide
+        			+ '"><a href="#"><img src="'
+                    + SERVIDOR
+                    + 'images/default.jpg" width="100" height="100"/><h1>'
+                    + '<img src="'
+                    + SERVIDOR
+                    + 'images/tipos/tipo('
+                    + jsondata[i].idt
+                    + ').png'
+                    + '"/> '
+                    + jsondata[i].nombreEvento
+                    + '</h1></a><a href="#" '
+                    + event
+                    + '></a>' + '</li>';
+        		$('#lista_eventos_organizadores').append(code);
+            }
+        	$("#recomendacion_organizador").show();
+        },
+        error : function() {
+        	$("#recomendacion_organizador").hide(); 
+        }
+    });
 }

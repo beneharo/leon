@@ -11,6 +11,14 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
+    <access origin="*.google.com" />
+    <access origin="*.googleapis.com" />
+    <access origin="*.gstatic.com" />
+    <access origin="*.googleusercontent.com" />
+    <access origin="google.com" subdomains="true"/>
+    <access origin="googleapis.com" subdomains="true"/>
+    <access origin="gstatic.com" subdomains="true"/>
+    <access origin="googleusercontent.com" subdomains="true"/>
     <access origin="*" />
     <preference name="useBrowserHistory" value="true" />
     <preference name="exit-on-suspend" value="false" />

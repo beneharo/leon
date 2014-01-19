@@ -39,6 +39,12 @@ Appery.AppPages = [{
     "name": "Calendario",
     "location": "Calendario.html"
 }, {
+    "name": "Configuracion",
+    "location": "Configuracion.html"
+}, {
+    "name": "Perfil",
+    "location": "Perfil.html"
+}, {
     "name": "Amigos",
     "location": "Amigos.html"
 }, {

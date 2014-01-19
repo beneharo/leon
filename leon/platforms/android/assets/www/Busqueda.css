@@ -10,7 +10,7 @@
 }
 /* googlemap_1 */
 .Busqueda_googlemap_1 {
-	width: 320px; height: 200px;
+	width: 320px; height: 320px;
 	margin: 4px 0px 4px 0px;
 }
 /* marker_2 */
@@ -23,23 +23,7 @@
 .ui-content .Busqueda_mobilelist_38 {
 	margin: 4px 0px 0px 0px;
 }
-/* mobilelistitem_39 */
-.ui-mobile-viewport ul[data-role="listview"] li.Busqueda_mobilelistitem_39 {
-	padding: 0px 0px 4px 0px;
-	padding-right: 30px; /* consider extra icon */
-}
-.ui-mobile-viewport ul[data-role="listview"] li.Busqueda_mobilelistitem_39 span.ui-icon.extra {
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	margin-top: -9px;
-}
-.ui-mobile-viewport ul[data-role="listview"] li.Busqueda_mobilelistitem_39[data-icon="false"] span.ui-icon.extra {
-	display: none;
-}
-.ui-mobile-viewport ul[data-role="listview"] li.Busqueda_mobilelistitem_39[data-icon="false"] {
-	padding-right: 0px; /* consider nothing */
-}
+
 /* mobilelistitembutton_40 */
 .Busqueda_mobilelistitembutton_40 {
 
@@ -151,13 +135,4 @@
 }
 .Busqueda_mobilenavbar_13 .ui-grid-a .ui-block-a {
 	clear:none;
-}
-.ui-footer .Busqueda_mobilenavbar_13 ul li:last-child a {
-	margin-right: 1px !important;
-}
-.ui-header .Busqueda_mobilenavbar_13 ul li:last-child a {
-	margin-right: -1px !important;
-}
-.Busqueda_mobilenavbar_13 ul.ui-grid-duo li:nth-child(even) a {
-	margin-right: 1px !important;
 }

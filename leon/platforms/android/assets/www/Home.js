@@ -39,6 +39,12 @@ Appery.AppPages = [{
     "name": "Calendario",
     "location": "Calendario.html"
 }, {
+    "name": "Configuracion",
+    "location": "Configuracion.html"
+}, {
+    "name": "Perfil",
+    "location": "Perfil.html"
+}, {
     "name": "Amigos",
     "location": "Amigos.html"
 }, {
@@ -193,6 +199,28 @@ Home_js = function(runBeforeShow) { /* Object & array with components "name-to-i
             click: function() {
                 if (!$(this).attr('disabled')) {
                     Appery.navigateTo('Amigos', {
+                        reverse: false
+                    });
+
+                }
+            },
+        });
+        
+        $('#Home_mobilecontainer [name="mobileimage_17"]').die().live({
+            click: function() {
+                if (!$(this).attr('disabled')) {
+                    Appery.navigateTo('Configuracion', {
+                        reverse: false
+                    });
+
+                }
+            },
+        });
+        
+        $('#Home_mobilecontainer [name="mobileimage_13"]').die().live({
+            click: function() {
+                if (!$(this).attr('disabled')) {
+                    Appery.navigateTo('Perfil', {
                         reverse: false
                     });
 

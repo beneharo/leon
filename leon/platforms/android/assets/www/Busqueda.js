@@ -39,6 +39,12 @@ Appery.AppPages = [{
     "name": "Calendario",
     "location": "Calendario.html"
 }, {
+    "name": "Configuracion",
+    "location": "Configuracion.html"
+}, {
+    "name": "Perfil",
+    "location": "Perfil.html"
+}, {
     "name": "Amigos",
     "location": "Amigos.html"
 }, {
@@ -150,11 +156,11 @@ Busqueda_js = function(runBeforeShow) { /* Object & array with components "name-
         $("[name = 'googlemap_1']").parent().css("margin-right", $("[name = 'googlemap_1']").css("margin-right"));
         $("[name = 'googlemap_1']").css("margin-left", '0');
         $("[name = 'googlemap_1']").css("margin-right", '0');
-
+        
         var googlemap_1_options = {
             markerSourceName: "googlemap_1_markers",
-            latitude: localStorage.getItem('GPSlatitud'),
-            longitude: localStorage.getItem('GPSlongitud'),
+            latitude: parseFloat(localStorage.getItem('GPSlatitud')),
+            longitude: parseFloat(localStorage.getItem('GPSlongitud')),
             zoom: 10,
             showLocationMarker: true
         }
@@ -165,21 +171,21 @@ Busqueda_js = function(runBeforeShow) { /* Object & array with components "name-
             pageshow: function() {
                 if (Appery('googlemap_1') != undefined) {
                     Appery('googlemap_1').refresh();
-                }
+               }
             }
         });
 
         /* mobilelist_38 */
 
-        listView = $("#Busqueda_mobilelist_38");
-        theme = listView.attr("data-theme");
-        if (typeof theme !== 'undefined') {
-            var themeClass = "ui-btn-up-" + theme;
-            listItem = $("#Busqueda_mobilelist_38 .ui-li-static");
-            $.each(listItem, function(index, value) {
-                $(this).addClass(themeClass);
-            });
-        }
+//        listView = $("#Busqueda_mobilelist_38");
+//        theme = listView.attr("data-theme");
+//        if (typeof theme !== 'undefined') {
+//            var themeClass = "ui-btn-up-" + theme;
+//            listItem = $("#Busqueda_mobilelist_38 .ui-li-static");
+//            $.each(listItem, function(index, value) {
+//                $(this).addClass(themeClass);
+//            });
+//        }
 
         /* mobilelistitem_39 */
 
