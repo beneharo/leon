@@ -1,0 +1,2548 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+public class Pantallas extends javax.swing.JPanel implements ActionListener {
+	//Botones para seleccionar el idioma de los diferentes paises segnnn las banderas que se pulsen 
+	JButton espannol = new JButton ();
+	JButton ingles = new JButton ();
+	JButton aleman = new JButton();
+	JButton frances = new JButton();
+	// Botones de opciones de la segunda pantalla
+	JButton preferencias = new JButton ();
+	JButton precio = new JButton();
+	JButton tiempo = new JButton ();
+	JButton vehiculo = new JButton ();
+	JButton acompannantes = new JButton ();
+	JButton alojamiento = new JButton ();
+	JButton visitasTenerife = new JButton ();
+	// variables para cambiar el texto y el tooltipText de los botones de opciones
+	String textoPreferencias;
+	String textoPrecio;
+	String textoTiempo;
+	String textoVehiculo;
+	String textoAcompannantes;
+	String textoAlojamiento;
+	String textoVisitasTenerife;
+	// Array que carga en los diferentes idiomas las diferentes opciones de los perfiles
+	String[] perfiles = {"Seleccionar Perfil","Perfil Normal","Perfil Ciegos", "Select Profile", "Normal Profile", "Blind Profile", "Wnnhlen Sie Profil", "Profil normal", "blinde Profil", "snnlectionnez le profil", "profil normal", "profil aveugle"};
+	// etiquetas de texto que se muestran encima del seleccionador de perfil (titulo de la apliciacinnn) y encima de las banderas (Idiomas)
+	JLabel idiomas, titulo, tituloPrincipal;
+	MenuPrincipal menu = new MenuPrincipal();
+	int idioma = 0; // variable que me permite saber que idioma es el seleccionado (Espannol, Inglnns, Alemnnn o Francnns)
+	Clip sound;
+	String musica = "on"; // Cadena para saber si se esta reproducciendo la musica o se ha desactivado
+	JButton sonido = new JButton (); // Boton con la imagen del sonido (Habilitado o deshabilitado)
+	JButton atras = new JButton (); // Boton con la imagen de la flecha para volver a atras
+	ImageIcon flechaatras = new ImageIcon(getClass().getResource("/imagenes/flechaatras.png"));
+	// Diferentes imagenes para el botnnnde sonido (activada o desactivada)
+	ImageIcon botonon = new ImageIcon(getClass().getResource("/imagenes/botonon.jpg"));
+	ImageIcon botonof = new ImageIcon(getClass().getResource("/imagenes/botonof.jpg"));
+	// recoge el tamanno y el ancho anterior para saber si tengo que reducir o ampliar la letra segun amplio la pantalla
+	int anchuraanterior;
+	int alturaanterior;
+	// tamanno y ancho de la letra del titulo de la aplicacion
+	int tamannoinicialX = 10;
+	int tamannoinicialY = 14;
+	// para habilitar o deshabilitar las cosas de las diferentes pantallas (me indica la pantalla en la que estoy)
+	int numeroPantalla = 1;
+	// para agrupar los botones de opciones de las diferentes pantallas
+	private ButtonGroup grupoBotones;
+	//botones para las actividades de las preferencias
+	JRadioButton botonActividades1,botonActividades2,botonActividades3,botonActividades4,botonActividades5,botonActividades6,botonActividades7,botonActividades8;
+	//botones para las actividades deportivas (dentro de las preferencias)
+	JRadioButton botonDeportes1,botonDeportes2,botonDeportes3,botonDeportes4,botonDeportes5,botonDeportes6;
+	//botones para las opciones de mnnsica cine o teatro (dentro de las preferencias)
+	JRadioButton music, cine, teatro;
+	//botones para la opcion de deportes mayoritarios (dentro de actividades deportivas)
+	JRadioButton verDeportesMayoritarios1, jugarDeportesMayoritarios1,verDeportesMayoritarios2, jugarDeportesMayoritarios2,verDeportesMayoritarios3, jugarDeportesMayoritarios3,verDeportesMayoritarios4, jugarDeportesMayoritarios4,verDeportesMayoritarios5, jugarDeportesMayoritarios5,verDeportesMayoritarios6, jugarDeportesMayoritarios6;
+	// botones para la opcion de naturaleza (dentro de actividades deportivas)
+	JRadioButton realizarNaturaleza1, realizarNaturaleza2, realizarNaturaleza3, realizarNaturaleza4, realizarNaturaleza5;
+	// botones para la opcion de acnnaticos (dentro de actividades deportivas)
+	JRadioButton realizarDeporteAcuatico1, realizarDeporteAcuatico2, realizarDeporteAcuatico3, realizarDeporteAcuatico4;
+	//botones para la opcion animales (dentro de actividades deportivas)
+	JRadioButton animales1, animales2, animales3;
+	//botones para las opciones de caza y pesca (dentro de las actividades deportivas)
+	JRadioButton caza, pesca;
+	
+	//imagenes segunda pantalla
+	ImageIcon imagenpreferencias; 
+	ImageIcon imagenprecio; 
+	ImageIcon imagentiempo; 
+	ImageIcon imagenvehiculo;  
+	ImageIcon imagenacompannantes; 
+	ImageIcon imagenAlojamiento; 
+	ImageIcon imagenVisitasTenerife;
+	
+	//images para las categorias de musica, cine y teatro
+	ImageIcon imagenmusica = new ImageIcon(getClass().getResource("/imagenes/musica.jpg"));
+	ImageIcon imagencine = new ImageIcon(getClass().getResource("/imagenes/cine.jpg"));
+	ImageIcon imagenteatro = new ImageIcon(getClass().getResource("/imagenes/teatro.png"));
+	//Boton que lanza el algoritmo para proponer planes de c++
+	JButton proponerPlanes;
+	
+	//varibales para el cine y la cartelera
+	ArrayList <Cine> Cines = new ArrayList<Cine>();
+	ArrayList <Cartelera> pelicula = new ArrayList<Cartelera>();
+	ArrayList<ImageIcon> foto = new ArrayList<ImageIcon>();
+	ArrayList <EtiquetasCine> etiquetas = new ArrayList<EtiquetasCine>();
+	JRadioButton Alcampo, Meridiano, LaOrotava, ZentralCenter, Renoir, GranSur,PuntaLarga;
+	JButton primera,segunda,tercera,cuarta;
+	ArrayList <JRadioButton> botonesPeliculas = new ArrayList<JRadioButton>();
+	ArrayList <EtiquetasPeliculas> etiquetaspeliculas = new ArrayList<EtiquetasPeliculas>();
+	int pantalla = 1;
+	int pantallaPelicula = 1;
+	
+	public Pantallas (int anchura, int altura, Dimension dimensionesMaximas) throws LineUnavailableException, IOException, UnsupportedAudioFileException{
+		anchuraanterior = anchura;
+		alturaanterior = altura;
+		CrearBotonesIdiomas();
+		crearJlabel();
+		CrearBotonMusica();
+		menu.getPerfil().addActionListener(this);
+		this.add(menu.getPerfil());
+		sonido(musica);
+		crearBotonAtras();
+		crearEtiquetasTitulo();
+		crearSegundaPantalla(idioma);
+		ocultarPantallaSegunda();
+		crearTerceraPantalla(idioma);
+		ocultarTerceraPantalla();
+		crearCuartaPantalla(idioma);
+		ocultarCuartaPantalla();
+		crearQuintaSextaPantalla(idioma,5);
+		ocultarQuintaSextaPantalla(5);
+		crearSeptimaPantalla(idioma);
+		ocultarSeptimaPantalla();
+		crearOctavaPantalla(idioma);
+		ocultarOctavaPantalla();
+		crearNovenaPantalla(idioma);
+		ocultarNovenaPantalla();
+		crearDecimaPantalla(idioma);
+		ocultarDecimaPantalla();
+		crearOncePantalla(idioma);
+		ocultarOncePantalla();
+		crearDocePantalla(idioma);
+		ocultarDocePantalla();
+		crearTrecePantalla(idioma);
+		ocultarTrecePantalla();
+	}
+	
+	// funcinnn para activar o desactivar la mnnsica en la aplicacinnn
+	
+	public void sonido (String musica) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+		if (musica.compareTo("on") == 0) {
+			sound = AudioSystem.getClip();
+			sound.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/sonidos/musica.wav")));
+			sound.start();
+			sound.loop(Clip.LOOP_CONTINUOUSLY);
+		} else {
+			sound.stop();
+		}
+	}
+	
+	//funcion para crear la etiqueta de tnntulo en la aplicacinnn con las caracternnsticas predeterminadas
+	
+	public void crearEtiquetasTitulo() {
+		tituloPrincipal = new JLabel("Planning Tenerife Route");
+		titulo = new JLabel("Planning Tenerife Route");
+		Color coloramarillo = new Color(255,255,0);
+		tituloPrincipal.setForeground(coloramarillo);
+		tituloPrincipal.setFont(new java.awt.Font("Tahoma", tamannoinicialX, tamannoinicialY));
+		titulo.setForeground(coloramarillo);
+		titulo.setFont(new java.awt.Font("Tahoma", tamannoinicialX, tamannoinicialY));
+	}
+	
+	//funcion para crear la etiqueta de idiomas en la aplicacinnn con las caracternnsticas predeterminadas
+	
+	public void crearJlabel () {
+		idiomas = new JLabel("Idiomas");
+		Color colorverde = new Color(0,255,0);
+		idiomas.setForeground(colorverde); 
+	}
+	
+	//funcion para crear el boton de vuelta a la vista anterior
+	
+	public void crearBotonAtras () {
+		atras.setOpaque(true);
+		atras.setBorder(null);
+		Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+		atras.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		atras.setIcon(flechaatras);
+		atras.addActionListener(this);
+	}
+	
+	//funcion para volver a la vista anterior
+	
+	public void irPantallaAnterior (int numPantalla) {
+		
+		switch (numPantalla) {
+			case 3: {
+				numeroPantalla = 2;
+				ocultarTerceraPantalla();
+				visualizarPantallaSegunda();
+				atras.setVisible(false);
+				break;
+			}
+			case 4: {
+				numeroPantalla = 3;
+				ocultarCuartaPantalla();
+				visualizarTerceraPantalla();
+				break;
+			}
+			case 5: {
+				numeroPantalla = 4;
+				ocultarQuintaSextaPantalla(numPantalla);
+				visualizarCuartaPantalla();
+				break;
+			}
+			case 6: {
+				numeroPantalla = 4;
+				ocultarQuintaSextaPantalla(numPantalla);
+				visualizarCuartaPantalla();
+				break;
+			}
+			
+			case 7: {
+				numeroPantalla = 4;
+				ocultarSeptimaPantalla();
+				visualizarCuartaPantalla();
+				break;
+			}
+			case 8: {
+				numeroPantalla = 4;
+				ocultarOctavaPantalla();
+				visualizarCuartaPantalla();
+				break;
+			}
+			case 9: {
+				numeroPantalla = 4;
+				ocultarNovenaPantalla();
+				visualizarCuartaPantalla();
+				break;
+			}
+			case 10: {
+				numeroPantalla = 4;
+				ocultarDecimaPantalla();
+				visualizarCuartaPantalla();
+				break;
+			}
+			case 11: {
+				numeroPantalla = 3;
+				ocultarOncePantalla();
+				visualizarTerceraPantalla();
+				break;
+			}
+			case 12: {
+				numeroPantalla = 11;
+				ocultarDocePantalla();
+				visualizarOncePantalla();
+				break;
+			}
+			case 13 : {
+				numeroPantalla = 12;
+				ocultarTrecePantalla();
+				visualizarDocePantalla();
+				comprobarVisibilidadBotonesCine(pantalla);
+				break;
+			}
+		}
+	}
+	
+	//funcion para crear los botones de la mnnsica en la aplicacinnn con sus caracternnsticas predeterminadas
+	
+	public void CrearBotonMusica () {
+		sonido.setOpaque(true);
+		sonido.setBorder(null);
+		Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+		sonido.setToolTipText("Musica Activada");
+		sonido.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		sonido.setIcon(botonon);
+		sonido.addActionListener(this);
+	}
+	
+	//funcion para crear los botones de idiomas en la aplicacinnn con sus caracternnsticas predeterminadas
+	
+	public void CrearBotonesIdiomas() {
+		ImageIcon imagenespanna = new ImageIcon(getClass().getResource("imagenes\banderaespanna.jpg"));
+		ImageIcon imageninglesa = new ImageIcon(getClass().getResource("imagenes\banderainglesa.jpg"));
+		ImageIcon imagenalemana = new ImageIcon(getClass().getResource("imagenes\banderaalemana.jpg"));
+		ImageIcon imagenfrancesa = new ImageIcon(getClass().getResource("imagenes\banderafrancesa.jpg"));
+		espannol.setOpaque(true);
+		ingles.setOpaque(true);
+		aleman.setOpaque(true);
+		frances.setOpaque(true);
+	    espannol.setBorder(null);
+		ingles.setBorder(null); 
+		aleman.setBorder(null);
+		frances.setBorder(null);
+	    Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+	    espannol.setToolTipText("Espannol");
+	    ingles.setToolTipText("Inglnns");
+	    aleman.setToolTipText("Alemnnn");
+	    frances.setToolTipText("Francnns");
+		espannol.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		ingles.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue())); 
+		aleman.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		frances.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		espannol.setIcon(imagenespanna);
+		ingles.setIcon(imageninglesa);
+		aleman.setIcon(imagenalemana);
+		frances.setIcon(imagenfrancesa);
+		espannol.addActionListener(this);
+		ingles.addActionListener(this);
+		aleman.addActionListener(this);
+		frances.addActionListener(this);
+	}
+	
+	// funcinnn que cambia el botnnn de sonido y el tooltiptext segnnn lo que desee el usuario (quitar la mnnsica o poner la mnnsica)
+	
+	public void cambiarAparienciaBotonSonido() {
+		if (musica.compareTo("on") == 0 && idioma == 0) {
+			sonido.setToolTipText("Musica Activada");
+			sonido.setIcon(botonon);
+		} else if (musica.compareTo("on") == 0 && idioma == 1) {
+			sonido.setToolTipText("Music On");
+			sonido.setIcon(botonon);
+		} else if (musica.compareTo("on") == 0 && idioma == 2) {
+			sonido.setToolTipText("Musik aktivierte");
+			sonido.setIcon(botonon);
+		} else if (musica.compareTo("on") == 0 && idioma == 3) {
+			sonido.setToolTipText("musique activnne");
+			sonido.setIcon(botonon);
+		} else if (musica.compareTo("of") == 0 && idioma == 0) {
+			sonido.setToolTipText("Musica Desac*tivada");
+			sonido.setIcon(botonof);
+		} else if (musica.compareTo("of") == 0 && idioma == 1){
+			sonido.setToolTipText("Music Of");
+			sonido.setIcon(botonof);
+		} else if ((musica.compareTo("of") == 0 && idioma == 2)) {
+			sonido.setToolTipText("Musik aus");
+			sonido.setIcon(botonof);
+		} else if ((musica.compareTo("of") == 0 && idioma == 3)) {
+			sonido.setToolTipText("musique off");
+			sonido.setIcon(botonof);
+		}
+	}
+	
+	public void cambiarBotonSonido() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+		sonido(musica);
+	}
+	
+	// funcinnn que cambia el idioma del JcomboBox de seleccion de perfil segnnn el idioma que haya seleccionado el usuario
+	
+	public void cambiarIdiomaPerfil () {
+		menu.setPerfil(idioma,perfiles);
+		this.add(menu.getPerfil());
+	}
+	
+	// funcinnn que cambia el tooltiptext de los botones segnnn el idioma que haya seleccionado el usuario
+	
+	public void cambiarToolTipText () {
+		 if (idioma == 0) {
+		       espannol.setToolTipText("Espannol");
+		       ingles.setToolTipText("Inglnns");
+		       aleman.setToolTipText("Alemnnn");
+		       frances.setToolTipText("Francnns");
+		    }
+		    else if (idioma == 1){
+		    	espannol.setToolTipText("Spanish");
+			    ingles.setToolTipText("English");
+			    aleman.setToolTipText("Deutsch");
+			    frances.setToolTipText("French");
+		    } else if (idioma == 2) {
+		    	espannol.setToolTipText("Spanisch");
+			    ingles.setToolTipText("Englisch");
+			    aleman.setToolTipText("Deutsch");
+			    frances.setToolTipText("Franznnsisch");
+		    } else if (idioma == 3) {
+		    	espannol.setToolTipText("Espagnol");
+			    ingles.setToolTipText("Anglais");
+			    aleman.setToolTipText("Allemand");
+			    frances.setToolTipText("Frannnais");
+		    }
+	}
+	
+	// funcinnn que cambia la etiqueta de Idioma segnnn el idioma seleccionado por el usuario
+	
+	public void cambiarValorJLabel () {
+		if (idioma == 0)
+	       idiomas.setText("Idiomas");
+		else if (idioma == 1)
+		   idiomas.setText("Languages");
+		else if (idioma == 2)
+			idiomas.setText("Sprache");
+		else if (idioma == 3)
+			idiomas.setText("Langues");
+	}
+	
+	// funcinnn que modifica el tamanno y el ancho de la letra de la etiqueta titulo de la aplicacinnn
+	
+	public void cambiarTamannoTexto (int anchura, int altura) {
+		if (anchuraanterior < anchura && tamannoinicialX < 24) { 
+				tamannoinicialX  = tamannoinicialX + 1; 
+				tamannoinicialY = tamannoinicialY + 1;
+				anchuraanterior = anchura;
+		} else if (alturaanterior < altura && tamannoinicialX < 24) {
+				tamannoinicialX  = tamannoinicialX + 1; 
+				tamannoinicialY = tamannoinicialY + 1;
+				alturaanterior = altura;
+		} else if (anchuraanterior > anchura && tamannoinicialX > 12) { 
+				tamannoinicialX  = tamannoinicialX - 1; 
+				tamannoinicialY = tamannoinicialY - 1;
+				anchuraanterior = anchura;
+		} else if (alturaanterior > altura && tamannoinicialX > 12) {
+				tamannoinicialX  = tamannoinicialX - 1; 
+				tamannoinicialY = tamannoinicialY - 1;
+				alturaanterior = altura;
+		}
+	}
+	
+	// funcion que crea los botones de las diferentes opciones de la segunda pantalla
+	
+	public void crearSegundaPantalla(int idioma) {
+		proponerPlanes = new JButton("PROPONER UN PLAN");
+		Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+		//imagenpreferencias = new ImageIcon(getClass().getResource("/imagenes/preferencias.jpg")); 
+		imagenprecio = new ImageIcon(getClass().getResource("\\imagenes\\euros.jpg")); 
+		imagentiempo = new ImageIcon(getClass().getResource("\\imagenes\\tiempo.jpg")); 
+		imagenvehiculo = new ImageIcon(getClass().getResource("\\imagenes\\vehiculo.png"));  
+		imagenacompannantes = new ImageIcon(getClass().getResource("\\imagenes\\acompannantes.jpg")); 
+		imagenAlojamiento = new ImageIcon(getClass().getResource("\\imagenes\\casa.jpg")); 
+		imagenVisitasTenerife = new ImageIcon(getClass().getResource("\\imagenes\\visitasTenerife.png"));  
+		preferencias.setText("Preferencias");
+		preferencias.setHorizontalTextPosition(SwingConstants.CENTER);
+		preferencias.setVerticalTextPosition(SwingConstants.CENTER);
+		preferencias.addActionListener(this); 
+		precio.setText("Precio");
+		precio.setHorizontalTextPosition(SwingConstants.CENTER);
+		precio.setVerticalTextPosition(SwingConstants.CENTER); 
+		precio.addActionListener(this); 
+		tiempo.setText("Tiempo");
+		tiempo.setHorizontalTextPosition(SwingConstants.CENTER);
+		tiempo.setVerticalTextPosition(SwingConstants.CENTER); 
+		tiempo.addActionListener(this);
+		vehiculo.setText("Vehiculo");
+		vehiculo.setHorizontalTextPosition(SwingConstants.CENTER);
+		vehiculo.setVerticalTextPosition(SwingConstants.CENTER); 
+		vehiculo.addActionListener(this);
+		acompannantes.setText("Acompannantes");
+		acompannantes.setHorizontalTextPosition(SwingConstants.CENTER);
+		acompannantes.setVerticalTextPosition(SwingConstants.CENTER); 
+		acompannantes.addActionListener(this);
+		alojamiento.setText("Alojamiento");
+		alojamiento.setHorizontalTextPosition(SwingConstants.CENTER);
+		alojamiento.setVerticalTextPosition(SwingConstants.CENTER); 
+		alojamiento.addActionListener(this);
+		visitasTenerife.setText("Visitas Tenerife");
+		visitasTenerife.setHorizontalTextPosition(SwingConstants.CENTER);
+		visitasTenerife.setVerticalTextPosition(SwingConstants.CENTER); 
+		visitasTenerife.addActionListener(this);
+		establecerIdiomaTexto(idioma);
+		editarBotonProponerPlanes (idioma);
+	}
+	
+	// para establecer el idioma del texto del boton proponer planes
+		public void editarBotonProponerPlanes (int idioma) {
+			if (idioma == 0) 
+				proponerPlanes.setText("PROPONER PLANES");
+			else if (idioma == 1) 
+				proponerPlanes.setText("PROPOSE PLAN");
+			else if (idioma == 2)
+				proponerPlanes.setText("SCHLAGEN PLAN");
+			else 
+				proponerPlanes.setText("PROPOSER UN PLAN");
+		}
+	
+	// funcion que cambia el texto del boton y el setToolTipText segnnn el idioma seleccionado
+	
+	public void establecerIdiomaTexto (int idioma) {
+		if (idioma == 0) {
+			textoPreferencias = "Preferencias";
+			textoPrecio = "Precio";
+			textoTiempo = "Tiempo";
+			textoVehiculo = "Vehnnculo";
+			textoAcompannantes = "Acompannantes";
+			textoAlojamiento = "Alojamiento";
+			textoVisitasTenerife = "Visitas Tenerife";
+		} else if (idioma == 1) {
+			textoPreferencias = "Preferences";
+			textoPrecio = "Price";
+			textoTiempo = "Time";
+			textoVehiculo = "Vehicle";
+			textoAcompannantes = "Companions";
+			textoAlojamiento = "Accommodation";
+			textoVisitasTenerife = "Visits Tenerife";
+		} else if (idioma == 2) {
+			textoPreferencias = "Einstellungen";
+			textoPrecio = "Preis";
+			textoTiempo = "Zeit";
+			textoVehiculo = "Fahrzeug";
+			textoAcompannantes = "Begleiters";
+			textoAlojamiento = "Unterkunft";
+			textoVisitasTenerife = "Besuche Teneriffa";
+		} else if (idioma == 3) {
+			textoPreferencias = "Prnnfnnrences";
+			textoPrecio = "Prix";
+			textoTiempo = "Heure";
+			textoVehiculo = "Vnnhicule";
+			textoAcompannantes = "Compagnons";
+			textoAlojamiento = "Hnnbergement";
+			textoVisitasTenerife = "Visites Tenerife";
+		}
+		preferencias.setToolTipText(textoPreferencias);
+		preferencias.setText(textoPreferencias);
+		precio.setToolTipText(textoPrecio);
+		precio.setText(textoPrecio);
+		tiempo.setToolTipText(textoTiempo);
+		tiempo.setText(textoTiempo);
+		vehiculo.setToolTipText(textoVehiculo);
+		vehiculo.setText(textoVehiculo);
+		acompannantes.setToolTipText(textoAcompannantes);
+		acompannantes.setText(textoAcompannantes);
+		alojamiento.setToolTipText(textoAlojamiento);
+		alojamiento.setText(textoAlojamiento);
+		visitasTenerife.setToolTipText(textoVisitasTenerife);
+		visitasTenerife.setText(textoVisitasTenerife);
+	}
+	
+	
+	// funcion que oculta los elementos visuales que no se repiten en la segunda pantalla
+	public void ocultarPantallaSegunda () {
+		preferencias.setVisible(false); 
+		precio.setVisible(false); 
+		tiempo.setVisible(false);
+		vehiculo.setVisible(false);
+		acompannantes.setVisible(false);
+		alojamiento.setVisible(false);
+		visitasTenerife.setVisible(false);
+		proponerPlanes.setVisible(false);
+	}
+	
+	// funcion que activa la visualizacion de los elementos de la segunda pantalla que no se repiten en las demas
+	public void visualizarPantallaSegunda() {
+		numeroPantalla = 2;
+		preferencias.setVisible(true); 
+		precio.setVisible(true); 
+		tiempo.setVisible(true);
+		vehiculo.setVisible(true);
+		acompannantes.setVisible(true);
+		alojamiento.setVisible(true);
+		visitasTenerife.setVisible(true);
+		proponerPlanes.setVisible(true);
+	}
+	
+	//funcion que crea la tercera pantalla (pantalla de opciones de preferencias)
+	public void crearTerceraPantalla(int idioma) {
+	    crearEtiquetaPreferencias(idioma);
+		grupoBotones=new ButtonGroup();
+	    botonActividades1=new JRadioButton();
+	    grupoBotones.add(botonActividades1);
+	    botonActividades2=new JRadioButton();       
+	    grupoBotones.add(botonActividades2);
+	    botonActividades3=new JRadioButton();
+	    grupoBotones.add(botonActividades3);
+	    botonActividades4=new JRadioButton();
+	    grupoBotones.add(botonActividades4);
+	    botonActividades5=new JRadioButton();
+	    grupoBotones.add(botonActividades5);
+	    botonActividades6=new JRadioButton();
+	    grupoBotones.add(botonActividades6);
+	    botonActividades7=new JRadioButton();
+	    grupoBotones.add(botonActividades7);
+	    botonActividades8=new JRadioButton();
+	    grupoBotones.add(botonActividades8);
+	    establecerIdiomaTerceraPantalla(idioma);
+	    botonActividades1.addActionListener(this);
+	    botonActividades2.addActionListener(this);
+	    botonActividades3.addActionListener(this);
+	    botonActividades4.addActionListener(this);
+	    botonActividades5.addActionListener(this);
+	    botonActividades6.addActionListener(this);
+	    botonActividades7.addActionListener(this);
+	    botonActividades8.addActionListener(this);
+	}
+	
+	// funcion para hacer ocultar los elementos de la tercera pantalla
+	public void ocultarTerceraPantalla() {
+		botonActividades1.setVisible(false);
+	    botonActividades2.setVisible(false);
+	    botonActividades3.setVisible(false);
+	    botonActividades4.setVisible(false);
+	    botonActividades5.setVisible(false);
+	    botonActividades6.setVisible(false);
+	    botonActividades7.setVisible(false);
+	    botonActividades8.setVisible(false);
+	    titulo.setVisible(false);
+	}
+	
+	// funcion para hacer visibles los elementos de la tercera pantalla
+	public void visualizarTerceraPantalla() {
+		numeroPantalla = 3;
+		botonActividades1.setVisible(true);
+	    botonActividades2.setVisible(true);
+	    botonActividades3.setVisible(true);
+	    botonActividades4.setVisible(true);
+	    botonActividades5.setVisible(true);
+	    botonActividades6.setVisible(true);
+	    botonActividades7.setVisible(true);
+	    botonActividades8.setVisible(true);
+	    titulo.setVisible(true);
+	}
+	
+	//funcion que pone el idioma a los elementos de la tercera pantalla
+		public void establecerIdiomaTerceraPantalla (int idioma) {
+			if (idioma == 0) {
+				botonActividades1.setText("ACTIVIDADES DEPORTIVAS");
+				botonActividades2.setText("VER ESPECTnnCULOS (MnnSICA, CINE Y TEATRO)");
+				botonActividades3.setText("VER ARTE (MUSEOS)");
+				botonActividades4.setText("IR A PARQUES DE OCIO");
+				botonActividades5.setText("ACTIVIDADES DE RELAJACInnN");
+				botonActividades6.setText("IR DE OCIO NOCTURNO");
+				botonActividades7.setText("IR DE COMPRAS");
+				botonActividades8.setText("REALIZAR EXCURSIONES");
+			}
+			else if (idioma == 1) {
+				botonActividades1.setText("SPORTS");
+				botonActividades2.setText("SEE SHOWS (MUSIC, CINEMA AND THEATRE)");
+				botonActividades3.setText("SEE ART (MUSEUM)");
+				botonActividades4.setText("LEISURE PARKS GO");
+				botonActividades5.setText("RELAXATION ACTIVITIES");
+				botonActividades6.setText("NIGHTLIFE GO");
+				botonActividades7.setText("SHOPPING");
+				botonActividades8.setText("MAKE TOURS");
+			} else if (idioma == 2) {
+				botonActividades1.setText("SPORT");
+				botonActividades2.setText("SIEHE UNTERHALTUNG (MUSIK, KINO UND THEATER)");
+				botonActividades3.setText("SIEHE ART (MUSEEN)");
+				botonActividades4.setText("GEHEN FREIZEITPARKS");
+				botonActividades5.setText("ERHOLUNGSMnnGLICHKEITEN");
+				botonActividades6.setText("SIEHE NACHTLEBEN");
+				botonActividades7.setText("SIEHE EINKAUFSMnnGLICHKEITEN");
+				botonActividades8.setText("MACHEN TOURS");
+				
+			} else if (idioma == 3) {
+				botonActividades1.setText("SPORTS");
+				botonActividades2.setText("VOIR DES SPECTACLES(MUSIQUE, CINnnMA ET THEATRE)");
+				botonActividades3.setText("VOIR ART (MUSnnES)");
+				botonActividades4.setText("PARCS DE LOISIRS ALLER");
+				botonActividades5.setText("LES ACTIVITnnS DE DETnnNTE");
+				botonActividades6.setText("SORTIES NOCTURNES ALLER");
+				botonActividades7.setText("ALLER DU SHOPPING");
+				botonActividades8.setText("FAIRE DES TOURNnnES");
+			}
+		}
+		
+		//etiqueta que desea hacer de la tercera pantalla
+		public void crearEtiquetaPreferencias(int idioma) {
+			titulo = new JLabel();
+			Color coloramarillo = new Color(255,255,20);
+			titulo.setForeground(coloramarillo);
+			titulo.setFont(new java.awt.Font("Tahoma", 12, 20));
+			establecerIdiomaEtiquetaPreferencias(idioma);
+		}
+		
+		//idioma de la etiqueta de la tercera pantalla (Que desea hacer)
+		public void establecerIdiomaEtiquetaPreferencias (int idioma) {
+			if (idioma == 0)
+				titulo.setText("nnQUE DESEA HACER? ");
+			else if (idioma == 1) {
+				titulo.setText("WHAT DO YOU WANT? ");
+			}
+			else if (idioma == 2) {
+				titulo.setText("WAS WOLLEN SIE? ");
+			} else if (idioma == 3) {
+				titulo.setText("QUE VOULEZ-VOUS? ");
+			}
+		}
+	
+	//funcion que crea la cuarta pantalla (pantalla de opciones de actividades deportivas)
+		public void crearCuartaPantalla(int idioma) {
+			grupoBotones=new ButtonGroup();
+		    botonDeportes1=new JRadioButton();
+		    grupoBotones.add(botonDeportes1);
+		    botonDeportes2=new JRadioButton();       
+		    grupoBotones.add(botonDeportes2);
+		    botonDeportes3=new JRadioButton();
+		    grupoBotones.add(botonDeportes3);
+		    botonDeportes4=new JRadioButton();
+		    grupoBotones.add(botonDeportes4);
+		    botonDeportes5=new JRadioButton();
+		    grupoBotones.add(botonDeportes5);
+		    botonDeportes6=new JRadioButton();
+		    grupoBotones.add(botonDeportes6);
+		    establecerIdiomaCuartaPantalla(idioma);
+		    botonDeportes1.addActionListener(this);
+		    botonDeportes2.addActionListener(this);
+		    botonDeportes3.addActionListener(this);
+		    botonDeportes4.addActionListener(this);
+		    botonDeportes5.addActionListener(this);
+		    botonDeportes6.addActionListener(this);
+		}
+		
+		// funcion para ocultar los elementos de la cuarta pantalla
+		public void ocultarCuartaPantalla() {
+			botonDeportes1.setVisible(false);
+		    botonDeportes2.setVisible(false);
+		    botonDeportes3.setVisible(false);
+		    botonDeportes4.setVisible(false);
+		    botonDeportes5.setVisible(false);
+		    botonDeportes6.setVisible(false);
+		}
+		
+		// funcion para hacer visibles los elementos de la cuarta pantalla
+		public void visualizarCuartaPantalla() {
+			numeroPantalla = 4;
+			botonDeportes1.setVisible(true);
+		    botonDeportes2.setVisible(true);
+		    botonDeportes3.setVisible(true);
+		    botonDeportes4.setVisible(true);
+		    botonDeportes5.setVisible(true);
+		    botonDeportes6.setVisible(true);
+		}
+	
+	//funcion que pone el idioma a los elementos de la cuarta pantalla
+	public void establecerIdiomaCuartaPantalla (int idioma) {
+		if (idioma == 0) {
+			botonDeportes1.setText("DEPORTES MAYORITARIOS");
+			botonDeportes2.setText("OTROS DEPORTES");
+			botonDeportes3.setText("NATURALEZA");
+			botonDeportes4.setText("ACUnnTICAS");
+			botonDeportes5.setText("CON ANIMALES");
+			botonDeportes6.setText("CAZA Y PESCA");
+		}
+		else if (idioma == 1) {
+			botonDeportes1.setText("MAJOR SPORTS");
+			botonDeportes2.setText("OTHER SPORTS");
+			botonDeportes3.setText("NATURE");
+			botonDeportes4.setText("AQUATICS");
+			botonDeportes5.setText("WITH ANIMALS");
+			botonDeportes6.setText("HUNTING AND FISHING");
+		} else if (idioma == 2) {
+			botonDeportes1.setText("MEHRHEIT SPORT");
+			botonDeportes2.setText("ANDERE SPORT");
+			botonDeportes3.setText("NATUR");
+			botonDeportes4.setText("WASSERBEWOHNED");
+			botonDeportes5.setText("MIT TIERE");
+			botonDeportes6.setText("JAGD UND FISCHEN");
+			
+		} else if (idioma == 3) {
+			botonDeportes1.setText("SPORTIF MAJEUR");
+			botonDeportes2.setText("AUTRES SPORTS");
+			botonDeportes3.setText("NATURE");
+			botonDeportes4.setText("AQUATIQUES");
+			botonDeportes5.setText("AVEC LES ANIMAUX");
+			botonDeportes6.setText("CHASSE ET PnnCHE");
+		}
+	}
+	
+	//funcion que crea la Quinta  y sexta pantalla (pantalla de opciones de deportes mayoritarios, y otros deportes)
+			public void crearQuintaSextaPantalla(int idioma, int numPantalla) {
+				grupoBotones=new ButtonGroup();
+				verDeportesMayoritarios1 = new JRadioButton();
+			    grupoBotones.add(verDeportesMayoritarios1);
+			    jugarDeportesMayoritarios1 =new JRadioButton();       
+			    grupoBotones.add(jugarDeportesMayoritarios1);
+			    verDeportesMayoritarios2 = new JRadioButton();
+			    grupoBotones.add(verDeportesMayoritarios2);
+			    jugarDeportesMayoritarios2 =new JRadioButton();       
+			    grupoBotones.add(jugarDeportesMayoritarios2);
+			    verDeportesMayoritarios3 = new JRadioButton();
+			    grupoBotones.add(verDeportesMayoritarios3);
+			    jugarDeportesMayoritarios3 =new JRadioButton();       
+			    grupoBotones.add(jugarDeportesMayoritarios3);
+			    verDeportesMayoritarios4 = new JRadioButton();
+			    grupoBotones.add(verDeportesMayoritarios4);
+			    jugarDeportesMayoritarios4 =new JRadioButton();       
+			    grupoBotones.add(jugarDeportesMayoritarios4);
+			    verDeportesMayoritarios5 = new JRadioButton();
+			    grupoBotones.add(verDeportesMayoritarios5);
+			    jugarDeportesMayoritarios5 =new JRadioButton();       
+			    grupoBotones.add(jugarDeportesMayoritarios5);
+			    if (numPantalla == 5) {
+			    	verDeportesMayoritarios6 = new JRadioButton();
+			    	grupoBotones.add(verDeportesMayoritarios6);
+			    	jugarDeportesMayoritarios6 =new JRadioButton();       
+			    	grupoBotones.add(jugarDeportesMayoritarios6);
+			    }
+			    establecerIdiomaQuintaSextaPantalla(idioma,numPantalla);
+			    verDeportesMayoritarios1.addActionListener(this);
+			    jugarDeportesMayoritarios1.addActionListener(this);
+			    verDeportesMayoritarios2.addActionListener(this);
+			    jugarDeportesMayoritarios2.addActionListener(this);
+			    verDeportesMayoritarios3.addActionListener(this);
+			    jugarDeportesMayoritarios3.addActionListener(this);
+			    verDeportesMayoritarios4.addActionListener(this);
+			    jugarDeportesMayoritarios4.addActionListener(this);
+			    verDeportesMayoritarios5.addActionListener(this);
+			    jugarDeportesMayoritarios5.addActionListener(this);
+			    if (numPantalla == 5) {
+			    	verDeportesMayoritarios6.addActionListener(this);
+			    	jugarDeportesMayoritarios6.addActionListener(this);
+			    }
+			}
+			
+			// funcion para ocultar los elementos de la quinta o sexta pantalla
+			public void ocultarQuintaSextaPantalla(int numPantalla) {
+				verDeportesMayoritarios1.setVisible(false);
+				jugarDeportesMayoritarios1.setVisible(false);
+				verDeportesMayoritarios2.setVisible(false);
+				jugarDeportesMayoritarios2.setVisible(false);
+				verDeportesMayoritarios3.setVisible(false);
+				jugarDeportesMayoritarios3.setVisible(false);
+				verDeportesMayoritarios4.setVisible(false);
+				jugarDeportesMayoritarios4.setVisible(false);
+				verDeportesMayoritarios5.setVisible(false);
+				jugarDeportesMayoritarios5.setVisible(false);
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setVisible(false);
+					jugarDeportesMayoritarios6.setVisible(false);
+				}
+			}
+			
+			// funcion para hacer visibles los elementos de la quinta o sexta pantalla
+			public void visualizarQuintaSextaantalla(int numPantalla) {
+				if (numPantalla == 5)
+					numeroPantalla = 5;
+				else
+					numeroPantalla = 6;
+				verDeportesMayoritarios1.setVisible(true);
+				jugarDeportesMayoritarios1.setVisible(true);
+				verDeportesMayoritarios2.setVisible(true);
+				jugarDeportesMayoritarios2.setVisible(true);
+				verDeportesMayoritarios3.setVisible(true);
+				jugarDeportesMayoritarios3.setVisible(true);
+				verDeportesMayoritarios4.setVisible(true);
+				jugarDeportesMayoritarios4.setVisible(true);
+				verDeportesMayoritarios5.setVisible(true);
+				jugarDeportesMayoritarios5.setVisible(true);
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setVisible(true);
+					jugarDeportesMayoritarios6.setVisible(true);
+				}
+			}
+		
+		//funcion que pone el idioma a los elementos de la quinta y sexta pantalla
+		public void establecerIdiomaQuintaSextaPantalla (int idioma, int numPantalla) {
+			if (idioma == 0) {
+				verDeportesMayoritarios1.setText("VER");
+				jugarDeportesMayoritarios1.setText("JUGAR");
+				verDeportesMayoritarios2.setText("VER");
+				jugarDeportesMayoritarios2.setText("JUGAR");
+				verDeportesMayoritarios3.setText("VER");
+				jugarDeportesMayoritarios3.setText("JUGAR");
+				verDeportesMayoritarios4.setText("VER");
+				jugarDeportesMayoritarios4.setText("JUGAR");
+				verDeportesMayoritarios5.setText("VER");
+				jugarDeportesMayoritarios5.setText("JUGAR");
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setText("VER");
+					jugarDeportesMayoritarios6.setText("JUGAR");
+				}
+			}
+			else if (idioma == 1) {
+				verDeportesMayoritarios1.setText("SEE");
+				jugarDeportesMayoritarios1.setText("PLAY");
+				verDeportesMayoritarios2.setText("SEE");
+				jugarDeportesMayoritarios2.setText("PLAY");
+				verDeportesMayoritarios3.setText("SEE");
+				jugarDeportesMayoritarios3.setText("PLAY");
+				verDeportesMayoritarios4.setText("SEE");
+				jugarDeportesMayoritarios4.setText("PLAY");
+				verDeportesMayoritarios5.setText("SEE");
+				jugarDeportesMayoritarios5.setText("PLAY");
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setText("SEE");
+					jugarDeportesMayoritarios6.setText("PLAY");
+				}
+			} else if (idioma == 2) {
+				verDeportesMayoritarios1.setText("SEHEN");
+				jugarDeportesMayoritarios1.setText("SPIELEN");
+				verDeportesMayoritarios2.setText("SEHEN");
+				jugarDeportesMayoritarios2.setText("SPIELEN");
+				verDeportesMayoritarios3.setText("SEHEN");
+				jugarDeportesMayoritarios3.setText("SPIELEN");
+				verDeportesMayoritarios4.setText("SEHEN");
+				jugarDeportesMayoritarios4.setText("SPIELEN");
+				verDeportesMayoritarios5.setText("SEHEN");
+				jugarDeportesMayoritarios5.setText("SPIELEN");
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setText("SEHEN");
+					jugarDeportesMayoritarios6.setText("SPIELEN");
+				}
+			} else if (idioma == 3) {
+				verDeportesMayoritarios1.setText("VOIR");
+				jugarDeportesMayoritarios1.setText("JOUER");
+				verDeportesMayoritarios2.setText("VOIR");
+				jugarDeportesMayoritarios2.setText("JOUER");
+				verDeportesMayoritarios3.setText("VOIR");
+				jugarDeportesMayoritarios3.setText("JOUER");
+				verDeportesMayoritarios4.setText("VOIR");
+				jugarDeportesMayoritarios4.setText("JOUER");
+				verDeportesMayoritarios5.setText("VOIR");
+				jugarDeportesMayoritarios5.setText("JOUER");
+				if (numPantalla == 5) {
+					verDeportesMayoritarios6.setText("VOIR");
+					jugarDeportesMayoritarios6.setText("JOUER");
+				}
+			}
+		}
+		
+		//funcion que crea la  Septima pantalla (actividades deportivas naturaleza)
+		public void crearSeptimaPantalla(int idioma) {
+			grupoBotones=new ButtonGroup();
+			realizarNaturaleza1 = new JRadioButton();
+		    grupoBotones.add(realizarNaturaleza1);
+		    realizarNaturaleza2 = new JRadioButton();
+		    grupoBotones.add(realizarNaturaleza2);
+		    realizarNaturaleza3 = new JRadioButton();
+		    grupoBotones.add(realizarNaturaleza3);
+		    realizarNaturaleza4 = new JRadioButton();
+		    grupoBotones.add(realizarNaturaleza4);
+		    realizarNaturaleza5 = new JRadioButton();
+		    grupoBotones.add(realizarNaturaleza5);
+		    establecerIdiomaSeptimaPantalla(idioma);
+		    realizarNaturaleza1.addActionListener(this);
+		    realizarNaturaleza2.addActionListener(this);
+		    realizarNaturaleza3.addActionListener(this);
+		    realizarNaturaleza4.addActionListener(this);
+		    realizarNaturaleza5.addActionListener(this);
+		}
+		
+		// funcion para ocultar los elementos de la septima pantalla
+		public void ocultarSeptimaPantalla() {
+			realizarNaturaleza1.setVisible(false);
+			realizarNaturaleza2.setVisible(false);
+			realizarNaturaleza3.setVisible(false);
+			realizarNaturaleza4.setVisible(false);
+			realizarNaturaleza5.setVisible(false);
+		}
+		
+		// funcion para hacer visibles los elementos de la septima pantalla
+		public void visualizarSeptimaPantalla() {
+			numeroPantalla = 7;
+			realizarNaturaleza1.setVisible(true);
+			realizarNaturaleza2.setVisible(true);
+			realizarNaturaleza3.setVisible(true);
+			realizarNaturaleza4.setVisible(true);
+			realizarNaturaleza5.setVisible(true);
+		}
+	
+	//funcion que pone el idioma a los elementos de la septima pantalla
+	public void establecerIdiomaSeptimaPantalla (int idioma) {
+		if (idioma == 0) {
+			realizarNaturaleza1.setText("HACER");
+			realizarNaturaleza2.setText("HACER");
+			realizarNaturaleza3.setText("HACER");
+			realizarNaturaleza4.setText("HACER");
+			realizarNaturaleza5.setText("HACER");
+		}
+		else if (idioma == 1) {
+			realizarNaturaleza1.setText("DO");
+			realizarNaturaleza2.setText("DO");
+			realizarNaturaleza3.setText("DO");
+			realizarNaturaleza4.setText("DO");
+			realizarNaturaleza5.setText("DO");
+		} else if (idioma == 2) {
+			realizarNaturaleza1.setText("MACHEN");
+			realizarNaturaleza2.setText("MACHEN");
+			realizarNaturaleza3.setText("MACHEN");
+			realizarNaturaleza4.setText("MACHEN");
+			realizarNaturaleza5.setText("MACHEN");
+		} else if (idioma == 3) {
+			realizarNaturaleza1.setText("FAIRE");
+			realizarNaturaleza2.setText("FAIRE");
+			realizarNaturaleza3.setText("FAIRE");
+			realizarNaturaleza4.setText("FAIRE");
+			realizarNaturaleza5.setText("FAIRE");
+		}
+	}
+	
+	//funcion que crea la  Octava pantalla (actividades deportivas acnnaticas)
+	public void crearOctavaPantalla(int idioma) {
+		grupoBotones=new ButtonGroup();
+		realizarDeporteAcuatico1 = new JRadioButton();
+	    grupoBotones.add(realizarNaturaleza1);
+	    realizarDeporteAcuatico2 = new JRadioButton();
+	    grupoBotones.add(realizarNaturaleza2);
+	    realizarDeporteAcuatico3 = new JRadioButton();
+	    grupoBotones.add(realizarNaturaleza3);
+	    realizarDeporteAcuatico4 = new JRadioButton();
+	    grupoBotones.add(realizarNaturaleza4);
+	    establecerIdiomaOctavaPantalla(idioma);
+	    realizarDeporteAcuatico1.addActionListener(this);
+	    realizarDeporteAcuatico2.addActionListener(this);
+	    realizarDeporteAcuatico3.addActionListener(this);
+	    realizarDeporteAcuatico4.addActionListener(this);
+	}
+	
+	// funcion para ocultar los elementos de la octava pantalla
+	public void ocultarOctavaPantalla() {
+		realizarDeporteAcuatico1.setVisible(false);
+		realizarDeporteAcuatico2.setVisible(false);
+		realizarDeporteAcuatico3.setVisible(false);
+		realizarDeporteAcuatico4.setVisible(false);
+	}
+	
+	// funcion para hacer visibles los elementos de la octava pantalla
+	public void visualizarOctavaPantalla() {
+		numeroPantalla = 8;
+		realizarDeporteAcuatico1.setVisible(true);
+		realizarDeporteAcuatico2.setVisible(true);
+		realizarDeporteAcuatico3.setVisible(true);
+		realizarDeporteAcuatico4.setVisible(true);
+	}
+
+	//funcion que pone el idioma a los elementos de la Octava pantalla
+	public void establecerIdiomaOctavaPantalla (int idioma) {
+		if (idioma == 0) {
+			realizarDeporteAcuatico1.setText("HACER");
+			realizarDeporteAcuatico2.setText("HACER");
+			realizarDeporteAcuatico3.setText("HACER");
+			realizarDeporteAcuatico4.setText("HACER");
+		}
+		else if (idioma == 1) {
+			realizarDeporteAcuatico1.setText("DO");
+			realizarDeporteAcuatico2.setText("DO");
+			realizarDeporteAcuatico3.setText("DO");
+			realizarDeporteAcuatico4.setText("DO");
+		} else if (idioma == 2) {
+			realizarDeporteAcuatico1.setText("MACHEN");
+			realizarDeporteAcuatico2.setText("MACHEN");
+			realizarDeporteAcuatico3.setText("MACHEN");
+			realizarDeporteAcuatico4.setText("MACHEN");
+		} else if (idioma == 3) {
+			realizarDeporteAcuatico1.setText("FAIRE");
+			realizarDeporteAcuatico2.setText("FAIRE");
+			realizarDeporteAcuatico3.setText("FAIRE");
+			realizarDeporteAcuatico4.setText("FAIRE");
+		}
+	}
+	
+	//funcion que crea la  Novena pantalla (actividades deportivas con animales)
+		public void crearNovenaPantalla(int idioma) {
+			grupoBotones=new ButtonGroup();
+			animales1 = new JRadioButton();
+		    grupoBotones.add(animales1);
+		    animales2 = new JRadioButton();
+		    grupoBotones.add(animales2);
+		    animales3 = new JRadioButton();
+		    grupoBotones.add(animales3);
+		    establecerIdiomaNovenaPantalla(idioma);
+		    animales1.addActionListener(this);
+		    animales2.addActionListener(this);
+		    animales3.addActionListener(this);
+		}
+		
+		// funcion para ocultar los elementos de la Novena pantalla
+		public void ocultarNovenaPantalla() {
+			animales1.setVisible(false);
+			animales2.setVisible(false);
+			animales3.setVisible(false);
+		}
+		
+		// funcion para hacer visibles los elementos de la Novena pantalla
+		public void visualizarNovenaPantalla() {
+			numeroPantalla = 9;
+			animales1.setVisible(true);
+			animales2.setVisible(true);
+			animales3.setVisible(true);
+		}
+
+		//funcion que pone el idioma a los elementos de la Novena pantalla
+		public void establecerIdiomaNovenaPantalla (int idioma) {
+			if (idioma == 0) {
+				animales1.setText("MONTAR A CABALLO");
+				animales2.setText("OBSERVACInnN DE AVES");
+				animales3.setText("PASEO EN CAMELLO");
+			}
+			else if (idioma == 1) {
+				animales1.setText("RIDING");
+				animales2.setText("BIRDING");
+				animales3.setText("CAMEL RIDE");
+			} else if (idioma == 2) {
+				animales1.setText("REITEN");
+				animales2.setText("VOGELBEOBACHTUNG");
+				animales3.setText("KAMELRITT");
+			} else if (idioma == 3) {
+				animales1.setText("nnQUITATION");
+				animales2.setText("OBSERVATION D'OISEAUX");
+				animales3.setText("RANDONnnE CHAMELInnRE");
+			}
+		}
+		
+		//funcion que crea la  Decima pantalla (caza y pesca)
+		public void crearDecimaPantalla(int idioma) {
+			grupoBotones=new ButtonGroup();
+			caza = new JRadioButton();
+			grupoBotones.add(caza);
+			pesca = new JRadioButton();
+			grupoBotones.add(pesca);
+			establecerIdiomaDecimaPantalla(idioma);
+			caza.addActionListener(this);
+			pesca.addActionListener(this);
+		}
+				
+		// funcion para ocultar los elementos de la Decima pantalla
+		public void ocultarDecimaPantalla() {
+			caza.setVisible(false);
+			pesca.setVisible(false);
+		}
+				
+		// funcion para hacer visibles los elementos de la Decima pantalla
+		public void visualizarDecimaPantalla() {
+			numeroPantalla = 10;
+			caza.setVisible(true);
+			pesca.setVisible(true);
+		}
+
+		//funcion que pone el idioma a los elementos de la Decima pantalla
+		public void establecerIdiomaDecimaPantalla (int idioma) {
+			if (idioma == 0) {
+				caza.setText("CAZA");
+				pesca.setText("PESCA");
+			}
+			else if (idioma == 1) {
+				caza.setText("HUNTING");
+				pesca.setText("FISHING");
+			} else if (idioma == 2) {
+				caza.setText("JAGD");
+				pesca.setText("FISCHEN");
+			} else if (idioma == 3) {
+				caza.setText("CHASSE");
+				pesca.setText("PnnCHE");
+			}
+		}
+		
+		//funcion que crea la  Once pantalla (Pantalla de seleccion de mnnsica, cine o tetro)
+				public void crearOncePantalla(int idioma) {
+					grupoBotones=new ButtonGroup();
+					music = new JRadioButton();
+				    grupoBotones.add(music);
+				    cine = new JRadioButton();
+				    grupoBotones.add(cine);
+				    teatro = new JRadioButton();
+				    grupoBotones.add(teatro);
+				    establecerIdiomaOncePantalla(idioma);
+				    music.addActionListener(this);
+				    cine.addActionListener(this);
+				    teatro.addActionListener(this);
+				}
+				
+				// funcion para ocultar los elementos de la Once pantalla
+				public void ocultarOncePantalla() {
+					music.setVisible(false);
+					cine.setVisible(false);
+					teatro.setVisible(false);
+				}
+				
+				// funcion para hacer visibles los elementos de la Once pantalla
+				public void visualizarOncePantalla() {
+					numeroPantalla = 11;
+					music.setVisible(true);
+					cine.setVisible(true);
+					teatro.setVisible(true);
+				}
+
+				//funcion que pone el idioma a los elementos de la Once pantalla
+				public void establecerIdiomaOncePantalla (int idioma) {
+					if (idioma == 0) {
+						music.setText("MnnSICA");
+						cine.setText("CINE");
+						teatro.setText("TEATRO");
+					}
+					else if (idioma == 1) {
+						music.setText("MUSIC");
+						cine.setText("CINEMA");
+						teatro.setText("THEATRE");
+					} else if (idioma == 2) {
+						music.setText("MUSIK");
+						cine.setText("KINO");
+						teatro.setText("THEATER");
+					} else if (idioma == 3) {
+						music.setText("MUSIQUE");
+						cine.setText("CINnnMA");
+						teatro.setText("THEATRE");
+					}
+				}
+				
+				public void crearDocePantalla(int idioma) {
+					Cine cine = new Cine();
+					ImageIcon imagen = new ImageIcon();
+					for (int i = 0; i < 7; i++) {
+						switch (i) {
+							case 0: {
+								try {
+									cine = new Cine("Alcampo");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/Alcampo.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);
+									
+								} catch (Exception e1) {
+									
+								}
+								break;
+							}
+							case 1: {
+								try {
+									cine = new Cine("Meridiano");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/Meridiano.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);
+								} catch (Exception e1) {
+									
+								}
+								break;
+							} 
+							case 2: {
+								try {
+									cine = new Cine("La Orotava");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/LaOrotava.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);
+								} catch (Exception e1) {
+									
+								}
+								break;
+								
+							}
+							case 3: {
+								try {
+									cine = new Cine("Zentral Center");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/ZentralCenter.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);
+								} catch (Exception e1) {
+									
+								}
+								break;
+							}
+							case 4: {
+								try {
+									cine = new Cine("Renoir");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/Renoir.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);
+								} catch (Exception e1) {
+									
+								}
+								break;
+							}
+							case 5: {
+								try {
+									cine = new Cine("Punta Larga");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/PuntaLarga.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);	
+								} catch (Exception e1) {
+									
+								}
+								break;
+							}
+							case 6: {
+								try {
+									cine = new Cine("Gran Sur");
+									imagen = new ImageIcon(getClass().getResource("/imagenes/GranSur.jpg"));
+									foto.add(imagen);
+									Cines.add(cine);	
+								} catch (Exception e1) {
+									
+								}
+								break;
+							}
+						}
+					}
+					crearBotonesCine();
+					crearEtiquetasCine();
+					for (int i = 0; i < 7; i++) {
+						EtiquetasCine etiqueta = new EtiquetasCine();
+						etiquetas.add(etiqueta);
+					}
+					establecerIdiomaDocePantalla(idioma);
+				}
+				
+				public void establecerIdiomaDocePantalla(int idioma) {
+					if (idioma == 0) {
+						for (int i = 0; i < 7; i++) {
+							etiquetas.get(i).setDireccion("Direccion: " + Cines.get(i).direccion);
+							etiquetas.get(i).setMunicipio("Municipio: " + Cines.get(i).municipio);
+							etiquetas.get(i).setTelefono("Telnnfono: " + Cines.get(i).telefono);
+							etiquetas.get(i).setPrecio("Precio: " + Cines.get(i).precio);
+							etiquetas.get(i).setDiaBarato("Dia del espectador: " + Cines.get(i).diaBarato);
+						}
+					}
+					else if (idioma == 1) {
+						for (int i = 0; i  < 7; i++) {
+							etiquetas.get(i).setDireccion("Address: " + Cines.get(i).direccion);
+							etiquetas.get(i).setMunicipio("Municipality: " + Cines.get(i).municipio);
+							etiquetas.get(i).setTelefono("Phone: " + Cines.get(i).telefono);
+							etiquetas.get(i).setPrecio("Price: " + Cines.get(i).precio);
+							etiquetas.get(i).setDiaBarato("Discount day: " + Cines.get(i).diaBarato);
+						}
+					} else if (idioma == 2) {
+						for (int i = 0; i  < 7; i++) {
+							etiquetas.get(i).setDireccion("Anschrift: " + Cines.get(i).direccion);
+							etiquetas.get(i).setMunicipio("Gemeindebezirk: " + Cines.get(i).municipio);
+							etiquetas.get(i).setTelefono("telefonieren: " + Cines.get(i).telefono);
+							etiquetas.get(i).setPrecio("Preis: " + Cines.get(i).precio);
+							etiquetas.get(i).setDiaBarato("Tag des Betrachters: " + Cines.get(i).diaBarato);
+						}
+					} else if (idioma == 3) {
+						for (int i = 0; i  < 7; i++) {
+							etiquetas.get(i).setDireccion("Adresse: " + Cines.get(i).direccion);
+							etiquetas.get(i).setMunicipio("Municipalitnn: " + Cines.get(i).municipio);
+							etiquetas.get(i).setTelefono("Tnnlnnphone: " + Cines.get(i).telefono);
+							etiquetas.get(i).setPrecio("Prix: " + Cines.get(i).precio);
+							etiquetas.get(i).setDiaBarato("jour du spectateur: " + Cines.get(i).diaBarato);
+						}
+					}
+				}
+				
+				public void crearBotonesCine() {
+					Alcampo = new JRadioButton("Alcampo");
+					Meridiano = new JRadioButton("Meridiano");
+					LaOrotava = new JRadioButton ("La Orotava");
+					ZentralCenter = new JRadioButton ("Zentral Center");
+					Renoir = new JRadioButton ("Renoir");
+					PuntaLarga = new JRadioButton("Punta Larga");
+					GranSur = new JRadioButton ("Gran Sur");
+					Alcampo.addActionListener(this);
+					Meridiano.addActionListener(this);
+					LaOrotava.addActionListener(this);
+					ZentralCenter.addActionListener(this);
+					Renoir.addActionListener(this);
+					PuntaLarga.addActionListener(this);
+					GranSur.addActionListener(this);
+				}
+				
+				public void crearEtiquetasCine() {
+					primera = new JButton("1");
+					segunda = new JButton("2");
+					tercera = new JButton("3");
+					cuarta = new JButton ("4");
+					primera.setOpaque(true);
+					primera.setBorder(null);
+					Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+					primera.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+					segunda.setOpaque(true);
+					segunda.setBorder(null);
+					segunda.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+					tercera.setOpaque(true);
+					tercera.setBorder(null);
+					tercera.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+					cuarta.setOpaque(true);
+					cuarta.setBorder(null);
+					cuarta.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+					primera.addActionListener(this);
+					segunda.addActionListener(this);
+					tercera.addActionListener(this);
+					cuarta.addActionListener(this);
+				}
+				
+				public void visualizarDocePantalla() {
+					for (int i = 0; i < etiquetas.size(); i++) {
+					etiquetas.get(i).direccion.setVisible(true);
+					etiquetas.get(i).municipio.setVisible(true);
+					etiquetas.get(i).telefono.setVisible(true);
+					etiquetas.get(i).precios.setVisible(true);
+					etiquetas.get(i).diaBarato.setVisible(true);
+					}
+					Alcampo.setVisible(true);
+					Meridiano.setVisible(true);
+					LaOrotava.setVisible(true);
+					ZentralCenter.setVisible(true);
+					Renoir.setVisible(true);
+					GranSur.setVisible(true);
+					primera.setVisible(true);
+					segunda.setVisible(true);
+					tercera.setVisible(true);
+					cuarta.setVisible(true);
+				}
+				
+				public void ocultarDocePantalla() {
+					for (int i = 0; i < etiquetas.size(); i++) {
+						etiquetas.get(i).direccion.setVisible(false);
+						etiquetas.get(i).municipio.setVisible(false);
+						etiquetas.get(i).telefono.setVisible(false);
+						etiquetas.get(i).precios.setVisible(false);
+						etiquetas.get(i).diaBarato.setVisible(false);
+					}
+					Alcampo.setVisible(false);
+					Meridiano.setVisible(false);
+					LaOrotava.setVisible(false);
+					PuntaLarga.setVisible(false);
+					ZentralCenter.setVisible(false);
+					Renoir.setVisible(false);
+					GranSur.setVisible(false);
+					primera.setVisible(false);
+					segunda.setVisible(false);
+					tercera.setVisible(false);
+					cuarta.setVisible(false);
+				}
+				
+				public void comprobarVisibilidadBotonesCine(int pant) {
+					if (pant == 1) {
+						Alcampo.setVisible(true);
+						Meridiano.setVisible(true);
+						for (int i = 0; i < 2; i++) {
+							etiquetas.get(i).direccion.setVisible(true);
+							etiquetas.get(i).municipio.setVisible(true);
+							etiquetas.get(i).telefono.setVisible(true);
+							etiquetas.get(i).precios.setVisible(true);
+							etiquetas.get(i).diaBarato.setVisible(true);
+						}
+						if (LaOrotava.isVisible() == true) {
+							LaOrotava.setVisible(false);
+							ZentralCenter.setVisible(false);
+							for (int i = 2; i < 4; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (Renoir.isVisible() == true) {
+							Renoir.setVisible(false); 
+							PuntaLarga.setVisible(false);
+							for (int i = 4; i < 6; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (GranSur.isVisible() == true) {
+							GranSur.setVisible(false);
+							for (int i = 6; i < 7; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+					} else if (pant == 2) {
+						for (int i = 2; i < 4; i++) {
+							etiquetas.get(i).direccion.setVisible(true);
+							etiquetas.get(i).municipio.setVisible(true);
+							etiquetas.get(i).telefono.setVisible(true);
+							etiquetas.get(i).precios.setVisible(true);
+							etiquetas.get(i).diaBarato.setVisible(true);
+						}
+						LaOrotava.setVisible(true);
+						ZentralCenter.setVisible(true);
+						if (Alcampo.isVisible() == true) { 
+							Alcampo.setVisible(false);
+							Meridiano.setVisible(false);
+							for (int i = 0; i < 2; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (Renoir.isVisible() == true) {
+							Renoir.setVisible(false);
+							PuntaLarga.setVisible(false);
+							for (int i = 4; i < 6; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (GranSur.isVisible() == true) {
+							GranSur.setVisible(false);
+							for (int i = 6; i < 7; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+					} else if (pant == 3) {
+						for (int i = 4; i < 6; i++) {
+							etiquetas.get(i).direccion.setVisible(true);
+							etiquetas.get(i).municipio.setVisible(true);
+							etiquetas.get(i).telefono.setVisible(true);
+							etiquetas.get(i).precios.setVisible(true);
+							etiquetas.get(i).diaBarato.setVisible(true);
+						}
+						Renoir.setVisible(true);
+						PuntaLarga.setVisible(true);
+						if (Alcampo.isVisible() == true) { 
+							Alcampo.setVisible(false);
+							Meridiano.setVisible(false);
+							for (int i = 0; i < 2; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (LaOrotava.isVisible() == true) {
+							LaOrotava.setVisible(false);
+							ZentralCenter.setVisible(false);
+							for (int i = 2; i < 4; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (GranSur.isVisible() == true) {
+							GranSur.setVisible(false);
+							for (int i = 6; i < 7; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+					} else if (pant == 4) {
+						for (int i = 6; i < 7; i++) {
+							etiquetas.get(i).direccion.setVisible(true);
+							etiquetas.get(i).municipio.setVisible(true);
+							etiquetas.get(i).telefono.setVisible(true);
+							etiquetas.get(i).precios.setVisible(true);
+							etiquetas.get(i).diaBarato.setVisible(true);
+						}
+						GranSur.setVisible(true);
+						if (Alcampo.isVisible() == true) {
+							Alcampo.setVisible(false);
+							Meridiano.setVisible(false);
+							for (int i = 0; i < 2; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (LaOrotava.isVisible() == true) {
+							LaOrotava.setVisible(false);
+							ZentralCenter.setVisible(false);
+							for (int i = 2; i < 4; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+						if (Renoir.isVisible() == true) {
+							Renoir.setVisible(false); 
+							PuntaLarga.setVisible(false);
+							for (int i = 4; i < 6; i++) {
+								etiquetas.get(i).direccion.setVisible(false);
+								etiquetas.get(i).municipio.setVisible(false);
+								etiquetas.get(i).telefono.setVisible(false);
+								etiquetas.get(i).precios.setVisible(false);
+								etiquetas.get(i).diaBarato.setVisible(false);
+							}
+						}
+					}
+				}
+				
+				public void crearTrecePantalla(int idioma) {
+					ImageIcon imagen = new ImageIcon();
+					EtiquetasPeliculas etiqueta;
+					etiquetaspeliculas = new ArrayList<EtiquetasPeliculas>();
+					for (int i = 0; i < pelicula.size(); i++) {
+						etiqueta = new EtiquetasPeliculas();
+						try {
+							URL url = new URL(pelicula.get(i).getFoto());
+				    		Image picture = ImageIO.read(url);
+			    	        etiqueta.setFoto(picture);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						etiqueta.setTitulo(pelicula.get(i).titulo_pelicula);
+						etiqueta.setHorarios(pelicula.get(i).horarios);
+						etiqueta.setDuracion(pelicula.get(i).duracion);
+						etiqueta.setAptaPara(pelicula.get(i).aptaPara);
+						etiqueta.setFormato(pelicula.get(i).formato);
+						etiqueta.setPais(pelicula.get(i).pais);
+						etiquetaspeliculas.add(etiqueta);
+					}
+					crearBotonesPeliculas();
+					crearEtiquetasCine();
+					//establecerIdiomaTrecePantalla(idioma);
+				}
+				
+				public void establecerIdiomaTrecePantalla(int idioma) {
+					if (idioma == 0) {
+						for (int i = 0; i < pelicula.size(); i++) {
+							// se podria pasar el pais y tener un arraylist con los distintos paises para traducir
+							etiquetaspeliculas.get(i).setPais(pelicula.get(i).pais);
+						}
+					}
+					else if (idioma == 1) {
+						for (int i = 0; i < pelicula.size(); i++) {
+							// se podria pasar el pais y tener un arraylist con los distintos paises para traducir
+							etiquetaspeliculas.get(i).setPais(pelicula.get(i).pais);
+						}
+						
+					} else if (idioma == 2) {
+						for (int i = 0; i < pelicula.size(); i++) {
+							// se podria pasar el pais y tener un arraylist con los distintos paises para traducir
+							etiquetaspeliculas.get(i).setPais(pelicula.get(i).pais);
+						}
+					} else if (idioma == 3) {
+						for (int i = 0; i < pelicula.size(); i++) {
+							// se podria pasar el pais y tener un arraylist con los distintos paises para traducir
+							etiquetaspeliculas.get(i).setPais(pelicula.get(i).pais);
+						}
+					}
+				}
+				
+				public void crearBotonesPeliculas() {
+					JRadioButton boton;
+					botonesPeliculas = new ArrayList<JRadioButton>();
+					for (int i = 0; i < pelicula.size(); i++) {
+						boton = new JRadioButton(pelicula.get(i).titulo_pelicula);
+						boton.addActionListener(this);
+						botonesPeliculas.add(boton);
+					}
+				}
+				
+				
+				
+				public void visualizarTrecePantalla() {
+					for (int i = 0; i < etiquetaspeliculas.size(); i++) {
+						etiquetaspeliculas.get(i).titulo.setVisible(true);
+						etiquetaspeliculas.get(i).horarios.setVisible(true);
+						etiquetaspeliculas.get(i).duracion.setVisible(true);
+						etiquetaspeliculas.get(i).aptaPara.setVisible(true);
+						etiquetaspeliculas.get(i).formato.setVisible(true);
+						etiquetaspeliculas.get(i).pais.setVisible(true);
+						botonesPeliculas.get(i).setVisible(true);
+					}
+					primera.setVisible(true);
+					segunda.setVisible(true);
+					tercera.setVisible(true);
+					cuarta.setVisible(true);
+				}
+				
+				public void ocultarTrecePantalla() {
+					for (int i = 0; i < etiquetaspeliculas.size(); i++) {
+						etiquetaspeliculas.get(i).titulo.setVisible(false);
+						etiquetaspeliculas.get(i).horarios.setVisible(false);
+						etiquetaspeliculas.get(i).duracion.setVisible(false);
+						etiquetaspeliculas.get(i).aptaPara.setVisible(false);
+						etiquetaspeliculas.get(i).formato.setVisible(false);
+						etiquetaspeliculas.get(i).pais.setVisible(false);
+						botonesPeliculas.get(i).setVisible(false);
+					}
+					primera.setVisible(false);
+					segunda.setVisible(false);
+					tercera.setVisible(false);
+					cuarta.setVisible(false);
+				}
+				
+				public void comprobarVisibilidadBotonesPeliculas(int pant) {
+					if (pant == 1) {
+						for (int i = 0; i < 5; i++) {
+							if (i < 5) {
+								etiquetaspeliculas.get(i).titulo.setVisible(true);
+								etiquetaspeliculas.get(i).horarios.setVisible(true);
+								etiquetaspeliculas.get(i).duracion.setVisible(true);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(true);
+								etiquetaspeliculas.get(i).formato.setVisible(true);
+								etiquetaspeliculas.get(i).pais.setVisible(true);
+								botonesPeliculas.get(i).setVisible(true);
+							} else {
+								etiquetaspeliculas.get(i).titulo.setVisible(false);
+								etiquetaspeliculas.get(i).horarios.setVisible(false);
+								etiquetaspeliculas.get(i).duracion.setVisible(false);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(false);
+								etiquetaspeliculas.get(i).formato.setVisible(false);
+								etiquetaspeliculas.get(i).pais.setVisible(false);
+								botonesPeliculas.get(i).setVisible(false);
+							}
+						}
+					} else if (pant == 2) {
+						for (int i = 0; i < 5; i++) {
+							if (i >= 5 && i < 10) {
+								etiquetaspeliculas.get(i).titulo.setVisible(true);
+								etiquetaspeliculas.get(i).horarios.setVisible(true);
+								etiquetaspeliculas.get(i).duracion.setVisible(true);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(true);
+								etiquetaspeliculas.get(i).formato.setVisible(true);
+								etiquetaspeliculas.get(i).pais.setVisible(true);
+								botonesPeliculas.get(i).setVisible(true);
+							} else {
+								etiquetaspeliculas.get(i).titulo.setVisible(false);
+								etiquetaspeliculas.get(i).horarios.setVisible(false);
+								etiquetaspeliculas.get(i).duracion.setVisible(false);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(false);
+								etiquetaspeliculas.get(i).formato.setVisible(false);
+								etiquetaspeliculas.get(i).pais.setVisible(false);
+								botonesPeliculas.get(i).setVisible(false);
+							}
+						}
+					} else if (pant == 3) {
+						for (int i = 0; i < 5; i++) {
+							if (i >= 10 && i < 15) {
+								etiquetaspeliculas.get(i).titulo.setVisible(true);
+								etiquetaspeliculas.get(i).horarios.setVisible(true);
+								etiquetaspeliculas.get(i).duracion.setVisible(true);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(true);
+								etiquetaspeliculas.get(i).formato.setVisible(true);
+								etiquetaspeliculas.get(i).pais.setVisible(true);
+								botonesPeliculas.get(i).setVisible(true);
+							} else {
+								etiquetaspeliculas.get(i).titulo.setVisible(false);
+								etiquetaspeliculas.get(i).horarios.setVisible(false);
+								etiquetaspeliculas.get(i).duracion.setVisible(false);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(false);
+								etiquetaspeliculas.get(i).formato.setVisible(false);
+								etiquetaspeliculas.get(i).pais.setVisible(false);
+								botonesPeliculas.get(i).setVisible(false);
+							}
+						}
+					} else if (pant == 4) {
+						for (int i = 0; i < 5; i++) {
+							if (i>= 15 && i <=18) {
+								etiquetaspeliculas.get(i).titulo.setVisible(true);
+								etiquetaspeliculas.get(i).horarios.setVisible(true);
+								etiquetaspeliculas.get(i).duracion.setVisible(true);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(true);
+								etiquetaspeliculas.get(i).formato.setVisible(true);
+								etiquetaspeliculas.get(i).pais.setVisible(true);
+								botonesPeliculas.get(i).setVisible(true);
+							} else {
+								etiquetaspeliculas.get(i).titulo.setVisible(false);
+								etiquetaspeliculas.get(i).horarios.setVisible(false);
+								etiquetaspeliculas.get(i).duracion.setVisible(false);
+								etiquetaspeliculas.get(i).aptaPara.setVisible(false);
+								etiquetaspeliculas.get(i).formato.setVisible(false);
+								etiquetaspeliculas.get(i).pais.setVisible(false);
+								botonesPeliculas.get(i).setVisible(false);
+							}
+						}
+						
+					}
+				}
+	
+	public void actionPerformed(ActionEvent e) {
+        if (e.getSource()==espannol && idioma != 0) { 
+            idioma = 0;
+            cambiarToolTipText ();
+        	cambiarIdiomaPerfil ();
+        	cambiarValorJLabel();
+        	cambiarAparienciaBotonSonido();
+        	establecerIdiomaTexto(idioma);
+        	establecerIdiomaTerceraPantalla (idioma);
+        	establecerIdiomaEtiquetaPreferencias (idioma);
+        	editarBotonProponerPlanes (idioma);
+        	establecerIdiomaCuartaPantalla(idioma);
+        	establecerIdiomaQuintaSextaPantalla(idioma,numeroPantalla);
+        	establecerIdiomaSeptimaPantalla(idioma);
+        	establecerIdiomaOctavaPantalla(idioma);
+        	establecerIdiomaNovenaPantalla(idioma);
+        	establecerIdiomaDecimaPantalla(idioma);
+        	establecerIdiomaOncePantalla(idioma);
+        	establecerIdiomaDocePantalla(idioma);
+        	//establecerIdiomaTrecePantalla(idioma);
+        }
+        else if (e.getSource()==ingles && idioma != 1) {
+        	idioma = 1;
+        	cambiarToolTipText ();
+        	cambiarIdiomaPerfil ();
+        	cambiarValorJLabel();
+        	cambiarAparienciaBotonSonido();
+        	establecerIdiomaTexto(idioma);
+        	establecerIdiomaTerceraPantalla (idioma);
+        	establecerIdiomaEtiquetaPreferencias (idioma);
+        	editarBotonProponerPlanes (idioma);
+        	establecerIdiomaCuartaPantalla(idioma);
+        	establecerIdiomaQuintaSextaPantalla(idioma,numeroPantalla);
+        	establecerIdiomaSeptimaPantalla(idioma);
+        	establecerIdiomaOctavaPantalla(idioma);
+        	establecerIdiomaNovenaPantalla(idioma);
+        	establecerIdiomaDecimaPantalla(idioma);
+        	establecerIdiomaOncePantalla(idioma);
+        	establecerIdiomaDocePantalla(idioma);
+        	//establecerIdiomaTrecePantalla(idioma);
+        } else if (e.getSource()== aleman && idioma != 2) {
+        	idioma = 2;
+        	cambiarToolTipText ();
+        	cambiarIdiomaPerfil ();
+        	cambiarValorJLabel();
+        	cambiarAparienciaBotonSonido();
+        	establecerIdiomaTexto(idioma);
+        	establecerIdiomaTerceraPantalla (idioma);
+        	establecerIdiomaEtiquetaPreferencias (idioma);
+        	editarBotonProponerPlanes (idioma);
+        	establecerIdiomaCuartaPantalla(idioma);
+        	establecerIdiomaQuintaSextaPantalla(idioma,numeroPantalla);
+        	establecerIdiomaSeptimaPantalla(idioma);
+        	establecerIdiomaOctavaPantalla(idioma);
+        	establecerIdiomaNovenaPantalla(idioma);
+        	establecerIdiomaDecimaPantalla(idioma);
+        	establecerIdiomaOncePantalla(idioma);
+        	establecerIdiomaDocePantalla(idioma);
+        	//establecerIdiomaTrecePantalla(idioma);
+        } else if (e.getSource()== frances && idioma != 3) {
+        	idioma = 3;
+        	cambiarToolTipText ();
+        	cambiarIdiomaPerfil ();
+        	cambiarValorJLabel();
+        	cambiarAparienciaBotonSonido();
+        	establecerIdiomaTexto(idioma);
+        	establecerIdiomaTerceraPantalla (idioma);
+        	establecerIdiomaEtiquetaPreferencias (idioma);
+        	editarBotonProponerPlanes (idioma);
+        	establecerIdiomaCuartaPantalla(idioma);
+        	establecerIdiomaQuintaSextaPantalla(idioma,numeroPantalla);
+        	establecerIdiomaSeptimaPantalla(idioma);
+        	establecerIdiomaOctavaPantalla(idioma);
+        	establecerIdiomaNovenaPantalla(idioma);
+        	establecerIdiomaDecimaPantalla(idioma);
+        	establecerIdiomaOncePantalla(idioma);
+        	establecerIdiomaDocePantalla(idioma);
+        	//establecerIdiomaTrecePantalla(idioma);
+        } else if (e.getSource() == menu.getPerfil()) {
+        	int seleccion = menu.getPerfil().getSelectedIndex();
+        	if (seleccion != 0) {
+        		numeroPantalla = 2;
+        		menu.getPerfil().setVisible(false);
+        		tituloPrincipal.setVisible(false);
+        		visualizarPantallaSegunda();
+        	}
+        }
+        else if (e.getSource()==preferencias) {
+        	numeroPantalla = 3;
+        	ocultarPantallaSegunda();
+        	visualizarTerceraPantalla();
+        }
+        else if (e.getSource()==botonActividades1) {
+        	numeroPantalla = 4;
+        	ocultarTerceraPantalla();
+        	visualizarCuartaPantalla();
+        }
+        else if (e.getSource() == botonDeportes1 || e.getSource() == botonDeportes2) {
+        	if (e.getSource() == botonDeportes1)
+        		numeroPantalla = 5;
+        	else
+        		numeroPantalla = 6;
+        	ocultarCuartaPantalla();
+        	visualizarQuintaSextaantalla(idioma);
+        } else if (e.getSource()==atras) {
+        	irPantallaAnterior(numeroPantalla);
+        } else if (e.getSource() == botonDeportes3) {
+        	numeroPantalla = 7;
+        	ocultarCuartaPantalla();
+        	visualizarSeptimaPantalla();
+        } else if (e.getSource() == botonDeportes4) {
+        	numeroPantalla = 8;
+        	ocultarCuartaPantalla();
+        	visualizarOctavaPantalla();
+        }	
+        else if (e.getSource() == botonDeportes5) {
+        	numeroPantalla = 9;
+        	ocultarCuartaPantalla();
+        	visualizarNovenaPantalla();
+        } else if (e.getSource() == botonDeportes6) {
+        	numeroPantalla = 10;
+        	ocultarCuartaPantalla();
+        	visualizarDecimaPantalla();
+        } else if (e.getSource() == botonActividades2) {
+        	numeroPantalla = 11;
+        	ocultarTerceraPantalla();
+        	visualizarOncePantalla();
+        } else if (e.getSource() == cine) {
+        	numeroPantalla = 12;
+        	ocultarOncePantalla();
+        	visualizarDocePantalla();
+        	pantalla = 1;
+        	comprobarVisibilidadBotonesCine(pantalla);
+        } else if (e.getSource() == primera) {
+        	pantalla = 1;
+        	comprobarVisibilidadBotonesCine(pantalla);
+        	
+        } else if (e.getSource() == segunda) {
+        	pantalla = 2;
+        	comprobarVisibilidadBotonesCine(pantalla);
+        } else if (e.getSource() == tercera) {
+        	pantalla = 3;
+        	comprobarVisibilidadBotonesCine(pantalla);
+        } else if (e.getSource() == cuarta) {
+        	pantalla = 4;
+        	comprobarVisibilidadBotonesCine(pantalla);
+        } else if (e.getSource() == Alcampo) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Alcampo");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == Meridiano) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Meridiano");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == LaOrotava) {
+        	try {
+        		Cartelera cartelera = new Cartelera("La Orotava");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == Renoir) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Renoir");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == ZentralCenter) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Zentral Center");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == PuntaLarga) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Punta Larga");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        } else if (e.getSource() == GranSur) {
+        	try {
+        		Cartelera cartelera = new Cartelera("Gran Sur");
+        		pelicula = cartelera.getCartelera();
+        		ocultarDocePantalla();
+        		numeroPantalla = 13;
+        	} catch (Exception e1) {}
+        }
+        
+        else if (e.getSource()==sonido && musica.compareTo("on") == 0) {
+        	musica = "of";
+        	cambiarAparienciaBotonSonido();
+        	try {
+				cambiarBotonSonido();
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+				e1.printStackTrace();
+			}
+        }
+        else if ((e.getSource()==sonido && musica.compareTo("of") == 0)) {
+        	musica = "on";
+        	cambiarAparienciaBotonSonido();
+        	try {
+				cambiarBotonSonido();
+			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+				e1.printStackTrace();
+			}
+        }
+        repaint();
+    }
+	
+	public void paintComponent (Graphics g){
+		Dimension tamanio = getSize();
+		ImageIcon imagenFondo = new ImageIcon(getClass().getResource("/imagenes/tenerifefondo.jpg"));
+		g.drawImage(imagenFondo.getImage(),0,0,tamanio.width, tamanio.height, null);
+		idiomas.setBounds(menu.getAnchuraVentana()-230, 0,144,43);
+		this.add(idiomas);
+		if (numeroPantalla == 1) {
+			menu.colocarPerfil();
+			tituloPrincipal.setBounds((int)(menu.getAnchuraVentana() / 2.49),(int)(menu.getAlturaVentana() / 3.5), 300,100);
+			cambiarTamannoTexto(menu.getAnchuraVentana(), menu.getAlturaVentana());
+			tituloPrincipal.setFont(new java.awt.Font("Tahoma", tamannoinicialX, tamannoinicialY));
+			this.add(tituloPrincipal);
+		}
+		else if (numeroPantalla == 2){
+			preferencias.setBounds((int)(menu.getAnchuraVentana() / 5.5),(int)(menu.getAlturaVentana() / 3.2), 119,30);
+			this.add(preferencias);
+			g.drawImage(imagenprecio.getImage(),(int)(menu.getAnchuraVentana()/2.5),(int)(menu.getAlturaVentana() / 3.5)-80,imagenprecio.getIconWidth() / 2, imagenprecio.getIconHeight() / 2, null);
+			precio.setBounds((int)(menu.getAnchuraVentana() / 2.5),(int)(menu.getAlturaVentana() / 3.2),119,30);
+			this.add(precio);	
+			g.drawImage(imagentiempo.getImage(),(int)(menu.getAnchuraVentana()/1.64),(int)(menu.getAlturaVentana() / 3.5)-80,imagenprecio.getIconWidth() / 2, imagenprecio.getIconHeight() / 2, null);
+			tiempo.setBounds((int)(menu.getAnchuraVentana() / 1.64),(int)(menu.getAlturaVentana() / 3.2), 119,30);
+			this.add(tiempo);
+			g.drawImage(imagenvehiculo.getImage(),(int)(menu.getAnchuraVentana()/1.25),(int)(menu.getAlturaVentana() / 3.5)-80,imagenprecio.getIconWidth() / 2, imagenprecio.getIconHeight() / 2, null);
+			vehiculo.setBounds((int)(menu.getAnchuraVentana() / 1.25),(int)(menu.getAlturaVentana() / 3.2), 119,30);
+			this.add(vehiculo);
+			g.drawImage(imagenacompannantes.getImage(),(int)(menu.getAnchuraVentana()/3.4),(int)(menu.getAlturaVentana() / 1.8)-80,(imagenprecio.getIconWidth() / 2)+55, imagenprecio.getIconHeight() / 2, null);
+			acompannantes.setBounds((int)(menu.getAnchuraVentana() / 3.4),(int)(menu.getAlturaVentana() /  1.7), 175,30);
+			this.add(acompannantes);	
+			g.drawImage(imagenAlojamiento.getImage(),(int)(menu.getAnchuraVentana()/1.95),(int)(menu.getAlturaVentana() / 1.8)-80,(imagenprecio.getIconWidth() / 2)+55, imagenprecio.getIconHeight() / 2, null);
+			alojamiento.setBounds((int)(menu.getAnchuraVentana() / 1.95),(int)(menu.getAlturaVentana() / 1.72), 175,30);
+			this.add(alojamiento);
+			g.drawImage(imagenVisitasTenerife.getImage(),(int)(menu.getAnchuraVentana()/1.37),(int)(menu.getAlturaVentana() / 1.8)-80,(imagenprecio.getIconWidth() / 2)+55, imagenprecio.getIconHeight() / 2, null);
+			visitasTenerife.setBounds((int)(menu.getAnchuraVentana() / 1.37),(int)(menu.getAlturaVentana() / 1.7), 175,30);
+			this.add(visitasTenerife);
+			editarBotonProponerPlanes(idioma);
+			proponerPlanes.setBounds((int)(menu.getAnchuraVentana() / 2.4),(int)(menu.getAlturaVentana() / 1.25),180,30);
+			this.add(proponerPlanes);
+		}
+		else if (numeroPantalla == 3) {
+			titulo.setBounds((int)(menu.getAnchuraVentana() / 2.1),(int)(menu.getAlturaVentana() / 4.5), 300,100);
+			if (idioma == 0) {
+			   botonActividades1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),180,30);
+			   botonActividades2.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),291,30);
+			   botonActividades3.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),142,30);
+			   botonActividades4.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/2.5),160,30);
+			   botonActividades5.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),198,30);
+			   botonActividades6.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),155,30);
+			   botonActividades7.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),118,30);
+			   botonActividades8.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/1.45),170,30);
+			}
+			else if (idioma == 1) {
+				botonActividades1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),75,30);
+				botonActividades2.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),275,30);
+				botonActividades3.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),138,30);
+				botonActividades4.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/2.5),138,30);
+				botonActividades5.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),166,30);
+				botonActividades6.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),105,30);
+				botonActividades7.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),85,30);
+				botonActividades8.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/1.45),102,30);
+			}
+			else if (idioma == 2) {
+				botonActividades1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),70,30);
+				botonActividades2.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),317,30);
+				botonActividades3.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),148,30);
+				botonActividades4.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/2.5),160,30);
+				botonActividades5.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),192,30);
+				botonActividades6.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),138,30);
+				botonActividades7.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),210,30);
+				botonActividades8.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/1.45),118,30);
+			}
+			else {
+				botonActividades1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),75,30);
+				botonActividades2.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),341,30);
+				botonActividades3.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),140,30);
+				botonActividades4.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/2.5),172,30);
+				botonActividades5.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),181,30);
+				botonActividades6.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),189,30);
+				botonActividades7.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),144,30);
+				botonActividades8.setBounds((int)(menu.getAnchuraVentana()/1.2),(int)(menu.getAlturaVentana()/1.45),148,30);
+			}
+			
+			this.add(titulo);
+			this.add(botonActividades1);
+			this.add(botonActividades2);
+			this.add(botonActividades3);
+			this.add(botonActividades4);
+			this.add(botonActividades5);
+			this.add(botonActividades6);
+			this.add(botonActividades7);
+			this.add(botonActividades8);
+			
+		} else if (numeroPantalla == 4) {
+			if (idioma == 0) {
+			   botonDeportes1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),180,30);
+			   botonDeportes2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),133,30);
+			   botonDeportes3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),102,30);
+			   botonDeportes4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),92,30);
+			   botonDeportes5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),112,30);
+			   botonDeportes6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),110,30);
+			}
+			else if (idioma == 1) {
+				botonDeportes1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),118,30);
+				botonDeportes2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),116,30);
+			    botonDeportes3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),73,30);
+				botonDeportes4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),86,30);
+			    botonDeportes5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),112,30);
+			    botonDeportes6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),150,30);
+			}
+			else if (idioma == 2) {
+			   botonDeportes1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),127,30);
+			   botonDeportes2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),116,30);
+			   botonDeportes3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),66,30);
+			   botonDeportes4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),143,30);
+			   botonDeportes5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),80,30);				  
+			   botonDeportes6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),134,30);
+			}
+			else {
+			   botonDeportes1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),125,30);
+			   botonDeportes2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),122,30);
+			   botonDeportes3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),71,30);
+			   botonDeportes4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),100,30);
+			   botonDeportes5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),137,30);
+			   botonDeportes6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),130,30);
+			}
+			
+			this.add(botonDeportes1);
+			this.add(botonDeportes2);
+			this.add(botonDeportes3);
+			this.add(botonDeportes4);
+			this.add(botonDeportes5);
+			this.add(botonDeportes6);
+			
+		} else if (numeroPantalla == 5 || numeroPantalla == 6) {
+			if (idioma == 0) {
+				   verDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),48,30);
+				   jugarDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   verDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),48,30);
+				   jugarDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   verDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),48,30);
+				   jugarDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   if (numeroPantalla == 5) {
+					   verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),48,30);
+					   jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/1.45),64,30);
+					   verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),48,30);
+					   jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),64,30);
+					   verDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),48,30);
+					   jugarDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/1.45),64,30);
+				   } else {
+					   verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/3.6),(int)(menu.getAlturaVentana()/1.45),48,30);
+					   jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/2.7),(int)(menu.getAlturaVentana()/1.45),64,30);
+					   verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.47),(int)(menu.getAlturaVentana()/1.45),48,30);
+					   jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/1.45),64,30);
+				   }
+			}
+				else if (idioma == 1) {
+					verDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),47,30);
+					jugarDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/2.5),55,30);
+				    verDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),47,30);
+				    jugarDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),55,30);
+			        verDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),47,30);
+				    jugarDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/2.5),55,30);
+				    if (numeroPantalla == 5) {
+				    	verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),47,30);
+				    	jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/1.45),55,30);
+				    	verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),47,30);
+				    	jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),55,30);
+				    	verDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),47,30);
+					    jugarDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/1.45),55,30);
+				    } else {
+				    	verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/3.6),(int)(menu.getAlturaVentana()/1.45),47,30);
+				    	jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/2.7),(int)(menu.getAlturaVentana()/1.45),55,30);
+				    	verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.47),(int)(menu.getAlturaVentana()/1.45),47,30);
+				    	jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/1.45),55,30);
+				    }
+				}
+				else if (idioma == 2) {
+					verDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),63,30);
+					jugarDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/2.5),73,30);
+					verDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),63,30);
+					jugarDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),73,30);
+					verDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),63,30);
+					jugarDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/2.5),73,30);
+					if (numeroPantalla == 5) { 
+						verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),63,30);
+						jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/1.45),73,30);
+						verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),63,30);
+						jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),73,30);
+						verDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),63,30);
+						jugarDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/1.45),73,30);
+					} else {
+						verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/3.6),(int)(menu.getAlturaVentana()/1.45),63,30);
+						jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/2.7),(int)(menu.getAlturaVentana()/1.45),73,30);
+						verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.47),(int)(menu.getAlturaVentana()/1.45),63,30);
+						jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/1.45),73,30);
+					}
+				}
+				else {
+					verDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),53,30);
+				    jugarDeportesMayoritarios1.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/2.5),64,30);
+					verDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),53,30);
+					jugarDeportesMayoritarios2.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/2.5),64,30);
+					verDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),53,30);
+					jugarDeportesMayoritarios3.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/2.5),64,30);
+					if (numeroPantalla == 5) {
+						verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),53,30);
+						jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/6.2),(int)(menu.getAlturaVentana()/1.45),64,30);
+						verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),53,30);
+						jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.7),(int)(menu.getAlturaVentana()/1.45),64,30);
+						verDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/1.45),53,30);
+						jugarDeportesMayoritarios6.setBounds((int)(menu.getAnchuraVentana()/1.11),(int)(menu.getAlturaVentana()/1.45),64,30);
+					} else {
+						verDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/3.6),(int)(menu.getAlturaVentana()/1.45),53,30);
+						jugarDeportesMayoritarios4.setBounds((int)(menu.getAnchuraVentana()/2.7),(int)(menu.getAlturaVentana()/1.45),64,30);
+						verDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.47),(int)(menu.getAlturaVentana()/1.45),53,30);
+						jugarDeportesMayoritarios5.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/1.45),64,30);
+					}
+				}
+				
+				this.add(verDeportesMayoritarios1);
+				this.add(jugarDeportesMayoritarios1);
+				this.add(verDeportesMayoritarios2);
+				this.add(jugarDeportesMayoritarios2);
+				this.add(verDeportesMayoritarios3);
+				this.add(jugarDeportesMayoritarios3);
+				this.add(verDeportesMayoritarios4);
+				this.add(jugarDeportesMayoritarios4);
+				this.add(verDeportesMayoritarios5);
+				this.add(jugarDeportesMayoritarios5);
+				if (numeroPantalla == 5) {
+					this.add(verDeportesMayoritarios6);
+					this.add(jugarDeportesMayoritarios6);
+				}
+		} else if (numeroPantalla == 7) {
+			if (idioma == 0) {
+				   realizarNaturaleza1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   realizarNaturaleza2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   realizarNaturaleza3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   realizarNaturaleza4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),64,30);
+				   realizarNaturaleza5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),64,30);
+			} 
+			else if (idioma == 1) {
+			     	realizarNaturaleza1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),42,30);
+					realizarNaturaleza2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),42,30);
+					realizarNaturaleza3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),42,30);
+					realizarNaturaleza4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),42,30);
+					realizarNaturaleza5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),42,30);
+			}
+			else if (idioma == 2) {
+					realizarNaturaleza1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),74,30);
+					realizarNaturaleza2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),74,30);
+					realizarNaturaleza3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),74,30);
+					realizarNaturaleza4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),74,30);
+					realizarNaturaleza5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),74,30);
+			}
+			else {
+				realizarNaturaleza1.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/2.5),57,30);
+				realizarNaturaleza2.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2.5),57,30);
+				realizarNaturaleza3.setBounds((int)(menu.getAnchuraVentana()/1.23),(int)(menu.getAlturaVentana()/2.5),57,30);
+				realizarNaturaleza4.setBounds((int)(menu.getAnchuraVentana()/14.2),(int)(menu.getAlturaVentana()/1.45),57,30);
+				realizarNaturaleza5.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/1.45),57,30);
+			}
+				
+			this.add(realizarNaturaleza1);
+			this.add(realizarNaturaleza2);
+			this.add(realizarNaturaleza3);
+			this.add(realizarNaturaleza4);
+			this.add(realizarNaturaleza5);
+		} 
+		else if (numeroPantalla == 8) {
+			if (idioma == 0) {
+				   realizarDeporteAcuatico1.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   realizarDeporteAcuatico2.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/2.5),64,30);
+				   realizarDeporteAcuatico3.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),64,30);
+				   realizarDeporteAcuatico4.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/1.45),64,30);
+			} 
+			else if (idioma == 1) {
+			     	realizarDeporteAcuatico1.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),42,30);
+					realizarDeporteAcuatico2.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/2.5),42,30);
+					realizarDeporteAcuatico3.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),42,30);
+					realizarDeporteAcuatico4.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/1.45),42,30);
+			}
+			else if (idioma == 2) {
+					realizarDeporteAcuatico1.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),74,30);
+					realizarDeporteAcuatico2.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/2.5),74,30);
+					realizarDeporteAcuatico3.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),74,30);
+					realizarDeporteAcuatico4.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/1.45),74,30);
+			}
+			else {
+				realizarDeporteAcuatico1.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/2.5),57,30);
+				realizarDeporteAcuatico2.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/2.5),57,30);
+				realizarDeporteAcuatico3.setBounds((int)(menu.getAnchuraVentana()/3.2),(int)(menu.getAlturaVentana()/1.45),57,30);
+				realizarDeporteAcuatico4.setBounds((int)(menu.getAnchuraVentana()/1.4),(int)(menu.getAlturaVentana()/1.45),57,30);
+			}
+				
+			this.add(realizarDeporteAcuatico1);
+			this.add(realizarDeporteAcuatico2);
+			this.add(realizarDeporteAcuatico3);
+			this.add(realizarDeporteAcuatico4);
+		}
+		else if (numeroPantalla == 9) {
+			if (idioma == 0) {
+				   animales1.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),144,30);
+				   animales2.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),161,30);
+				   animales3.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),142,30);
+			} 
+			else if (idioma == 1) {
+			     	animales1.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),63,30);
+					animales2.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),71,30);
+					animales3.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),94,30);
+			}
+			else if (idioma == 2) {
+					animales1.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),65,30);
+					animales2.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),151,30);
+					animales3.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),90,30);
+			}
+			else {
+					animales1.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),94,30);
+					animales2.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),173,30);
+					animales3.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),164,30);
+			}
+				
+			this.add(animales1);
+			this.add(animales2);
+			this.add(animales3);
+		} else if (numeroPantalla == 10) {
+			if (idioma == 0) {
+				   caza.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),56,30);
+				   pesca.setBounds((int)(menu.getAnchuraVentana()/1.5),(int)(menu.getAlturaVentana()/2),64,30);
+			} 
+			else if (idioma == 1) {
+			     	caza.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),75,30);
+					pesca.setBounds((int)(menu.getAnchuraVentana()/1.5),(int)(menu.getAlturaVentana()/2),70,30);
+			}
+			else if (idioma == 2) {
+					caza.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),56,30);
+					pesca.setBounds((int)(menu.getAnchuraVentana()/1.5),(int)(menu.getAlturaVentana()/2),73,30);
+			}
+			else {
+					caza.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),72,30);
+					pesca.setBounds((int)(menu.getAnchuraVentana()/1.5),(int)(menu.getAlturaVentana()/2),63,30);
+			}
+			this.add(caza);
+			this.add(pesca);
+		} else if (numeroPantalla == 11) {
+			if (idioma == 0) {
+				   ImageIcon musica = new ImageIcon(getClass().getResource("/imagenes/musica.jpg"));	
+				   g.drawImage(musica.getImage(),(int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+				   music.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),160,30);
+				   ImageIcon pelis = new ImageIcon(getClass().getResource("/imagenes/cine.jpg"));	
+				   g.drawImage(pelis.getImage(),(int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+				   cine.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),160,30);
+				   ImageIcon teatre = new ImageIcon(getClass().getResource("/imagenes/teatro.png"));	
+				   g.drawImage(teatre.getImage(),(int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+				   teatro.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),160,30);
+			} 
+			else if (idioma == 1) {
+				 	ImageIcon musica = new ImageIcon(getClass().getResource("/imagenes/musica.jpg"));	
+				   	g.drawImage(musica.getImage(),(int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+			     	music.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),160,30);
+			     	ImageIcon pelis = new ImageIcon(getClass().getResource("/imagenes/cine.jpg"));	
+					g.drawImage(pelis.getImage(),(int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					cine.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),160,30);
+					ImageIcon teatre = new ImageIcon(getClass().getResource("/imagenes/teatro.png"));	
+					g.drawImage(teatre.getImage(),(int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					teatro.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),160,30);
+			}
+			else if (idioma == 2) {
+					ImageIcon musica = new ImageIcon(getClass().getResource("/imagenes/musica.jpg"));	
+					g.drawImage(musica.getImage(),(int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					music.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),160,30);
+					ImageIcon pelis = new ImageIcon(getClass().getResource("/imagenes/cine.jpg"));	
+					g.drawImage(pelis.getImage(),(int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					cine.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),160,30);
+					ImageIcon teatre = new ImageIcon(getClass().getResource("/imagenes/teatro.png"));	
+					g.drawImage(teatre.getImage(),(int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					teatro.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),160,30);
+			}
+			else {
+					ImageIcon musica = new ImageIcon(getClass().getResource("/imagenes/musica.jpg"));	
+					g.drawImage(musica.getImage(),(int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					music.setBounds((int)(menu.getAnchuraVentana()/4.5),(int)(menu.getAlturaVentana()/2),160,30);
+					ImageIcon pelis = new ImageIcon(getClass().getResource("/imagenes/cine.jpg"));	
+					g.drawImage(pelis.getImage(),(int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					cine.setBounds((int)(menu.getAnchuraVentana()/2),(int)(menu.getAlturaVentana()/2),160,30);
+					ImageIcon teatre = new ImageIcon(getClass().getResource("/imagenes/teatro.png"));	
+					g.drawImage(teatre.getImage(),(int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2)-150,musica.getIconWidth() / 2, musica.getIconHeight() / 2, null);
+					teatro.setBounds((int)(menu.getAnchuraVentana()/1.3),(int)(menu.getAlturaVentana()/2),160,30);
+			}
+			this.add(music);
+			this.add(cine);
+			this.add(teatro);
+		} else if (numeroPantalla == 12) {
+			primera.setBounds(590,(int)(menu.getAnchuraVentana()/2.5),10,10);
+			segunda.setBounds(650,(int)(menu.getAnchuraVentana()/2.5),10,10);
+			tercera.setBounds(710,(int)(menu.getAnchuraVentana()/2.5),10,10);
+			cuarta.setBounds(770,(int)(menu.getAnchuraVentana()/2.5),10,10);
+			this.add(primera);
+			this.add(segunda);
+			this.add(tercera);
+			this.add(cuarta);
+			if (pantalla == 1) {
+				for (int i = 0; i < 2; i++) {
+					switch (i) {
+						case 0: {
+							g.drawImage(foto.get(i).getImage(),(int)(menu.getAnchuraVentana()/12),(int)(menu.getAlturaVentana()/3),foto.get(i).getIconWidth() / 2, foto.get(i).getIconHeight() / 2, null);
+							Alcampo.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2)/2),(int)(menu.getAlturaVentana()/1.7),94,30);
+							etiquetas.get(i).direccion.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2),(int)(menu.getAlturaVentana()/5),300,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(i).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.3),300,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(Alcampo);
+							break;
+						}
+						case 1: {
+							g.drawImage(foto.get(i).getImage(),((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300,(int)(menu.getAlturaVentana()/3),(foto.get(i).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)), (foto.get(i).getIconHeight() / 2) - ((foto.get(i).getIconHeight() / 2) - (foto.get(0).getIconHeight() / 2)), null);
+							Meridiano.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300) + (((foto.get(i).getIconHeight() / 2) - ((foto.get(i).getIconHeight() / 2) - (foto.get(0).getIconHeight() / 2)))/2),(int)(menu.getAlturaVentana()/1.7),94,30);
+							etiquetas.get(i).direccion.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/5),400,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(i).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.3),400,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(Meridiano);
+							break;
+						}
+					}
+					this.add(etiquetas.get(i).direccion);
+					this.add(etiquetas.get(i).municipio);
+					this.add(etiquetas.get(i).telefono);
+					this.add(etiquetas.get(i).precios);
+					this.add(etiquetas.get(i).diaBarato);
+				}
+			} else if (pantalla == 2) {
+				for (int i = 2; i < 4; i++) {
+					switch (i) {
+						case 2: {
+							g.drawImage(foto.get(i).getImage(),(int)(menu.getAnchuraVentana()/12),(int)(menu.getAlturaVentana()/3),foto.get(0).getIconWidth() / 2, foto.get(0).getIconHeight() / 2, null);
+							LaOrotava.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2)/2),(int)(menu.getAlturaVentana()/1.7),94,30);
+							etiquetas.get(i).direccion.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/5),300,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.3),300,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(LaOrotava);
+							break;
+						}
+						case 3: {
+							g.drawImage(foto.get(i).getImage(),((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300,(int)(menu.getAlturaVentana()/3),(foto.get(0).getIconWidth() / 2) - ((foto.get(0).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)), (foto.get(0).getIconHeight() / 2) - ((foto.get(0).getIconHeight() / 2) - (foto.get(0).getIconHeight() / 2)), null);
+							ZentralCenter.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300) + (((foto.get(0).getIconHeight() / 2) - ((foto.get(0).getIconHeight() / 2) - (foto.get(0).getIconHeight() / 2)))/2),(int)(menu.getAlturaVentana()/1.7),110,30);
+							etiquetas.get(i).direccion.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/5),400,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.3),400,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(ZentralCenter);
+							break;
+						}
+					}
+					this.add(etiquetas.get(i).direccion);
+					this.add(etiquetas.get(i).municipio);
+					this.add(etiquetas.get(i).telefono);
+					this.add(etiquetas.get(i).precios);
+					this.add(etiquetas.get(i).diaBarato);
+				}
+			} else if (pantalla == 3){
+				for (int i = 4; i < 6; i++) {
+					switch (i) {
+						case 4: {
+							g.drawImage(foto.get(i).getImage(),(int)(menu.getAnchuraVentana()/12),(int)(menu.getAlturaVentana()/3),foto.get(0).getIconWidth() / 2, foto.get(0).getIconHeight() / 2, null);
+							Renoir.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2)/2),(int)(menu.getAlturaVentana()/1.7),94,30);
+							etiquetas.get(i).direccion.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/5),300,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.3),300,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(Renoir);
+							break;
+						}
+						case 5: {
+							g.drawImage(foto.get(i).getImage(),((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300,(int)(menu.getAlturaVentana()/3),(foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)), (foto.get(1).getIconHeight() / 2) - ((foto.get(1).getIconHeight() / 2) - (foto.get(0).getIconHeight() / 2)), null);
+							PuntaLarga.setBounds((((int)(menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth() / 2) + 300) + (((foto.get(0).getIconHeight() / 2) - ((foto.get(1).getIconHeight() / 2) - (foto.get(1).getIconHeight() / 2)))/2),(int)(menu.getAlturaVentana()/1.7),94,30);
+							etiquetas.get(i).direccion.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/5),400,300);
+							etiquetas.get(i).direccion.setForeground(Color.BLUE);
+							etiquetas.get(i).municipio.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4.5),300,300);
+							etiquetas.get(i).municipio.setForeground(Color.GREEN);
+							etiquetas.get(i).telefono.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/4),300,300);
+							etiquetas.get(i).telefono.setForeground(Color.RED);
+							etiquetas.get(i).precios.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.6),300,300);
+							etiquetas.get(i).precios.setForeground(Color.ORANGE);
+							etiquetas.get(i).diaBarato.setBounds(((int)(((menu.getAnchuraVentana()/12) + foto.get(0).getIconWidth()/2)+300) + ((foto.get(1).getIconWidth() / 2) - ((foto.get(1).getIconWidth() / 2) - (foto.get(0).getIconWidth() / 2)))),(int)(menu.getAlturaVentana()/3.3),400,300);
+							etiquetas.get(i).diaBarato.setForeground(Color.YELLOW);
+							this.add(PuntaLarga);
+							break;
+						}
+					}
+					this.add(etiquetas.get(i).direccion);
+					this.add(etiquetas.get(i).municipio);
+					this.add(etiquetas.get(i).telefono);
+					this.add(etiquetas.get(i).precios);
+					this.add(etiquetas.get(i).diaBarato);
+				}
+				}
+				else {
+					g.drawImage(foto.get(6).getImage(),(int)(menu.getAnchuraVentana()/2.6),(int)(menu.getAlturaVentana()/3),foto.get(0).getIconWidth() / 2, foto.get(0).getIconHeight() / 2, null);
+					GranSur.setBounds((int)(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2)/1.3),(int)(menu.getAlturaVentana()/1.7),94,30);
+					etiquetas.get(6).direccion.setBounds(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/5),300,300);
+					etiquetas.get(6).direccion.setForeground(Color.BLUE);
+					etiquetas.get(6).municipio.setBounds(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4.5),300,300);
+					etiquetas.get(6).municipio.setForeground(Color.GREEN);
+					etiquetas.get(6).telefono.setBounds(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/4),300,300);
+					etiquetas.get(6).telefono.setForeground(Color.RED);
+					etiquetas.get(6).precios.setBounds(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.6),300,300);
+					etiquetas.get(6).precios.setForeground(Color.ORANGE);
+					etiquetas.get(6).diaBarato.setBounds(((int)(menu.getAnchuraVentana()/2.6) + foto.get(0).getIconWidth() / 2),(int)(menu.getAlturaVentana()/3.3),500,300);
+					etiquetas.get(6).diaBarato.setForeground(Color.YELLOW);
+					this.add(GranSur);
+					this.add(etiquetas.get(6).direccion);
+					this.add(etiquetas.get(6).municipio);
+					this.add(etiquetas.get(6).telefono);
+					this.add(etiquetas.get(6).precios);
+					this.add(etiquetas.get(6).diaBarato);
+			}
+		}
+		
+		/*Cine cine;
+		ArrayList <Cartelera> cartel = new ArrayList<Cartelera>(); */		
+		
+		
+		if (numeroPantalla > 2) {
+			atras.setVisible(true);
+			atras.setBounds(0,30,70,70);
+			this.add(atras);
+		}
+		
+		espannol.setBounds(menu.getAnchuraVentana() -210,30,100,70);
+		this.add(espannol);
+		ingles.setBounds(menu.getAnchuraVentana() -110,30,100,70);
+		this.add(ingles);
+		aleman.setBounds(menu.getAnchuraVentana() -310,30,100,70);
+		this.add(aleman);
+		frances.setBounds(menu.getAnchuraVentana() -410,30,100,70);
+		this.add(frances);
+		sonido.setBounds(menu.getAnchuraVentana()-80,100,70,70);
+		this.add(sonido);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
+} 

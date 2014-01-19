@@ -1,0 +1,27 @@
+
+<!doctype html>
+<html>
+	<head>
+		<title>OpenLayers HTML5 - Minimal Example</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<div id="map" style="top: 0; left: 0; bottom: 0; right: 0; position: fixed;">
+			<a href="http://TeroKarvinen.com/tag/openlayers">TeroKarvinen.com/tag/openlayers</a>. 
+			<a href="http://validator.w3.org/check/referer">Valid HTML5</a>. 
+			View HTML source to see how it's done. 
+		</div>
+
+		<script src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script>
+			map = new OpenLayers.Map("map");
+			map.addLayer(new OpenLayers.Layer.OSM());
+			var lonLat = new OpenLayers.LonLat(24.9342, 60.2017)
+				.transform(
+					new OpenLayers.Projection("EPSG:4326"), // from WGS 1984
+					map.getProjectionObject() // to Spherical Mercator
+				);
+		    map.setCenter (lonLat, 14);
+		</script>
+	</body>
+</html>

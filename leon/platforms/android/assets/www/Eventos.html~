@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>
+            Eventos
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"
+        />
+        <link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
+        <link href="files/resources/lib/jquerymobile/1.3.2/jquery.mobile.structure-1.3.2.css"
+        rel="stylesheet" />
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="files/resources/lib/store/json2.js">
+
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery/jquery-1.8.2.js">
+        </script>
+        <script type="text/javascript">
+                    $(document).bind("mobileinit", function()
+            {
+                if (navigator.userAgent.toLowerCase().indexOf("android") != -1)
+                {
+                    $.mobile.defaultPageTransition = 'none';
+                    $.mobile.defaultDialogTransition = 'none';
+                }
+                if (navigator.userAgent.toLowerCase().indexOf("msie") != -1)
+                {
+                    $.mobile.allowCrossDomainPages = true;
+                    $.support.cors = true;
+                }
+            });
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquerymobile/1.3.2/jquery.mobile-1.3.2.js">
+        </script>
+        <script type="text/javascript" src="files/resources/js/mobilebase.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/event/customEventHandler.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/sha1.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/oauth.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/contexts.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jsonpath.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jquery.xml2json.min.js">
+        </script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery-ui-map/jquery.ui.map.full.min.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/appery.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/get_target_platform.js">
+        </script>
+
+        <script src="js/open-layers/OpenLayers.mobile.js"></script>
+
+        <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
+        />
+    </head>
+    
+    <body>
+        <script language="JavaScript" type="text/javascript">
+                if (navigator.userAgent.match(/iP/i))
+        {
+            $(window).bind('orientationchange', function(event)
+            {
+                $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+            }).trigger('orientationchange');
+        }
+        </script>
+        <div data-role="page" style="min-height:480px;" dsid="Home" id="Home" class="type-interior"
+        data-theme="e" data-add-back-btn="true" data-back-btn-text="Atras">
+            <!-- mobileheader -->
+            <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
+            id="Home_mobileheader" class=' Home_mobileheader '>
+                <h1 dsid="mobileheader">
+                    Eventos
+                </h1>
+            </div>
+            <!-- mobilecontainer -->
+            <div data-role="content" id="Home_mobilecontainer" name="mobilecontainer" class=" Home_mobilecontainer"
+            dsid="mobilecontainer" data-theme="b">
+                <link href="Home.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="Home.js">
+                </script> 
+                <ul id="lista_eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false" data-filter="true" data-filter-placeholder="¿Qué evento buscas?">            
+                    <script>
+                          recibirDatos();
+                      </script>
+                </ul>
+                
+                <div data-role="popup" data-position-to="window" id="info" data-transition="pop" data-theme="a" data-overlay-theme="b" class="ui-content" style="max-width:300">
+                    <a href="Eventos.html" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Cerrar</a>
+                    <p id="txt_fecha" class="ui-li-aside"><strong ></strong></p>
+                    <h2>Información Detallada</h2>
+                    <h3><strong>Ubicación</strong></h3>
+                    <p id="txt_idu" style="white-space:normal">
+                    <h3><strong>Descripción</strong></h3>
+                    <p id="txt_descripcion" style="white-space:normal">
+                    </p>
+                    <button id="bt_asistir" value="0" data-theme="a" data-mini="true" onclick="asistirEvento(this.value)">Asistir</button>
+                </div>
+            </div>
+            <!-- mobilefooter -->
+            <div data-role="footer" data-position="inline" class=" Home_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="Home_mobilefooter" data-theme="a">
+                <!-- mobilenavbar_25 -->
+                <div data-role="navbar" id="Home_mobilenavbar_25" name="mobilenavbar_25" dsid="mobilenavbar_25"
+                class=" Home_mobilenavbar_25" data-theme="a" style="position: relative;">
+                    <ul>
+                        <!-- mobilenavbaritem_26 -->
+                        <li>
+                            <a data-theme="a" data-icon="gear" id="Home_mobilenavbaritem_26" dsid="mobilenavbaritem_26"
+                            name="mobilenavbaritem_26">
+                            Configuración
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_27 -->
+                        <li>
+                            <a data-theme="a" data-icon="info" id="Home_mobilenavbaritem_27" dsid="mobilenavbaritem_27"
+                            name="mobilenavbaritem_27">
+                            Información
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_28 -->
+                        <li>
+                            <a data-theme="a" data-icon="back" id="Home_mobilenavbaritem_28" dsid="mobilenavbaritem_28"
+                            name="mobilenavbaritem_28">
+                            Salir
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

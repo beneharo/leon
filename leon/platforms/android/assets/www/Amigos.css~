@@ -1,0 +1,186 @@
+
+/* Define default spinner */
+.ui-icon-loading {
+	background: url("files/resources/lib/jquerymobile/1.3.2/images/ajax-loader.gif") repeat scroll 0 0 / 46px 46px transparent!important;
+}
+/* mobileselectmenu_29 */
+.Calendario_mobileselectmenu_29 {
+	margin: 4px 5px 4px 5px;
+}
+/* mobilecontainer */
+.ui-content.Calendario_mobilecontainer {
+	padding: 0px 0px 0px 0px;
+	height: 100%;
+}
+/* mobilegrid_6 */
+.Calendario_mobilegrid_6 {
+	height: 100%;
+	width:100%;
+	margin: 4px 0px 4px 0px;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+.Calendario_mobilegrid_6 > tr > td {
+	vertical-align: top;
+}
+.Calendario_mobilegrid_6_row_0, .Calendario_mobilegrid_6_row_0 > td {
+	height: auto
+}
+.Calendario_mobilegrid_6_row_1, .Calendario_mobilegrid_6_row_1 > td {
+	height: 30px
+}
+.Calendario_mobilegrid_6_row_2, .Calendario_mobilegrid_6_row_2 > td {
+	height: 30px
+}
+/* mobilegridcell_7 */
+.Calendario_mobilegridcell_7 {
+	height:auto !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_7 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_13 */
+.Calendario_mobileimage_13 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_19 */
+.Calendario_mobilelabel_19 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilegridcell_8 */
+.Calendario_mobilegridcell_8 {
+	height:auto !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_8 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_14 */
+.Calendario_mobileimage_14 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_20 */
+.Calendario_mobilelabel_20 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilegridcell_9 */
+.Calendario_mobilegridcell_9 {
+	height:30px !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_9 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_15 */
+.Calendario_mobileimage_15 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_21 */
+.Calendario_mobilelabel_21 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilegridcell_10 */
+.Calendario_mobilegridcell_10 {
+	height:30px !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_10 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_16 */
+.Calendario_mobileimage_16 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_22 */
+.Calendario_mobilelabel_22 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilegridcell_11 */
+.Calendario_mobilegridcell_11 {
+	height:30px !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_11 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_17 */
+.Calendario_mobileimage_17 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_23 */
+.Calendario_mobilelabel_23 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilegridcell_12 */
+.Calendario_mobilegridcell_12 {
+	height:30px !important;
+	width:auto;
+	padding: 2px 2px 2px 2px;
+}
+.Calendario_mobilegridcell_12 > .cell-wrapper {
+	padding: 0;
+	margin: 0;
+}
+/* mobileimage_18 */
+.Calendario_mobileimage_18 {
+	margin: 4px 0px 4px 0px;
+	width: 75px; height: 75px;
+	display: block;
+}
+/* mobilelabel_24 */
+.Calendario_mobilelabel_24 {
+	text-decoration: none; font-weight: normal; font-style: italic; text-align: center; font-family: Helvetica; font-size: 16px;
+	margin: 4px 0px 4px 0px;
+	word-wrap: break-word;
+}
+/* mobilefooter */
+.Calendario_mobilefooter {
+	min-height:38px;
+}
+/* mobilenavbar_25 */
+.Calendario_mobilenavbar_25 {
+
+}
+.Calendario_mobilenavbar_25 .ui-grid-a .ui-block-a {
+	clear:none;
+}
+.ui-footer .Calendario_mobilenavbar_25 ul li:last-child a {
+	margin-right: 1px !important;
+}
+.ui-header .Calendario_mobilenavbar_25 ul li:last-child a {
+	margin-right: -1px !important;
+}
+.Calendario_mobilenavbar_25 ul.ui-grid-duo li:nth-child(even) a {
+	margin-right: 1px !important;
+}

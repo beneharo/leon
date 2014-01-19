@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>
+            Perfil
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"
+        />
+        <link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
+        <link href="files/resources/lib/jquerymobile/1.3.2/jquery.mobile.structure-1.3.2.css"
+        rel="stylesheet" />
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="files/resources/lib/store/json2.js">
+
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery/jquery-1.8.2.js">
+        </script>
+        <script type="text/javascript">
+                    $(document).bind("mobileinit", function()
+            {
+                if (navigator.userAgent.toLowerCase().indexOf("android") != -1)
+                {
+                    $.mobile.defaultPageTransition = 'none';
+                    $.mobile.defaultDialogTransition = 'none';
+                }
+                if (navigator.userAgent.toLowerCase().indexOf("msie") != -1)
+                {
+                    $.mobile.allowCrossDomainPages = true;
+                    $.support.cors = true;
+                }
+            });
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquerymobile/1.3.2/jquery.mobile-1.3.2.js">
+        </script>
+        <script type="text/javascript" src="files/resources/js/mobilebase.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/event/customEventHandler.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/sha1.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/oauth.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/contexts.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jsonpath.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jquery.xml2json.min.js">
+        </script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery-ui-map/jquery.ui.map.full.min.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/appery.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/get_target_platform.js">
+        </script>
+
+        <script src="js/open-layers/OpenLayers.mobile.js"></script>
+
+        <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
+        />
+    </head>
+    
+    <body>
+        <script language="JavaScript" type="text/javascript">
+                if (navigator.userAgent.match(/iP/i))
+        {
+            $(window).bind('orientationchange', function(event)
+            {
+                $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+            }).trigger('orientationchange');
+        }
+        </script>
+        <div data-role="page" style="min-height:480px;" dsid="Perfil" id="Perfil" class="type-interior"
+        data-theme="e" data-add-back-btn="true" data-back-btn-text="Atras">
+            <!-- mobileheader -->
+            <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
+            id="Perfil_mobileheader" class=' Perfil_mobileheader '>
+                <h1 dsid="mobileheader">
+                    Perfil
+                </h1>
+            </div>
+            <!-- mobilecontainer -->
+            <div data-role="content" id="Perfil_mobilecontainer" name="mobilecontainer" class=" Perfil_mobilecontainer"
+            dsid="mobilecontainer" data-theme="b">
+                <link href="Perfil.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="Perfil.js">
+                </script> 
+                
+                <div id="Perfil">
+                    <img id="perfil_imagen" style="display: block; margin: 0 auto" width="150" height="150"/>
+                    
+                     <div data-role="collapsible" data-corners="false" class="ui-corner-none" data-collapsed="false">
+                        <h2 class="ui-collapsible-heading"><a class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-btn-up-d" href="#" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="plus" data-iconpos="left" data-theme="b">
+                            <span class="ui-btn-text">Información Personal</span>
+                        </a></h2>
+                        <div id="informacion-personal" class="ui-grid-a">
+	                        <div class="ui-block-a"><h2>Nombre</h2></div>
+	                        <div id="txt_nombre" class="ui-block-b"></div>
+	                        <div class="ui-block-a"><h2>Apellidos</h2></div>
+	                        <div id="txt_apellidos" class="ui-block-b"></div>
+	                        <div class="ui-block-a"><h2>Edad</h2></div>
+	                        <div id="txt_edad" class="ui-block-b"></div>
+	                        <div class="ui-block-a"><h2>Población</h2></div>
+	                        <div id="txt_poblacion" class="ui-block-b"></div>
+                        </div>
+                    </div>
+                    <div data-role="collapsible" data-corners="false" class="ui-corner-none" data-collapsed="true">
+                        <h2 class="ui-collapsible-heading">
+                            <a class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-btn-up-d" href="#" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="plus" data-iconpos="left" data-theme="b">
+                            <span class="ui-btn-text">Intereses</span>
+                            </a>
+                        </h2>
+                        <div id="intereses">
+                        </div>
+                    </div>
+                    
+                    <script type="text/javascript" src="js/modules/exporting.js"></script>
+                    <script type="text/javascript">
+                       recibirPerfil();
+                    </script> 
+                </div>
+                
+            </div>
+            <!-- mobilefooter -->
+            <div data-role="footer" data-position="fixed" class=" Perfil_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="Perfil_mobilefooter" data-theme="a">
+                <!-- mobilenavbar_25 -->
+                <div data-role="navbar" id="Perfil_mobilenavbar_25" name="mobilenavbar_25" dsid="mobilenavbar_25"
+                class=" Perfil_mobilenavbar_25" data-theme="a" style="position: relative;">
+                    <ul>
+                        <!-- mobilenavbaritem_26 -->
+                        <li>
+                            <a data-theme="a" data-icon="gear" id="Perfil_mobilenavbaritem_26" dsid="mobilenavbaritem_26"
+                            name="mobilenavbaritem_26">
+                            Configuración
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_27 -->
+                        <li>
+                            <a data-theme="a" data-icon="info" id="Perfil_mobilenavbaritem_27" dsid="mobilenavbaritem_27"
+                            name="mobilenavbaritem_27">
+                            Información
+                            </a>
+                        </li>
+                        <!-- mobilenavbaritem_28 -->
+                        <li>
+                            <a data-theme="a" data-icon="back" id="Perfil_mobilenavbaritem_28" dsid="mobilenavbaritem_28"
+                            name="mobilenavbaritem_28">
+                            Salir
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

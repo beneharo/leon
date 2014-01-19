@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>
+            Busqueda
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"
+        />
+        <link href="files/resources/lib/theme/jqm/jqm.css" rel="stylesheet" />
+        <link href="files/resources/lib/jquerymobile/1.3.2/jquery.mobile.structure-1.3.2.css"
+        rel="stylesheet" />
+        <script type="text/javascript" src="files/resources/lib/store/json2.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery/jquery-1.8.2.js">
+        </script>
+        <script type="text/javascript">
+                    $(document).bind("mobileinit", function()
+            {
+                if (navigator.userAgent.toLowerCase().indexOf("android") != -1)
+                {
+                    $.mobile.defaultPageTransition = 'none';
+                    $.mobile.defaultDialogTransition = 'none';
+                }
+                if (navigator.userAgent.toLowerCase().indexOf("msie") != -1)
+                {
+                    $.mobile.allowCrossDomainPages = true;
+                    $.support.cors = true;
+                }
+            });
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquerymobile/1.3.2/jquery.mobile-1.3.2.js">
+        </script>
+        <script type="text/javascript" src="files/resources/js/mobilebase.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/event/customEventHandler.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/sha1.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/oauth.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/contexts.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jsonpath.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/jquery.xml2json.min.js">
+        </script>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/jquery-ui-map/jquery.ui.map.full.min.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/base/appery.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/get_target_platform.js">
+        </script>
+        <script type="text/javascript" src="files/resources/lib/cordova.js">
+        </script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link href="files/resources/css/mobilebase.css" rel="stylesheet" type="text/css"
+        />
+   
+    </head>
+    
+    <body>
+        <script language="JavaScript" type="text/javascript">
+                if (navigator.userAgent.match(/iP/i))
+        {
+            $(window).bind('orientationchange', function(event)
+            {
+                $('meta[name="viewport"]').attr('content', 'initial-scale=1.0,maximum-scale=1.0, ' + ((window.orientation == 90 || window.orientation == -90 || window.orientation == 270) ? "height=device-width,width=device-height" : "height=device-height,width=device-width"));
+            }).trigger('orientationchange');
+        }
+        </script>
+        <div data-role="page" style="min-height:480px;" dsid="Busqueda" id="Busqueda" class="type-interior"
+        data-theme="b" data-add-back-btn="true" data-back-btn-text="Back">
+            <!-- mobileheader -->
+            <div data-role="header" data-position="fixed" data-theme="a" name="mobileheader"
+            id="Busqueda_mobileheader" class=' Busqueda_mobileheader '>
+                <h1 dsid="mobileheader">
+                    Búsqueda
+                </h1>
+            </div>
+            <!-- mobilecontainer -->
+            <div data-role="content" id="Busqueda_mobilecontainer" name="mobilecontainer" class=" Busqueda_mobilecontainer"
+            dsid="mobilecontainer" data-theme="b">
+                <link href="Busqueda.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="Busqueda.js">
+                </script>
+             
+                
+                <!-- googlemap_1 -->
+                <div id="Busqueda_googlemap_1" data-position="fixed" dsid="googlemap_1" name="googlemap_1" tiggzitype="object"
+                apperytype="object" class=' Busqueda_googlemap_1' style='width:100%;'>
+                    <img class=' Busqueda_googlemap_1' src="http://assets1.geocommons.com/d51ab1366bec6a2c4954db979e5921bd4cc140db/images/no_preview_map.png?1311276822"
+                    />
+                </div>
+                
+                <ul data-role="listview" id="Busqueda_googlemap_1_markers" name="googlemap_1_markers"
+                dsid="googlemap_1_markers" style="display:none">                    
+                </ul>
+                
+                <div id="busqueda-txt-descripcion" data-role="fieldcontain">                                                                     
+                   <ul id="busqueda-lista-eventos" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a" data-autodividers="false">            
+                   </ul>
+               </div>
+                
+            </div>
+            <!-- mobilefooter -->
+            <div data-role="footer" data-position="fixed" class=" Busqueda_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="Busqueda_mobilefooter" data-theme="a">
+                <label for="slider-busqueda">Radio Búsqueda</label>
+                <input type="range" name="slider-busqueda" id="slider-busqueda" value="10" min="0" max="200" data-theme="b"/>
+                <!-- mobilenavbar_13 -->
+                <div data-role="navbar" id="Busqueda_mobilenavbar_13" name="mobilenavbar_13" dsid="mobilenavbar_13"
+                class=" Busqueda_mobilenavbar_13" data-theme="a" style="position: relative;">
+                    <ul>
+                        <!-- mobilenavbaritem_14 -->
+                        <li>
+                            <a data-theme="a" data-icon="star" id="Busqueda_mobilenavbaritem_14" dsid="mobilenavbaritem_14"
+                            name="mobilenavbaritem_14" onclick="actualizarMapa();">
+                            Aplicar Filtro
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

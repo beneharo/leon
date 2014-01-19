@@ -1,0 +1,452 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+var SERVIDOR = "http://programandocotufas.xtrweb.com/proyectoleon/";
+var idUbicacion;
+var GPSlatitud;
+var GPSlongitud;
+localStorage.setItem('idUsuario', 1);
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// Cordova is ready
+function onDeviceReady() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+// Convertir fecha a formato MySQL
+function ISODateString(d) {
+    function pad(n) {
+        return n < 10 ? '0' + n : n;
+    }
+    return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-'
+            + pad(d.getUTCDate()) + ' ' + pad(d.getUTCHours()) + ':'
+            + pad(d.getUTCMinutes()) + ':' + pad(d.getUTCSeconds());
+}
+
+function login() {
+    $.ajax({
+        async : true,
+        data : {
+            usuario : $('#Login_in_usuario').val(),
+            pass : $('#Login_in_password').val()
+        },
+        url : "http://programandocotufas.xtrweb.com/proyectoleon/login.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+            if (jsondata[0].id) {
+                window.location.href = "Home.html";
+                localStorage.setItem('idUsuario', parseInt(jsondata[0].id));
+            } else {
+                alert("Usuario / contraseña incorrecto/s.");
+            }
+        },
+        error : function() {
+            alert('Error. No se ha podido');
+        }
+    });
+
+}
+
+// Acierto en la lectura GPS.
+var onSuccess = function(position) {
+    GPSlatitud = position.coords.latitude;
+    GPSlongitud = position.coords.longitude;
+    localStorage.setItem('GPSlatitud', GPSlatitud);
+    localStorage.setItem('GPSlongitud', GPSlongitud);
+};
+
+// Fallo en la lectura GPS.
+function onError(error) {
+    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+}
+
+function asistirEvento(ide) {
+	$.ajax({
+                async : true,
+                data : {
+                    idUsuario : localStorage.getItem('idUsuario'),
+                    ide : ide
+                },
+                url : "http://programandocotufas.xtrweb.com/proyectoleon/asistirEvento.php",
+                type : "post",
+                dataType : "json",
+                success : function() {
+                    $("#li_" + ide).hide();
+                    alert('Se ha registrado su elección.');
+                    $('#info').popup("close");
+                },
+                error : function() {
+                    alert('Error. No se ha podido realizar la acción.');
+                }
+            });
+
+}
+
+function info(ide, descripcion, ubicacion) {
+	$('#txt_idu').html(ubicacion);
+	$('#txt_descripcion').html(decodeURI(descripcion));
+    $('#bt_asistir').val(ide);
+    $('#info').popup("open");
+}
+
+function recibirDatos() {
+	var fecha = new Date();
+    $.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario'),
+            fechaActual : ISODateString(fecha)
+        },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
+        url : "http://programandocotufas.xtrweb.com/proyectoleon/php/leonRecibirDatos.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+            
+        	var code;
+            var event;
+            var descripcion;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		descripcion = encodeURI(jsondata[i].descripcion);
+        		event = 'onclick="info(\''
+                    + jsondata[i].ide
+                    + '\', \''
+                    + descripcion
+                    + '\', \''
+                    + jsondata[i].poblacion
+                    + ' - '
+                    + jsondata[i].provincia
+                    + '\');return false;"';
+        		code = '<li id="li_'
+        			+ jsondata[i].ide
+        			+ '"><a href="#"><img src="img/eventos/default.jpg" width="100" height="100"/><h1>'
+                    + '<img src="'
+                    + SERVIDOR
+                    + 'images/tipos/tipo('
+                    + jsondata[i].idt
+                    + ').png'
+                    + '"/> '
+                    + jsondata[i].nombreEvento
+                    + '</h1></a><a href="#" '
+                    + event
+                    + '></a>' + '</li>';
+        		
+        		$('#lista_eventos').append(code);
+            }
+        },
+        error : function() {
+            alert('Error. No se ha podido acceder a la información.');
+        }
+    });
+}
+
+function recibirDatosAmigos() {
+	var fecha = new Date();
+    $.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario'),
+            fechaActual : ISODateString(fecha)
+        },
+        beforeSend: function() { $.mobile.loading('show'); },
+        complete: function() { $.mobile.loading('hide'); },
+        url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recomendacionPorAmigos.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	var code;
+            var event;
+            var descripcion;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		descripcion = encodeURI(jsondata[i].descripcion);
+        		event = 'onclick="info(\''
+                    + jsondata[i].ide
+                    + '\', \''
+                    + descripcion
+                    + '\', \''
+                    + recibirUbicacion(jsondata[i].idu)
+                    + '\');return false;"';
+        		code = '<li id="li_'
+        			+ jsondata[i].ide
+        			+ '"><a href="#"><img src="'
+                    + SERVIDOR
+                    + 'images/default.jpg" width="100" height="100"/><h1>'
+                    + '<img src="'
+                    + SERVIDOR
+                    + 'images/tipos/tipo('
+                    + jsondata[i].idt
+                    + ').png'
+                    + '"/> '
+                    + jsondata[i].nombreEvento
+                    + '</h1></a><a href="#" '
+                    + event
+                    + '></a>' + '</li>';
+        		$('#lista_eventos_amigos').append(code);
+            }
+        	$("#recomendacion_amigos").show();
+        },
+        error : function() {
+        	$("#recomendacion_amigos").hide(); 
+        }
+    });
+}
+
+function recibirUbicacion(idu) {
+    var ubicacion;
+    $.ajax({
+	    async : false,
+	    data : {
+	        idu : idu
+	    },
+	    url : "http://programandocotufas.xtrweb.com/proyectoleon/php/recibirUbicacion.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	            ubicacion = jsondata[0].poblacion + ' - ' + jsondata[0].provincia;
+	    },
+	    error : function() {
+	        alert('Error. No se ha podido acceder a la información.');
+	    }
+	});
+    return ubicacion;
+}
+
+function listarAmigos() {
+	$.ajax({
+        async : false,
+        data : {
+            idUsuario : localStorage.getItem('idUsuario')
+        },
+        url : SERVIDOR + "php/listarAmigos.php",
+        type : "post",
+        dataType : "json",
+        success : function(jsondata) {
+        	var code;
+        	for (i = 0; i < jsondata.length - 1; i++) {
+        		code = '<li id="li_'
+        			+ jsondata[i].id
+        			+ '"><a href="#"><img src="'
+                    + SERVIDOR
+                    + jsondata[i].imagen
+                    + '" width="100" height="100"/><h1>'
+                    + jsondata[i].nombre
+                    + ' '
+                    + jsondata[i].apellidos
+                    + '</h1><br><h3>'
+                    + jsondata[i].poblacion
+                    + '</h3></a>'
+                    + '</li>';
+        		$('#lista_amigos').append(code);
+            }
+        },
+        error: function(xhr, textStatus, error){
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
+            alert('Error. No se ha podido acceder a la información.');
+        }
+    });
+}
+
+function actualizarMapa() {
+	var fecha = new Date();
+      $.ajax({
+          async : false,
+          data : {
+              fechaActual : ISODateString(fecha)
+          },
+          beforeSend: function() { $.mobile.loading('show'); },
+          complete: function() { $.mobile.loading('hide'); },
+          url : SERVIDOR + "php/recibirUbicaciones.php",
+          type : "post",
+          dataType : "json",
+          success : function(jsondata) {
+        	  var newLat = localStorage.getItem("GPSlatitud");
+        	  var newLng = localStorage.getItem("GPSlongitud");
+        	  var myOptions = {
+        			  zoom : 10,
+        			  center: new google.maps.LatLng(newLat, newLng),
+        			  latitude: newLat,
+        	          longitude: newLng
+			  };
+			  var map = new google.maps.Map($('div[dsid="googlemap_1"]').get(0), myOptions);
+			  var snLatlng;
+        	  var marker;
+        	  var idu_temp;
+        	  var f;
+			  for (i = 0; i < jsondata.length - 1; i++) {
+				  newLat = jsondata[i].latitud;
+	        	  newLng = jsondata[i].longitud;
+	        	  if (distanciaValida(newLat, newLng)) {
+	        		  snLatlng = new google.maps.LatLng(newLat, newLng);
+		        	  marker = new google.maps.Marker({
+			        	  position: snLatlng,
+			        	  map: map
+		        	  });
+		        	  idu_temp = jsondata[i].idu;
+		        	  google.maps.event.addListener(marker, 'click', function() {
+		        		  $.ajax({
+		        		        async : false,
+		        		        data : {
+		        		            idu : idu_temp
+		        		        },
+		        		        url : SERVIDOR + "php/eventosPorUbicacion.php",
+		        		        type : "post",
+		        		        dataType : "json",
+		        		        success : function(data) {
+		        		        	for (j = 0; j < data.length - 1; j++) {
+		        		        		
+		        		            }
+		        		        },
+		        		        error: function(error){
+		        		            console.log(error);
+		        		            alert('Error. No se ha podido acceder a la información.');
+		        		        }
+		        		    });
+		        	  });
+		        		  
+	        	  }
+			  }
+			  // Posición Actual
+			  newLat = localStorage.getItem("GPSlatitud");
+        	  newLng = localStorage.getItem("GPSlongitud");
+        	  snLatlng = new google.maps.LatLng(newLat, newLng);
+        	  marker = new google.maps.Marker({
+	        	  position: snLatlng,
+	        	  map: map,
+	        	  icon: SERVIDOR + "images/markers/home.png"
+        	  });
+              Appery('googlemap_1').refresh();
+          },
+          error: function(xhr, textStatus, error){
+              console.log(xhr.statusText);
+              console.log(textStatus);
+              console.log(error);
+              alert('Error. No se ha podido acceder a la información.');
+          }
+      });
+}
+
+//Convertir grados en radianes.
+function toRad(value) {
+	return parseFloat(value * Math.PI / 180);
+}
+
+//Calcular distancia haversine entre dos puntos GPS.
+function distanciaValida(lat1, lon1) {
+	var lat2 = localStorage.getItem('GPSlatitud');
+    var lon2 = localStorage.getItem('GPSlongitud');
+    var DISTANCIA_MAXIMA = $("#slider-busqueda").val();
+	var R = 6371; // Radio Tierra km
+	var dLat = toRad(lat2 - lat1);
+	var dLon = toRad(lon2 - lon1);
+	var lat1 = toRad(lat1);
+	var lat2 = toRad(lat2);
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c;
+	var result = (d < DISTANCIA_MAXIMA) ? true : false;	
+    return result;
+}
+
+function recibirPerfil() {
+    $.ajax({
+	    async : false,
+	    data : {
+	    	idUsuario : localStorage.getItem('idUsuario')
+	    },
+	    url : SERVIDOR + "php/recibirPerfil.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	            $("#perfil_imagen").attr("src", SERVIDOR + jsondata[0].imagen);
+	            $('#txt_nombre').append(jsondata[0].nombre);
+	            $('#txt_apellidos').append(jsondata[0].apellidos);
+	            $('#txt_edad').append(jsondata[0].edad);
+	            $('#txt_poblacion').append(jsondata[0].poblacion);
+	    },
+	    error: function(e){
+            console.log(JSON.stringify(e, null, 2));
+            alert('Error. No se ha podido acceder a la información del perfil.');
+        }
+	});
+    
+    $.ajax({
+	    async : false,
+	    data : {
+	    	idUsuario : localStorage.getItem('idUsuario')
+	    },
+	    url : SERVIDOR + "php/recibirIntereses.php",
+	    type : "post",
+	    dataType : "json",
+	    success : function(jsondata) {
+	    	$('#intereses').highcharts({
+	    		chart: {
+	                plotBackgroundColor: null,
+	                plotBorderWidth: null,
+	                plotShadow: false
+	            },
+	            title:{
+	                text:''
+	            },
+	            credits: {
+	            	enabled: false
+	            },
+	            exporting : {
+	            	enabled: false
+	            },
+	            plotOptions: {
+	                pie: {
+	                    allowPointSelect: true,
+	                    cursor: 'pointer',
+	                    dataLabels: {
+	                        enabled: true,
+	                        color: '#000000',
+	                        connectorColor: '#000000',
+	                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+	                    }
+	                }
+	            },
+	            series: [{
+	                type: 'pie',
+	                data: [
+	                    [jsondata[0].nombre, parseFloat(jsondata[0].peso)],
+	                    [jsondata[1].nombre, parseFloat(jsondata[1].peso)],
+	                    [jsondata[2].nombre, parseFloat(jsondata[2].peso)],
+	                    [jsondata[3].nombre, parseFloat(jsondata[3].peso)],
+	                    [jsondata[4].nombre, parseFloat(jsondata[4].peso)],
+	                    [jsondata[5].nombre, parseFloat(jsondata[5].peso)],
+	                    [jsondata[6].nombre, parseFloat(jsondata[6].peso)],
+	                    [jsondata[7].nombre, parseFloat(jsondata[7].peso)],
+	                    [jsondata[8].nombre, parseFloat(jsondata[8].peso)],
+	                    [jsondata[9].nombre, parseFloat(jsondata[9].peso)]
+	                ]
+	            }]
+	        });   
+	    },
+	    error: function(e){
+            console.log(JSON.stringify(e, null, 2));
+            alert('Error. No se ha podido acceder a la información del perfil.');
+        }
+	});
+
+}
