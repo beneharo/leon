@@ -20,7 +20,6 @@ var SERVIDOR = "http://programandocotufas.xtrweb.com/proyectoleon/";
 var idUbicacion;
 var GPSlatitud;
 var GPSlongitud;
-localStorage.setItem('idUsuario', 1);
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
